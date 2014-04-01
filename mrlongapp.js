@@ -6,6 +6,8 @@ var path = require('path');
 var app = connect();
 
 app.use(connect.query());
+app.use(connect.favicon());
+app.use(connect.logger());
 app.use(connect.static(__dirname + '/public', { maxAge: 86400000 }));
 
 // app.use(function(req,res,next){
@@ -13,8 +15,26 @@ app.use(connect.static(__dirname + '/public', { maxAge: 86400000 }));
 // 	res.end('hello' + name);
 // });
 
-var tpl = ejs.compile(fs.readFileSync(path.join(__dirname, 'views/index.html'),'utf-8'));
-app.use(function (req, res,next) {	
+app.use('/pic',function (req, res,next) {  
+  //var filenames = fs.readdirSync(__dirname + '/public/shf');
+  //对文件进行排序
+  fs.readdir(__dirname + '/public/shf', function(err, filenames){
+    filenames.sort(function(val1, val2){
+      //读取文件信息
+      var stat1 = fs.statSync(__dirname + '/public/shf/' + val1);
+      var stat2 = fs.statSync(__dirname + '/public/shf/' + val2);
+      //根据时间从最新到最旧排序
+      return stat2.mtime - stat1.mtime;
+    });
+ 
+    res.writeHead(200);
+    //console.log(data);
+    var tpl = ejs.compile(fs.readFileSync(path.join(__dirname, 'views/showpictrue.html'),'utf-8'));
+    res.end(tpl({'imgs':filenames}));     
+  });
+});
+
+app.use('/',function (req, res,next) {	
   var data=[];
 	//var filenames = fs.readdirSync(__dirname + '/public/shf');
   //对文件进行排序
@@ -35,6 +55,7 @@ app.use(function (req, res,next) {
 	   };  
     res.writeHead(200);
     //console.log(data);
+    var tpl = ejs.compile(fs.readFileSync(path.join(__dirname, 'views/index.html'),'utf-8'));
     res.end(tpl({'imgs':data}));  	 
   });
 });
