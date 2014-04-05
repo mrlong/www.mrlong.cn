@@ -18,9 +18,8 @@
   }
 </style>
 <body>
-	<h3>平时书法练习</h3>
-	  <table>
-
+	<h3>平时书法练习 总共有张：<%=imgs.length%></h3>
+	 <table>
   	
   	<% var c=0; %>	
   	<% for(var i=0; i<imgs.length; i++) {%>
@@ -31,14 +30,14 @@
     <%}%>       
 
   	<td>       
+    <a href="/pictrueone?picname=<%= imgs[i] %>">  
   	<img  class="ttrlazyloadingb" 
 			data-bttrlazyloading-sm-src="/shf/<%= imgs[i] %>"
 			data-bttrlazyloading-sm-width="100"
 			data-bttrlazyloading-event="mouseover"
 			data-bttrlazyloading-retina="true"
-
 			data-bttrlazyloading-sm-height="100"></img>      
-        
+    </a>    
     </td>  
     <% if(c==4) { c=0;%>
   	   </tr>
@@ -46,8 +45,8 @@
 
  		<% }} %>
 
- 		</table>
- 		总共有：<%=c%>
+ 	</table>
+ 		
 
  <script type="text/javascript">
  	 $(function(){

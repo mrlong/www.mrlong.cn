@@ -4,6 +4,7 @@ var ejs = require('ejs');
 var path = require('path');
 
 var app = connect();
+app.settings = {};
 
 app.use(connect.query());
 app.use(connect.favicon());
@@ -26,12 +27,20 @@ app.use('/pic',function (req, res,next) {
       //根据时间从最新到最旧排序
       return stat2.mtime - stat1.mtime;
     });
- 
+    
+    
+    app.settings['picfilenames'] = filenames;
     res.writeHead(200);
     //console.log(data);
     var tpl = ejs.compile(fs.readFileSync(path.join(__dirname, 'views/showpictrue.html'),'utf-8'));
     res.end(tpl({'imgs':filenames}));     
   });
+});
+
+app.use('/pictrueone',function(req,res,next){
+  var picname = req.query.picname;
+  var tpl = ejs.compile(fs.readFileSync(path.join(__dirname, 'views/pictrueone.html'),'utf-8'));
+  res.end(tpl({'picname':picname,'picfilenames':app.settings['picfilenames']}));
 });
 
 app.use('/',function (req, res,next) {	
@@ -48,7 +57,8 @@ app.use('/',function (req, res,next) {
     });
 
     for (i = 0; i < filenames.length; i++) {  
-      if((filenames[i].indexOf('.jpg')>0) || (filenames[i].indexOf('.JPG')>0)) {
+      if((filenames[i].indexOf('.jpg')>0) || (filenames[i].indexOf('.JPG')>0) ||
+         (filenames[i].indexOf('.png')>0) || (filenames[i].indexOf('.PNG')>0) ) {
     	   data.push(filenames[i]);
     	   if(data.length>5){break;};
       };
