@@ -62,7 +62,7 @@ app.use('/',function (req, res,next) {
     	   data.push(filenames[i]);
     	   if(data.length>5){break;};
       };
-	   };  
+	  };  
     res.writeHead(200);
     //console.log(data);
     var tpl = ejs.compile(fs.readFileSync(path.join(__dirname, 'views/index.html'),'utf-8'));
