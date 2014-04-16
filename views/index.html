@@ -5,6 +5,12 @@
   <meta content="Delphi，Node.js，devemanage，开发管理系统，成功就是抢先一步的创新" name="description" />
   <title>成功就是抢先一步的创新</title>
   <link rel="stylesheet" href="/css/markdown.css">
+  <link type="text/css" href="js/PikaChoose/bottom.css" rel="stylesheet" />
+  <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+  <script type="text/javascript" src="js/PikaChoose/lib/jquery.jcarousel.min.js"></script>
+  <script type="text/javascript" src="js/PikaChoose/lib/jquery.pikachoose.min.js"></script>
+  <script type="text/javascript" src="js/PikaChoose/lib/jquery.touchwipe.min.js"></script>
+
 	<style>
 		html {
   		background-color: #EEE;
@@ -81,13 +87,23 @@
     strong{
       color:red;
     }
-    .shfimg{
-      padding: 0 2px;
-      width: 180px;
-      height: 200px;
-      vertical-align: baseline;
-    }
+
 	</style>
+
+  <script language="javascript">
+      $(document).ready(
+        function (){
+          $("#pikame").PikaChoose({
+            hoverPause:true,
+            text: {previous: "上一个", next: "下一个" },
+            carousel:true,
+            carouselOptions:{wrap:'circular'}
+
+          });
+
+        });
+    </script>
+
 </head>
 <body youdao="bind">
   <div>
@@ -155,20 +171,21 @@
 
     <section>
       <h3>书法练习:</h3>
-      <ul>
-        <blockquote>
+      <div class="pikachoose">
+        <ul id="pikame" class="jcarousel-skin-pika">
           <% for(var i=0; i<imgs.length; i++) {%>
-            <a href="/shf/<%= imgs[i] %>">
+           <li> <a href="/shf/<%= imgs[i] %>">
               <img class="shfimg" src="/shf/<%= imgs[i] %>"> 
-            </a>            
+            </a>  
+            </li>          
             
           <% } %>
-        </blockquote>
-        <a target="_blank" href="/pic">我更多书法...</a> 
-      </ul>
+        </ul>
+      </div>
     </section>
 
 	</div>
+
   <div class="right">  
     <iframe width="100%" height="1000" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=1000&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=1805167840&verifier=b65df5a4&dpc=1">
 
@@ -176,6 +193,9 @@
   </div>
   <div class="clear"></div>
 </div>
+
+
+
 </body>
 
 </html>
