@@ -1,0 +1,34 @@
+<html>
+<head>
+	<meta charset="utf-8"> 
+  <meta content="龙仕云、新华字典、活用字典" name="keywords" />
+  <meta content="Delphi，Node.js，devemanage，开发管理系统，成功就是抢先一步的创新" name="description" />
+  <title>成功就是抢先一步的创新</title>
+</head>
+
+<body>
+	 
+   
+   <div>
+
+   <% if(picfilenames) {%>
+    <%=picfilenames[0]%>
+    <% if (picfilenames.indexOf(picname)>1){ %>
+    <%=picfilenames.indexOf(picname)%>
+   	<a  href='/pictrueone?picname=<%=picfilenames[picfilenames.indexOf(picname)-1]%>'>上一张</a>
+   	<%}%>
+
+   	<% if(picfilenames.indexOf(picname)<picfilenames.length-1) {%>
+   	<a  href='/pictrueone?picname=<%=picfilenames[picfilenames.indexOf(picname)+1]%>'>下一张</a>
+   	<%}%>
+
+   <%}%>
+
+   </div>
+
+   <div>
+   <img src='shf/<%=picname%>' ></img>
+   </div>
+</body>
+
+</html>
