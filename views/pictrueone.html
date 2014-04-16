@@ -12,9 +12,8 @@
    <div>
 
    <% if(picfilenames) {%>
-    <%=picfilenames[0]%>
+    第<%=picfilenames.indexOf(picname)%>个，共<%=picfilenames.length%>
     <% if (picfilenames.indexOf(picname)>1){ %>
-    <%=picfilenames.indexOf(picname)%>
    	<a  href='/pictrueone?picname=<%=picfilenames[picfilenames.indexOf(picname)-1]%>'>上一张</a>
    	<%}%>
 
@@ -23,7 +22,6 @@
    	<%}%>
 
    <%}%>
-
    </div>
 
    <div>
