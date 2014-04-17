@@ -3,6 +3,26 @@ var fs = require('fs');
 var ejs = require('ejs');
 var path = require('path');
 
+//微信内容
+var wechat = require('wechat');
+var text = require('./wechat/text');
+var image = require('./wechat/image');
+var location = require('./wechat/location');
+var voice = require('./wechat/voice');
+var video = require('./wechat/video');
+var event = require('./wechat/event');
+var link = require('./wechat/link');
+
+
+var mywechat = wechat('mrlongwechat', 
+  wechat.text(text)      //文本
+    .image(image)        //图片
+    .location(location)  //位置
+    .voice(voice)        //声音
+    .video(video)        //视频
+    .link(link)      
+    .event(event));      //事件
+
 var app = connect();
 app.settings = {};
 
@@ -10,6 +30,7 @@ app.use(connect.query());
 app.use(connect.favicon());
 app.use(connect.logger());
 app.use(connect.static(__dirname + '/public', { maxAge: 86400000 }));
+app.use('/wechat', mywechat);
 
 // app.use(function(req,res,next){
 // 	var name = req.query.name;
