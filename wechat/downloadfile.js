@@ -3,9 +3,6 @@
 var http = require('http');
 var fs = require('fs');
 
-
-
-
 var  getFileName = function(){
 	var myDate = new Date();	
 	var minute  = myDate.getMinutes()<10 ? '0' + myDate.getMinutes():myDate.getMinutes();
@@ -15,8 +12,8 @@ var  getFileName = function(){
   var hour    = myDate.getHours()<10 ? '0' + myDate.getHours():myDate.getHours();
   
 	var filename = myDate.getFullYear()+month+day+"_"+hour+minute+ seconds+'.jpg';
-	//return __dirname + '/public/shf/'+filename;
-	return filename;
+	return  '/var/www/mrlong.cn/public/shf/'+filename;
+	//return filename;
 }
 
 var downloadfile = function(url,callabck){
