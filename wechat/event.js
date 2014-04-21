@@ -25,7 +25,15 @@ module.exports = function(event, req, res, next){
     
   } else if (event.Event === 'unsubscribe') {
     res.reply('Bye! 谢谢你的关注下次再来。');
-  } else {
-  	res.reply('暂未支持! Coming soon!');
+  } else if (event.Event =='CLICK'){
+    if(event.EventKey=='V1001_TODAY_MUSIC'){
+      res.reply('你好，我是你的专门客服龙仕云。');
+    }
+    else{
+      res.reply('不要随意的点，现在还不支持。');
+    }
+  }
+  else {
+  	res.reply('暂未支持! Coming soon!-1');
   }
 };

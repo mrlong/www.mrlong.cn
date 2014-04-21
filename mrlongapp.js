@@ -12,6 +12,8 @@ var voice = require('./wechat/voice');
 var video = require('./wechat/video');
 var event = require('./wechat/event');
 var link = require('./wechat/link');
+var API = require('wechat').API;
+var api = new API('wx4e1abb249fe9b751', 'eace164dedd242dfc74b9a79b9bbd0c7');
 
 
 var mywechat = wechat('mrlongwechat', 
@@ -22,6 +24,10 @@ var mywechat = wechat('mrlongwechat',
     .video(video)        //视频
     .link(link)      
     .event(event));      //事件
+
+api.createMenu(require('./wechat/menuconfig'),function(e){
+  
+});
 
 var app = connect();
 app.settings = {};
