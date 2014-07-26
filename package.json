@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "ejs": "*",
-    "connect":"*",
+    "connect":"2.x",
     "wechat":"*"
   }
 }
