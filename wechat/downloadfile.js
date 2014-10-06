@@ -11,9 +11,9 @@ var  getFileName = function(){
   var day     = myDate.getDate()<10 ? '0' + myDate.getDate():myDate.getDate();
   var hour    = myDate.getHours()<10 ? '0' + myDate.getHours():myDate.getHours();
   
-  var filename = myDate.getFullYear()+month+day+"_"+hour+minute+ seconds+'.jpg';
+  var filename = myDate.getFullYear()+month.toString()+day.toString()+"_"+hour.toString()+minute.toString()+ seconds.toString()+'.jpg';
   return  '/var/www/mrlong.cn/public/shf/'+filename;
-	//return filename;
+  //return filename;
 }
 
 var downloadfile = function(url,callabck){
