@@ -72,8 +72,9 @@ app.use('/pictrueone',function(req,res,next){
 
 app.use('/',function (req, res,next) {	
   var data=[];
-	//var filenames = fs.readdirSync(__dirname + '/public/shf');
+  //var filenames = fs.readdirSync(__dirname + '/public/shf');
   //对文件进行排序
+  //如目录不存在参会出错 2014-7-26 by mrlong
   fs.readdir(__dirname + '/public/shf', function(err, filenames){
     filenames.sort(function(val1, val2){
       //读取文件信息
