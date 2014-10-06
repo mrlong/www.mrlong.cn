@@ -7,7 +7,7 @@ var  getFileName = function(){
   var myDate = new Date();	
   var minute  = myDate.getMinutes()<10 ? '0' + myDate.getMinutes():myDate.getMinutes();
   var seconds = myDate.getSeconds()<10 ? '0' + myDate.getSeconds():myDate.getSeconds();
-  var month   = myDate.getMonth()+1 < 10 ? '0' + myDate.getMonth():myDate.getMonth();
+  var month   = myDate.getMonth()+1 < 10 ? '0' + (myDate.getMonth()+1):(myDate.getMonth()+1);
   var day     = myDate.getDate()<10 ? '0' + myDate.getDate():myDate.getDate();
   var hour    = myDate.getHours()<10 ? '0' + myDate.getHours():myDate.getHours();
   
