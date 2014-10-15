@@ -13,36 +13,16 @@ var ejs = require('ejs');
 var path = require('path');
 var express = require('express');
 var bodyParser = require('body-parser');
-
-
-//微信内容
-var wechat = require('wechat');
-var text = require('./wechat/text');
-var image = require('./wechat/image');
-var location = require('./wechat/location');
-var voice = require('./wechat/voice');
-var video = require('./wechat/video');
-var event = require('./wechat/event');
-var link = require('./wechat/link');
-var API = require('wechat').API;
-var api = new API('wx4e1abb249fe9b751', 'eace164dedd242dfc74b9a79b9bbd0c7');
-
-
-var mywechat = wechat('mrlongwechat', 
-  wechat.text(text)      //文本
-    .image(image)        //图片
-    .location(location)  //位置
-    .voice(voice)        //声音
-    .video(video)        //视频
-    .link(link)      
-    .event(event));      //事件
-
-api.createMenu(require('./wechat/menuconfig'),function(e){
-  
-});
+var config = require('./config');
+var shf = require('./shf');
 
 var app = express();
+module.exports = app;
+
+//参数
 app.settings = {};
+app.settings.config = config;
+app.settings.appdir = __dirname;
 
 app.use(bodyParser());
 app.use(express.static(__dirname + '/public',{ maxAge: 86400000 }));
@@ -53,40 +33,26 @@ app.engine('html', require('ejs').renderFile);
 //app.use(connect.favicon());
 //app.use(connect.logger());
 //app.use(connect.static(__dirname + '/public', { maxAge: 86400000 }));
-app.use('/wechat', mywechat);
+
+app.use(function(req,res,next){
+	res.locals.settings = app.settings;
+	next();
+});
+
+
+//微信
+app.use('/wechat', require('./wechat').mywechat);
 
 // app.use(function(req,res,next){
 // 	var name = req.query.name;
 // 	res.end('hello' + name);
 // });
 
-app.use('/pic',function (req, res,next) {  
-  //var filenames = fs.readdirSync(__dirname + '/public/shf');
-  //对文件进行排序
-  fs.readdir(__dirname + '/public/shf', function(err, filenames){
-    filenames.sort(function(val1, val2){
-      //读取文件信息
-      var stat1 = fs.statSync(__dirname + '/public/shf/' + val1);
-      var stat2 = fs.statSync(__dirname + '/public/shf/' + val2);
-      //根据时间从最新到最旧排序
-      return stat2.mtime - stat1.mtime;
-    });
-    
-    
-    app.settings['picfilenames'] = filenames;
-    res.writeHead(200);
-    //console.log(data);
-    var tpl = ejs.compile(fs.readFileSync(path.join(__dirname, 'views/showpictrue.html'),'utf-8'));
-    res.end(tpl({'imgs':filenames}));     
-  });
-});
+//书法
+app.use('/pic',shf.pic);
+app.use('/pictrueone',shf.pictrueone);
 
-app.use('/pictrueone',function(req,res,next){
-  var picname = req.query.picname;
-  var tpl = ejs.compile(fs.readFileSync(path.join(__dirname, 'views/pictrueone.html'),'utf-8'));
-  res.end(tpl({'picname':picname,'picfilenames':app.settings['picfilenames']}));
-});
-
+//起始页
 app.use('/',function (req, res,next) {	
   var data=[];
   //var filenames = fs.readdirSync(__dirname + '/public/shf');
