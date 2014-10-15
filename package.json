@@ -7,9 +7,10 @@
   },
   "dependencies": {
     "ejs": "*",
-    "connect":"2.x",
     "wechat":"*",
-    "sqlite3":"*"
+    "sqlite3":"*",
+    "express":"*",
+    "body-parser":"*"
   }
 }
 

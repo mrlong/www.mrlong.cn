@@ -1,7 +1,19 @@
-var connect = require('connect');
+///////////////////////////////////////////////////////////////////////////////
+//
+//  龙仕云的主页。
+// 
+//  为生活积累点点滴滴 － 20140=1015
+//
+//
+//
+//////////////////////////////////////////////////////////////////////////////
+
 var fs = require('fs');
 var ejs = require('ejs');
 var path = require('path');
+var express = require('express');
+var bodyParser = require('body-parser');
+
 
 //微信内容
 var wechat = require('wechat');
@@ -29,13 +41,18 @@ api.createMenu(require('./wechat/menuconfig'),function(e){
   
 });
 
-var app = connect();
+var app = express();
 app.settings = {};
 
-app.use(connect.query());
-app.use(connect.favicon());
-app.use(connect.logger());
-app.use(connect.static(__dirname + '/public', { maxAge: 86400000 }));
+app.use(bodyParser());
+app.use(express.static(__dirname + '/public',{ maxAge: 86400000 }));
+app.use(express.static(__dirname + '/uploads'));
+app.engine('html', require('ejs').renderFile);
+
+//app.use(connect.query());
+//app.use(connect.favicon());
+//app.use(connect.logger());
+//app.use(connect.static(__dirname + '/public', { maxAge: 86400000 }));
 app.use('/wechat', mywechat);
 
 // app.use(function(req,res,next){

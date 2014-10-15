@@ -11,8 +11,6 @@ module.exports = {
   sqlite :{
     file: 'long.db' 
   }
-  
-  
 
 }; 
 
