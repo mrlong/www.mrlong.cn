@@ -12,40 +12,42 @@
 <style>
 	.ttrlazyloadingb{
       padding: 0 2px;
-      width: 180px;
-      height: 200px;
+      margin:25px 0;
+      height:450px;
+	  width:450px;
       vertical-align: baseline;
-  }
+      text-align:center;
+      
+    .main{
+      margin: auto;  
+      text-align:center;
+    }
 </style>
-<body>
+<body class="main">
 	<h3>平时书法绘画练习 总共有张：<%=imgs.length%></h3>
 	 <table>
   	
-  	<% var c=0; %>	
   	<% for(var i=0; i<imgs.length; i++) {%>
   	<% if ((imgs[i].indexOf('.JPG')>0)||(imgs[i].indexOf('.jpg')>0)||
   	       (imgs[i].indexOf('.PNG')>0)||(imgs[i].indexOf('.png')>0)) {  %>
-  	<% if(c==0) { %>
-  	   <tr>
-    <%}%>       
 
-  	<td>       
-    <a href="/pictrueone?picname=<%= imgs[i] %>">  
-  	<img  class="ttrlazyloadingb" 
+   <tr>
+     <td>       
+      <a href="/pictrueone?picname=<%= imgs[i] %>">  
+  	   <img class="ttrlazyloadingb" 
 			data-bttrlazyloading-sm-src="/shf/<%= imgs[i] %>"
-			data-bttrlazyloading-sm-width="100"
+			
+            data-bttrlazyloading-sm-width="450"
 			data-bttrlazyloading-event="mouseover"
 			data-bttrlazyloading-retina="true"
-			data-bttrlazyloading-sm-height="100"></img>      
-    </a>    
-    </td>  
-    <% if(c==4) { c=0;%>
-  	   </tr>
-    <%} else { c=c+1;}%> 
+			data-bttrlazyloading-sm-height="450"
+            
+			></img>      
+      </a>    
+    </td></tr>
+   <%}}%>
 
- 		<% }} %>
-
- 	</table>
+    </table>
  		
 
  <script type="text/javascript">
