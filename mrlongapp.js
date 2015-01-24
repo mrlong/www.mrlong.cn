@@ -15,6 +15,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var config = require('./config');
 var shf = require('./shf');
+var test = require('./test');
 
 var app = express();
 module.exports = app;
@@ -51,6 +52,7 @@ app.use('/wechat', require('./wechat').mywechat);
 //书法
 app.use('/pic',shf.pic);
 app.use('/pictrueone',shf.pictrueone);
+app.use('/test_index',test.index);
 
 //起始页
 app.use('/',function (req, res,next) {	

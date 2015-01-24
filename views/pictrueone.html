@@ -11,8 +11,13 @@
     margin-left: 20px;
     margin-top: 20px;
     margin-right: 20px;
-    border:1px solid #AAA;
+    margin-bottom: 20px;
+/*    border:1px solid #AAA;*/
 
+  }
+  
+  #pagetxt{
+    text-align: center;
   }
 
     
@@ -21,11 +26,11 @@
 <body>
 	 
    
-   <div>
+   <div id="pagetxt">
 
    <% if(picfilenames) {%>
-    第<%=picfilenames.indexOf(picname)%>个，共<%=picfilenames.length%>
-    <% if (picfilenames.indexOf(picname)>1){ %>
+    第<%=picfilenames.indexOf(picname)+1%>张，共<%=picfilenames.length%>
+    <% if (picfilenames.indexOf(picname)>0){ %>
    	<a  href='/pictrueone?picname=<%=picfilenames[picfilenames.indexOf(picname)-1]%>'>上一张</a>
    	<%}%>
 
@@ -35,10 +40,26 @@
 
    <%}%>
    </div>
+      
 
    <div id='img'>
    <img src='shf/<%=picname%>' ></img>
    </div>
+      
+  <div id="pagetxt">
+  <% if(picfilenames) {%>
+    第<%=picfilenames.indexOf(picname)+1%>张，共<%=picfilenames.length%>
+    <% if (picfilenames.indexOf(picname)>0){ %>
+   	<a  href='/pictrueone?picname=<%=picfilenames[picfilenames.indexOf(picname)-1]%>'>上一张</a>
+   	<%}%>
+
+   	<% if(picfilenames.indexOf(picname)<picfilenames.length-1) {%>
+   	<a  href='/pictrueone?picname=<%=picfilenames[picfilenames.indexOf(picname)+1]%>'>下一张</a>
+   	<%}%>
+
+   <%}%>
+   </div>
+      
 </body>
 
 </html>

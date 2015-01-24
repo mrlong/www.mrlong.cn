@@ -1,0 +1,26 @@
+<html>
+<head>
+	<meta charset="utf-8"> 
+</head>
+<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="js/isbrowser.js"></script>  
+<script type="text/javascript">
+ 
+ 
+ function onbrowser(){ 
+   document.writeln("语言版本: "+browser.language);
+   document.writeln(" 是否为移动终端: "+browser.versions.mobile);
+   document.writeln(" ios终端: "+browser.versions.ios);
+   document.writeln(" android终端: "+browser.versions.android);
+   document.writeln(" 是否为iPhone: "+browser.versions.iPhone);
+   document.writeln(" 是否iPad: "+browser.versions.iPad);
+   document.writeln(navigator.userAgent);
+ };
+  
+</script>
+  
+<body>
+  
+  <input type="button" onclick="onbrowser()" value="测试浏览器">
+</body>
+</html>
