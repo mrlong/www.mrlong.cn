@@ -31,10 +31,10 @@ var db = new sqlite3.Database(file);
 
 //sql语句 ，用于以后的更新。
 var sqltxt = {
-  verstion : 1,
+  verstion : 2,
   sql:[
-    {ver:1,txt:"CREATE TABLE shfimg(zguid CHAR(36) Primary Key,ct  datetime default (datetime('now','localtime')),txt VARCHAR(250),imgfile VARCHAR(250) not null )"}
-    
+    {ver:1,txt:"CREATE TABLE shfimg(zguid CHAR(36) Primary Key,ct  datetime default (datetime('now','localtime')),txt VARCHAR(250),imgfile VARCHAR(250) not null )"},
+    {ver:2,txt:"ALTER TABLE shfimg ADD COLUMN tag VARCHAR(20);"}
   ]  
 };
 
@@ -44,7 +44,8 @@ var do_upgrade =function(aver/*当前版本*/){
   //可能有版本号
   //按顺序执行sql语句功能。
   for (var i=aver;i<sqltxt.verstion;i++){
-    if (sqltxt.sql[i].ver==i+1){  
+    // sqltxt.sql[i].ver==i+1 ,这时的i+1 = 11
+    if (sqltxt.sql[i].ver-1==i){  
       db.run(sqltxt.sql[i].txt);
       //console.log(sqltxt.sql[i].txt);
     }
@@ -62,7 +63,7 @@ db.serialize(function() {
   var curver = 0;
   if(!exists) {
     //文件库不存在时
-    db.run("CREATE TABLE version (ver TEXT)");
+    db.run("CREATE TABLE version (zid Integer Primary Key ,ver interger )");
     db.run("insert into version(ver) values(0)");
     do_upgrade(0);
   }
