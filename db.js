@@ -31,10 +31,10 @@ var db = new sqlite3.Database(file);
 
 //sql语句 ，用于以后的更新。
 var sqltxt = {
-  verstion : 2,
+  verstion : 1,
   sql:[
-    {ver:1,txt:"CREATE TABLE info (data TEXT)"},
-    {ver:2,txt:'CREATE TABLE qzimg (img blob)'}
+    {ver:1,txt:"CREATE TABLE shfimg(zguid CHAR(36) Primary Key,ct  datetime default (datetime('now','localtime')),txt VARCHAR(250),imgfile VARCHAR(250) not null )"}
+    
   ]  
 };
 
@@ -137,11 +137,27 @@ exports.exec = function(sql,data,callback){
     mydata = data;
   };
   
-  db_exec.run(sql,mydata,function(errs){
+  db_exec.run(sql,mydata,function(err){
       if(mycallback){mycallback(err)} 
   }); 
   db_exec.close(); 
 };
+
+//
+// 生成GUID方法
+//
+exports.newGuid = function()
+{
+  var guid = "";
+  for (var i = 1; i <= 32; i++){
+    var n = Math.floor(Math.random()*16.0).toString(16);
+    guid +=   n;
+    if((i==8)||(i==12)||(i==16)||(i==20))
+      guid += "-";
+    }
+  return guid;    
+}
+
 
 
 //module.exports=db;

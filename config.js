@@ -9,7 +9,7 @@
 
 module.exports = { 
   sqlite :{
-    file: 'long.db' 
+    file: './database/long.db' 
   }
 
 }; 
