@@ -14,7 +14,7 @@ var  getFileName = function(filename){
   
   var filename = myDate.getFullYear()+month.toString()+day.toString()+"_"+hour.toString()+minute.toString()+ seconds.toString()+'.jpg';
   */
-  return  '/var/www/mrlong.cn/public/shf/'+filename;
+  return  '/var/www/mrlong.cn/public/shf/'+filename+'.jpg';
 }
 
 var downloadfile = function(url,callabck){
@@ -34,7 +34,7 @@ http.get(url,function(e) {
 		  fs.writeFile(filename, data, 'binary',function (err) {
   			if (!err) {
                 //写入库内
-                db.exec('insert into shfimg(zguid,txt,imgfile) values(?,?,?)',[fileguid,'',fileguid],function(err){
+                db.exec('insert into shfimg(zguid,txt,imgfile) values(?,?,?)',[fileguid,'',fileguid+'.jpg'],function(err){
                   if (!err){
                     callabck(null,'图片上传成功');          
                   }
