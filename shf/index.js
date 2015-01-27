@@ -50,7 +50,7 @@ exports.pictrueone = function(req,res,next){
   db.query('select * from shfimg order by ct desc',function(err,rows){
     if(!err){
       var files = [];
-      rows.each(function(i,row){files.push(row.imgfile)});
+      rows.forEach(function(row){files.push(row.imgfile)});
       res.end(tpl({'picname':picname,'picfilenames':files}));    
     }
     else{
