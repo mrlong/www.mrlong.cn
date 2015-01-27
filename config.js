@@ -12,6 +12,7 @@ module.exports = {
     file: './database/long.db' 
   },
   
+  domain: 'http://www.mrlong.cn',
   title:'龙仕云'   //应用标题
 
 }; 

@@ -60,3 +60,12 @@ exports.pictrueone = function(req,res,next){
   });
   
 };
+
+//修改书法信息
+exports.editshinfo = function(req,res,next){
+  var zguid = req.query.zguid;
+  var appdir = res.locals.settings.appdir;
+  
+  var tpl = ejs.compile(fs.readFileSync(path.join(appdir, 'views/editpictrue.html'),'utf-8'));
+  res.end(tpl({'zguid':zguid}));
+}

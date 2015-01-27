@@ -3,6 +3,7 @@
 var http = require('http');
 var fs = require('fs');
 var db = require('../db.js');
+var config = require('../config');
 
 var  getFileName = function(filename){
   /*var myDate = new Date();	
@@ -36,7 +37,13 @@ http.get(url,function(e) {
                 //写入库内
                 db.exec('insert into shfimg(zguid,txt,imgfile) values(?,?,?)',[fileguid,'',fileguid+'.jpg'],function(err){
                   if (!err){
-                    callabck(null,'图片上传成功');          
+                    content = [];
+                    content.push({
+                      title: '上传图片',
+                      description: '你成功上传图片，如要再次修改祥细信息请点击下面',
+                      url: config.domain + '/editshfinfo?zguid=' + fileguid
+                    });
+                    callabck(null,content);          
                   }
                   else{
                     callabck(err,'图片写入库sqlite出错');  

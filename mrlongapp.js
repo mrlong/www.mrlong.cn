@@ -53,6 +53,7 @@ app.use('/wechat', require('./wechat').mywechat);
 app.use('/pic',shf.pic);
 app.use('/pictrueone',shf.pictrueone);
 app.use('/test_index',test.index);
+app.use('/editshfinfo',shf.editshinfo);
 
 //起始页
 app.use('/',function (req, res,next) {	
