@@ -37,11 +37,11 @@
 <body id="main">
 	<h3>平时书法绘画练习 总共有张：<%=imgs.length%></h3>
 
-  <table>
+  <table border="0">
     <% var c=1; %>
   	<% for(var i=0; i<imgs.length; i++) { %>
-  	<% if ((imgs[i].indexOf('.JPG')>0)||(imgs[i].indexOf('.jpg')>0)||
-  	       (imgs[i].indexOf('.PNG')>0)||(imgs[i].indexOf('.png')>0)) {  %>
+  	<% if ((imgs[i].imgfile.indexOf('.JPG')>0)||(imgs[i].imgfile.indexOf('.jpg')>0)||
+  	       (imgs[i].imgfile.indexOf('.PNG')>0)||(imgs[i].imgfile.indexOf('.png')>0)) {  %>
 
    <tr>
      <td>
@@ -49,9 +49,9 @@
           
      </td>
      <td>       
-      <a href="/pictrueone?picname=<%= imgs[i] %>">  
+      <a href="/pictrueone?picname=<%= imgs[i].imgfile %>">  
   	   <img class="ttrlazyloadingb" 
-			data-bttrlazyloading-sm-src="/shf/<%= imgs[i] %>"
+			data-bttrlazyloading-sm-src="/shf/<%= imgs[i].imgfile %>"
 			
             data-bttrlazyloading-sm-width="450"
 			data-bttrlazyloading-event="mouseover"
@@ -60,7 +60,13 @@
             
 			></img>      
       </a>    
-    </td></tr>
+    </td>
+     <td>
+       <small>上传时间:<%=imgs[i].ct%><p></small>
+       <small>标签:<%=imgs[i].tag%><p></small>
+       <small>备注:<%=imgs[i].txt%></small>
+      </td>
+    </tr>
    <%}}%>
 
     </table>
