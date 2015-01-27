@@ -16,3 +16,13 @@ CREATE TABLE shfimg(
   
 );
 
+/*系统参数 ver=3*/
+/*
+create table sysparams(
+  zguid char(36) primary key,
+  zid integer not null ,       /*ID值*/
+  zname varchar(20),           /*名称*/ 
+  zvalue varchar(20),          /*值*/
+  zstyle int not null          /*类型 1=书法标签*/  
+);
+*/

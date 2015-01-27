@@ -2,10 +2,12 @@
 var fs = require('fs');
 var ejs = require('ejs');
 var path = require('path');
+var db = require('../db.js');
+var util = require('../util.js');
 
 exports.pic = function(req,res,next){
   var appdir = res.locals.settings.appdir;
-  
+  /*
   fs.readdir(appdir + '/public/shf', function(err, filenames){
     filenames.sort(function(val1, val2){
       //读取文件信息
@@ -21,7 +23,22 @@ exports.pic = function(req,res,next){
     //console.log(data);
     var tpl = ejs.compile(fs.readFileSync(path.join(appdir, 'views/showpictrue.html'),'utf-8'));
     res.end(tpl({'imgs':filenames}));     
-  });  
+  });
+  */
+  
+  //从库中读取书法内容
+  db.query('select * from shfimg order by ct desc ',function(err,rows){
+    if(!err){
+      var tpl = ejs.compile(fs.readFileSync(path.join(appdir, 'views/showpictrue.html'),'utf-8'));
+      console.log(rows);
+      res.end(tpl({'imgs':rows}));
+    }
+    else {
+      //出错的情况
+      util.errmsg('显示内容出错','/');
+    }
+  });
+  
 };
 
 
@@ -30,5 +47,16 @@ exports.pictrueone = function(req,res,next){
   var picname = req.query.picname;
   var tpl = ejs.compile(fs.readFileSync(path.join(appdir, 'views/pictrueone.html'),'utf-8'));
   //console.log('ss'+res.locals.settings['picfilenames']);
-  res.end(tpl({'picname':picname,'picfilenames':res.locals.settings['picfilenames']}));
+  db.query('select * from shfimg order by ct desc',function(err,rows){
+    if(!err){
+      var files = [];
+      rows.each(function(i,row){files.push(row.imgfile)});
+      res.end(tpl({'picname':picname,'picfilenames':files}));    
+    }
+    else{
+      util.errmsg('显示出错','/'); 
+    }
+  
+  });
+  
 };

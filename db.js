@@ -103,7 +103,7 @@ exports.query = function(sql,data,callback){
     mydata = data;
   };
   
-  db_query.each(sql,mydata,function(err,rows){
+  db_query.all(sql,mydata,function(err,rows){
     if(err){
       if(mycallback){mycallback(err)} 
     }

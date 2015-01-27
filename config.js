@@ -10,7 +10,9 @@
 module.exports = { 
   sqlite :{
     file: './database/long.db' 
-  }
+  },
+  
+  title:'龙仕云'   //应用标题
 
 }; 
 
