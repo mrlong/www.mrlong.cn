@@ -16,6 +16,7 @@ var bodyParser = require('body-parser');
 var config = require('./config');
 var shf = require('./shf');
 var test = require('./test');
+var db = require('./db');
 
 var app = express();
 module.exports = app;
@@ -58,30 +59,18 @@ app.use('/editshfinfo',shf.editshinfo);
 //起始页
 app.use('/',function (req, res,next) {	
   var data=[];
-  //var filenames = fs.readdirSync(__dirname + '/public/shf');
-  //对文件进行排序
-  //如目录不存在参会出错 2014-7-26 by mrlong
-  fs.readdir(__dirname + '/public/shf', function(err, filenames){
-    filenames.sort(function(val1, val2){
-      //读取文件信息
-      var stat1 = fs.statSync(__dirname + '/public/shf/' + val1);
-      var stat2 = fs.statSync(__dirname + '/public/shf/' + val2);
-      //根据时间从最新到最旧排序
-      return stat2.mtime - stat1.mtime;
-    });
 
-    for (i = 0; i < filenames.length; i++) {  
-      if((filenames[i].indexOf('.jpg')>0) || (filenames[i].indexOf('.JPG')>0) ||
-         (filenames[i].indexOf('.png')>0) || (filenames[i].indexOf('.PNG')>0) ) {
-    	   data.push(filenames[i]);
-    	   if(data.length>5){break;};
-      };
-	  };  
+  db.query('select  * from shfimg order by ct desc  limit 0,4',function(err,rows){
+    if(!err){
+      rows.forEach(function(row){data.push(row.imgfile)});
+    };
+    
     res.writeHead(200);
     //console.log(data);
     var tpl = ejs.compile(fs.readFileSync(path.join(__dirname, 'views/index.html'),'utf-8'));
-    res.end(tpl({'imgs':data}));  	 
+    res.end(tpl({'imgs':data}));   
   });
+  
 });
 
 

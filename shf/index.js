@@ -63,9 +63,21 @@ exports.pictrueone = function(req,res,next){
 
 //修改书法信息
 exports.editshinfo = function(req,res,next){
-  var zguid = req.query.zguid;
+  var zguid = req.query.zguid||req.body.zguid;
   var appdir = res.locals.settings.appdir;
   
+  var txt = req.body.txt || ''; 
+  var tag = req.body.tag || '';
   var tpl = ejs.compile(fs.readFileSync(path.join(appdir, 'views/editpictrue.html'),'utf-8'));
-  res.end(tpl({'zguid':zguid}));
-}
+  
+  if(txt || tag){
+    //写入库内
+    db.exec('update shfimg set tag=?,txt=? where zguid=?',[tag,txt,zguid],function(err){
+      res.writeHead(200);
+      res.end(tpl({'zguid':zguid,'msg': err?'保存失败':'保存成功。'}));
+    });
+  }
+  else{
+    res.end(tpl({'zguid':zguid,'msg':''}));  
+  }
+};

@@ -40,7 +40,7 @@ http.get(url,function(e) {
                     content = [];
                     content.push({
                       title: '上传图片',
-                      description: '你成功上传图片，如要再次修改祥细信息请点击下面',
+                      description: '你成功上传图片，如要再次修改祥细信息请点击',
                       url: config.domain + '/editshfinfo?zguid=' + fileguid
                     });
                     callabck(null,content);          

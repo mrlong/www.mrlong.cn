@@ -3,12 +3,27 @@
 	<meta charset="utf-8"> 
   <meta content="龙仕云、新华字典、活用字典" name="keywords" />
   <meta content="Delphi，Node.js，devemanage，开发管理系统，成功就是抢先一步的创新" name="description" />
-  <title>成功就是抢先一步的创新</title>
+  <title>修改图片的基本信息</title>
 </head>
   
 <body>
-    <%=zguid%>
-      <h3>修改信息</h3>
+    <%=msg%>
+    <h3>修改信息:</h3>
+    <form action="/editshfinfo" method="post" autocomplete="yes">
+      图片号：<input type="text" value="<%=zguid%>" name="zguid"><br>
+      标签：<br>
+        <input type="radio" name="tag" value="练习书法" required="required">练习书法<br>
+        <input type="radio" name="tag" value="练习绘画">练习绘画<br>
+        <input type="radio" name="tag" value="书法名家">书法名家<br>
+        <input type="radio" name="tag" value="其他">其他<br>
+      备注：<br>
+        <textarea rows="6" cols="30"   name="txt" autofocus></textarea>
+      
+      </p>
+    <input type="submit" value="   提  交  " />
+    <input type="button" name="Submit" onclick="javascript:history.back(-1);" value="返回" />
+      
+    </form>
 </body>
       
   
