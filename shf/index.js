@@ -4,6 +4,10 @@ var ejs = require('ejs');
 var path = require('path');
 var db = require('../db.js');
 var util = require('../util.js');
+var config = require('../config');
+var WechatAPI = require('wechat-api');
+
+var wechatapi = new WechatAPI(config.weixin.appid,config.weixin.appsecret);
 
 exports.pic = function(req,res,next){
   var appdir = res.locals.settings.appdir;
@@ -70,14 +74,33 @@ exports.editshinfo = function(req,res,next){
   var tag = req.body.tag || '';
   var tpl = ejs.compile(fs.readFileSync(path.join(appdir, 'views/editpictrue.html'),'utf-8'));
   
+  //weixin的认证信息
+  wechatconfig={};
+  wechatconfig.appid = config.weixin.appid;
+  wechatconfig.debug = true;
+  wechatconfig.timestamp = new Date().getTime();
+  wechatconfig.nonceStr  = util.randomString(16);
+  wechatconfig.signature = '11222';
+  
+  wechatapi.getJsConfig({debug:true,
+                        jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage'],
+                        url: config.domain
+                        },function(err,result){
+    if(!err){
+      console.log(result);  
+    }
+    else
+      console.log(err);
+  });
+
   if(txt || tag){
     //写入库内
     db.exec('update shfimg set tag=?,txt=? where zguid=?',[tag,txt,zguid],function(err){
       res.writeHead(200);
-      res.end(tpl({'zguid':zguid,'msg': err?'保存失败':'保存成功。'}));
+      res.end(tpl({'zguid':zguid,'msg': err?'保存失败':'保存成功。',wechatconfig:wechatconfig}));
     });
   }
   else{
-    res.end(tpl({'zguid':zguid,'msg':''}));  
+    res.end(tpl({'zguid':zguid,'msg':'',wechatconfig:wechatconfig}));  
   }
 };

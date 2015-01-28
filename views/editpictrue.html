@@ -3,9 +3,42 @@
 	<meta charset="utf-8"> 
   <meta content="龙仕云、新华字典、活用字典" name="keywords" />
   <meta content="Delphi，Node.js，devemanage，开发管理系统，成功就是抢先一步的创新" name="description" />
+  <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
   <title>修改图片的基本信息</title>
 </head>
   
+<script>
+  mytime = new Date().getTime();
+  function randomString() {
+    var len = 16;
+    var $chars = '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXY';
+    var maxPos = $chars.length;
+    var pwd = '';
+　　for (i = 0; i < len; i++) {
+　　  pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
+　　}
+　　return pwd;
+  };
+  mynonceStr = randomString(); 
+  
+  wx.config({
+    debug:<%=wechatconfig.debug%>,
+    appid:'<%=wechatconfig.appid%>',
+    timestamp:<%=wechatconfig.timestamp%>,
+    nonceStr:'<%=wechatconfig.nonceStr%>',
+    signature:'<%=wechatconfig.signature%>',
+    jsApiList:['openLocation','getLocation',]
+  });
+  
+  wx.ready(function () {
+    
+  });
+  wx.error(function (res) {
+    alert(res.errMsg);
+  });
+  
+</script>  
+
 <body>
     <%=msg%>
     <h3>修改信息:</h3>
