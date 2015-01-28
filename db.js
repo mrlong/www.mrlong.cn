@@ -22,6 +22,7 @@
 var fs = require("fs");
 var config = require("./config.js");
 var file = config.sqlite.file;  //数据库文件 long.db
+var sqltxt = require('./database/sqltxt');  //升级的sql语句
 
 //确定文件是否存在
 var exists = fs.existsSync(file);
@@ -29,14 +30,7 @@ var exists = fs.existsSync(file);
 var sqlite3 = require("sqlite3").verbose();
 var db = new sqlite3.Database(file);
 
-//sql语句 ，用于以后的更新。
-var sqltxt = {
-  verstion : 2,
-  sql:[
-    {ver:1,txt:"CREATE TABLE shfimg(zguid CHAR(36) Primary Key,ct  datetime default (datetime('now','localtime')),txt VARCHAR(250),imgfile VARCHAR(250) not null )"},
-    {ver:2,txt:"ALTER TABLE shfimg ADD COLUMN tag VARCHAR(20);"}
-  ]  
-};
+
 
 
 //升级库结构方法。
@@ -117,7 +111,7 @@ exports.query = function(sql,data,callback){
 
 
 /*
- * 直接执行SQL语言,并无返回值的。
+ * 直接执行SQL语言,不能执行多个sql并用;分开的情况,并无返回值的。
  * 
  * sql 为语言
  * data 参数
