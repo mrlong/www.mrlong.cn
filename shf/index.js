@@ -79,7 +79,7 @@ exports.editshinfo = function(req,res,next){
  var param = {
     debug:true,
     jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage','openLocation','getLocation'],
-    url: config.domain + req.baseUrl
+    url: 'http://' + config.domain + req.originalUrl
   };
   
   //console.log(config.domain+req.originalUrl);
