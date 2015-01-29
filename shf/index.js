@@ -7,7 +7,7 @@ var util = require('../util.js');
 var config = require('../config');
 var API = require('../wechat/api');
 
-var wechatapi = new API(config.weixin.appid,config.weixin.appsecret);
+var api = new API(config.weixin.appid,config.weixin.appsecret);
 
 exports.pic = function(req,res,next){
   var appdir = res.locals.settings.appdir;
@@ -39,7 +39,7 @@ exports.pic = function(req,res,next){
     }
     else {
       //出错的情况
-      util.errmsg('显示内容出错','/');
+      util.errBox('显示内容出错','/');
     }
   });
   
@@ -58,7 +58,7 @@ exports.pictrueone = function(req,res,next){
       res.end(tpl({'picname':picname,'picfilenames':files}));    
     }
     else{
-      util.errmsg('显示出错','/'); 
+      util.errBox('显示出错','/'); 
     }
   
   });
@@ -75,16 +75,9 @@ exports.editshinfo = function(req,res,next){
   var tpl = ejs.compile(fs.readFileSync(path.join(appdir, 'views/editpictrue.html'),'utf-8'));
   
   //weixin的认证信息
-  wechatconfig={};
-  wechatconfig.appid = config.weixin.appid;
-  wechatconfig.debug = true;
-  wechatconfig.timestamp = new Date().getTime();
-  wechatconfig.nonceStr  = util.randomString(16);
-  wechatconfig.signature = '11222';
-  
-  var param = {
+ var param = {
     debug:false,
-    jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage'],
+    jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage','openLocation','getLocation'],
     url: config.domain
   };
   
@@ -103,7 +96,7 @@ exports.editshinfo = function(req,res,next){
       //console.log(result); 
     }
     else{
-      util.errmsg(err,'/');
+      util.errBox(err,'/');
      }
   });    
 };
