@@ -74,12 +74,15 @@ exports.editshinfo = function(req,res,next){
   var tag = req.body.tag || '';
   var tpl = ejs.compile(fs.readFileSync(path.join(appdir, 'views/editpictrue.html'),'utf-8'));
   
+  
   //weixin的认证信息
  var param = {
     debug:true,
     jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage','openLocation','getLocation'],
-    url: config.domain
+    url: config.domain + req.originalUrl
   };
+  
+  //console.log(config.domain+req.originalUrl);
   
   api.getJsConfig(param,function(err,result){
     if(!err){
