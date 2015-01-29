@@ -8,10 +8,10 @@
   "dependencies": {
     "ejs": "*",
     "wechat":"*",
-    "wechat-api":"*",
     "sqlite3":"*",
     "express":"*",
-    "body-parser":"*"
+    "body-parser":"*",
+    "urllib": "2.0.2"  
   }
 }
 
