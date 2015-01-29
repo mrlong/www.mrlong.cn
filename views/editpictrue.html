@@ -10,7 +10,7 @@
 <script>
   wx.config({
     debug:<%=wechatconfig.debug%>,
-    appid:'<%=wechatconfig.appid%>',
+    appId:'<%=wechatconfig.appid%>',
     timestamp:<%=wechatconfig.timestamp%>,
     nonceStr:'<%=wechatconfig.nonceStr%>',
     signature:'<%=wechatconfig.signature%>',
@@ -32,6 +32,17 @@
 		};
     wx.onMenuShareAppMessage(shareData);
     wx.onMenuShareTimeline(shareData);
+    
+    wx.getLocation({
+      success: function (res) {
+        var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+        var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+        var speed = res.speed; // 速度，以米/每秒计
+        var accuracy = res.accuracy; // 位置精度
+        document.getElementById('loc').innerHTML = 'latitude:'+latitude+',longitude:' + longitude;
+      }
+    });
+    
   });
 
   wx.error(function (res) {
@@ -51,11 +62,15 @@
         <input type="radio" name="tag" value="书法名家">书法名家<br>
         <input type="radio" name="tag" value="其他">其他<br>
       备注：<br>
-        <textarea rows="6" cols="30"   name="txt" autofocus></textarea>
+        <textarea rows="6" cols="30"   name="txt" autofocus></textarea><br>
+      
+      
+      位置：<br>
+      <div name="loc"></div>
       
       </p>
-    <input type="submit" value="   提  交  " />
-    <input type="button" name="Submit" onclick="javascript:history.back(-1);" value="返回" />
+      <input type="submit" value="   提  交  " />
+      <input type="button" name="Submit" onclick="javascript:history.back(-1);" value="返回" />
       
     </form>
 </body>
