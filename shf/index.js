@@ -82,7 +82,6 @@ exports.editshinfo = function(req,res,next){
     url: 'http://' + config.domain + req.originalUrl
   };
   
-  //console.log(config.domain+req.originalUrl);
   api.getJsConfig(param,function(err,result){
     if(!err){
       if(txt || tag){
