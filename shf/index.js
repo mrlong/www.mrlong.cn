@@ -5,9 +5,9 @@ var path = require('path');
 var db = require('../db.js');
 var util = require('../util.js');
 var config = require('../config');
-var WechatAPI = require('wechat-api');
+var API = require('../wechat/api');
 
-var wechatapi = new WechatAPI(config.weixin.appid,config.weixin.appsecret);
+var wechatapi = new API(config.weixin.appid,config.weixin.appsecret);
 
 exports.pic = function(req,res,next){
   var appdir = res.locals.settings.appdir;
@@ -82,25 +82,28 @@ exports.editshinfo = function(req,res,next){
   wechatconfig.nonceStr  = util.randomString(16);
   wechatconfig.signature = '11222';
   
-  wechatapi.getJsConfig({debug:true,
-                        jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage'],
-                        url: config.domain
-                        },function(err,result){
+  var param = {
+    debug:false,
+    jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage'],
+    url: config.domain
+  };
+  
+  api.getJsConfig(param,function(err,result){
     if(!err){
-      console.log(result);  
+      if(txt || tag){
+        //写入库内
+        db.exec('update shfimg set tag=?,txt=? where zguid=?',[tag,txt,zguid],function(err){
+          res.writeHead(200);
+          res.end(tpl({'zguid':zguid,'msg': err?'保存失败':'保存成功。',wechatconfig:result}));
+        });
+      }
+      else{
+        res.end(tpl({'zguid':zguid,'msg':'',wechatconfig:result}));  
+      } 
+      //console.log(result); 
     }
-    else
-      console.log(err);
-  });
-
-  if(txt || tag){
-    //写入库内
-    db.exec('update shfimg set tag=?,txt=? where zguid=?',[tag,txt,zguid],function(err){
-      res.writeHead(200);
-      res.end(tpl({'zguid':zguid,'msg': err?'保存失败':'保存成功。',wechatconfig:wechatconfig}));
-    });
-  }
-  else{
-    res.end(tpl({'zguid':zguid,'msg':'',wechatconfig:wechatconfig}));  
-  }
+    else{
+      util.errmsg(err,'/');
+     }
+  });    
 };
