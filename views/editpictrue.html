@@ -8,31 +8,32 @@
 </head>
   
 <script>
-  mytime = new Date().getTime();
-  function randomString() {
-    var len = 16;
-    var $chars = '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXY';
-    var maxPos = $chars.length;
-    var pwd = '';
-　　for (i = 0; i < len; i++) {
-　　  pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
-　　}
-　　return pwd;
-  };
-  mynonceStr = randomString(); 
-  
   wx.config({
     debug:<%=wechatconfig.debug%>,
     appid:'<%=wechatconfig.appid%>',
     timestamp:<%=wechatconfig.timestamp%>,
     nonceStr:'<%=wechatconfig.nonceStr%>',
     signature:'<%=wechatconfig.signature%>',
-    jsApiList:['openLocation','getLocation',]
+    jsApiList:['openLocation','getLocation','getNetworkType','onMenuShareTimeline','onMenuShareAppMessage',]
   });
   
   wx.ready(function () {
-    
+    wx.getNetworkType({
+      success: function (res) {
+        var networkType = res.networkType; // 返回网络类型2g，3g，4g，wifi
+        document.getElementById('nettype').innerHTML = networkType;
+      }
+    }); 
+    var shareData = {
+			title: '这里是分享标题',
+			desc: '这里是发送给好友的时候的简介',
+			link: 'http://baidu.com',
+			imgUrl: 'http://baidu.com/logo.jpg'
+		};
+    wx.onMenuShareAppMessage(shareData);
+    wx.onMenuShareTimeline(shareData);
   });
+
   wx.error(function (res) {
     alert(res.errMsg);
   });
@@ -40,8 +41,8 @@
 </script>  
 
 <body>
-    <%=msg%>
-    <h3>修改信息:</h3>
+    <%=msg%> 
+      <h3>修改信息:</h3><div id="nettype"></div>
     <form action="/editshfinfo" method="post" autocomplete="yes">
       图片号：<input type="text" value="<%=zguid%>" name="zguid"><br>
       标签：<br>

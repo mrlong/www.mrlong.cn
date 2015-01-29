@@ -18,9 +18,9 @@ module.exports = {
   /*微信配置*/
   weixin:{
     amount:'mrlong@mrlong.cn',
-    appid:'wx4e1abb249fe9b751',
+    appid:'wx4303956526e51e03',
     token:'mrlongwechat',   /*令牌*/
-    appsecret:'c8b5dd954e1233b02e3d959d45a4fc24'
+    appsecret:'aedcefb3ef3762bf561ad894c81dd392'
   }
   
 

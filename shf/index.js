@@ -76,7 +76,7 @@ exports.editshinfo = function(req,res,next){
   
   //weixin的认证信息
  var param = {
-    debug:false,
+    debug:true,
     jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage','openLocation','getLocation'],
     url: config.domain
   };

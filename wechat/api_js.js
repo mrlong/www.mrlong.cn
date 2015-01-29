@@ -170,7 +170,7 @@ exports.getJsConfig = function (param, callback) {
   var that = this;
   that.getTicketToken(function (err, ticket) {
     if (err) {
-      return callback(err);
+      return callback('222'+err);
     }
     var response = function (ticket) {
       var nonceStr = createNonceStr();
