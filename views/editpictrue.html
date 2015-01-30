@@ -1,9 +1,14 @@
 <html>
 <head>
-	<meta charset="utf-8"> 
+  <meta charset="utf-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta content="龙仕云、新华字典、活用字典" name="keywords" />
   <meta content="Delphi，Node.js，devemanage，开发管理系统，成功就是抢先一步的创新" name="description" />
   <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+  <script src="/js/jquery.mobile-1.4.5.min.js"></script>
+  <script src="/js/jquery-1.11.0.min.js"></script>
+  <link rel="stylesheet" href="/js/jquery.mobile-1.4.5.min.css">
+  
   <title>修改图片的基本信息</title>
 </head>
   
@@ -61,12 +66,30 @@
         <input type="radio" name="tag" value="练习绘画">练习绘画<br>
         <input type="radio" name="tag" value="书法名家">书法名家<br>
         <input type="radio" name="tag" value="其他">其他<br>
+      
+      <div data-demo-html="true">
+                <fieldset data-role="controlgroup">
+                    <legend>Radio buttons, vertical controlgroup:</legend>
+                        <input type="radio" name="radio-choice-1" id="radio-choice-1" value="choice-1" checked="checked">
+                        <label for="radio-choice-1">Cat</label>
+
+                        <input type="radio" name="radio-choice-1" id="radio-choice-2" value="choice-2">
+                        <label for="radio-choice-2">Dog</label>
+
+                        <input type="radio" name="radio-choice-1" id="radio-choice-3" value="choice-3">
+                        <label for="radio-choice-3">Hamster</label>
+
+                        <input type="radio" name="radio-choice-1" id="radio-choice-4" value="choice-4">
+                        <label for="radio-choice-4">Lizard</label>
+                </fieldset>
+        </div><!-- /demo-html -->
+      
       备注：<br>
         <textarea rows="6" cols="30"   name="txt" autofocus></textarea><br>
       
       
       位置：<br>
-      <div name="loc"></div>
+      <div id="loc"></div>
       
       </p>
       <input type="submit" value="   提  交  " />
