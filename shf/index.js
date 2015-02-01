@@ -33,9 +33,10 @@ exports.pic = function(req,res,next){
   //从库中读取书法内容
   db.query('select * from shfimg order by ct desc ',function(err,rows){
     if(!err){
-      var tpl = ejs.compile(fs.readFileSync(path.join(appdir, 'views/showpictrue.html'),'utf-8'));
-      console.log(rows);
-      res.end(tpl({'imgs':rows}));
+      //var tpl = ejs.compile(fs.readFileSync(path.join(appdir, 'views/showpictrue.html'),'utf-8'));
+      //console.log(rows);
+      //res.end(tpl({'imgs':rows}));
+      res.render('./showpictrue', {'imgs':rows});
     }
     else {
       //出错的情况

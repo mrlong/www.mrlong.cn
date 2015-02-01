@@ -13,6 +13,9 @@ var ejs = require('ejs');
 var path = require('path');
 var express = require('express');
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
+
 var config = require('./config');
 var shf = require('./shf');
 var test = require('./test');
@@ -22,14 +25,27 @@ var app = express();
 module.exports = app;
 
 //参数
-app.settings = {};
-app.settings.config = config;
-app.settings.appdir = __dirname;
+//app.settings = {};
+app.set('config',config);
+app.set('appdir',__dirname);
 
 app.use(bodyParser());
 app.use(express.static(__dirname + '/public',{ maxAge: 86400000 }));
 app.use(express.static(__dirname + '/uploads'));
-app.engine('html', require('ejs').renderFile);
+
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'html');
+app.engine('html', ejs.renderFile);
+app.set('view cache', false);
+
+app.use(cookieParser());
+app.use(session({
+  name:'mrlongapp',
+  secret: '7895123', 
+  key: 'mrlongapp', 
+  cookie: { secure: false,maxAge: 1000 * 60 * 60 * 24 * 7 }  //7天保存
+}));
+
 
 //app.use(connect.query());
 //app.use(connect.favicon());
@@ -57,7 +73,7 @@ app.use('/test_index',test.index);
 app.use('/editshfinfo',shf.editshinfo);
 
 //起始页
-app.use('/',function (req, res,next) {	
+app.get('/',function (req, res,next) {	
   var data=[];
 
   db.query('select  * from shfimg order by ct desc  limit 0,4',function(err,rows){
@@ -65,10 +81,11 @@ app.use('/',function (req, res,next) {
       rows.forEach(function(row){data.push(row.imgfile)});
     };
     
-    res.writeHead(200);
+    //res.writeHead(200);
     //console.log(data);
-    var tpl = ejs.compile(fs.readFileSync(path.join(__dirname, 'views/index.html'),'utf-8'));
-    res.end(tpl({'imgs':data}));   
+    //var tpl = ejs.compile(fs.readFileSync(path.join(__dirname, 'views/index.html'),'utf-8'));
+    //res.end(tpl({'imgs':data}));
+    res.render('./index', {'imgs':data});
   });
   
 });

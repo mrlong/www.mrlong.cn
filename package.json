@@ -11,7 +11,9 @@
     "sqlite3":"*",
     "express":"*",
     "body-parser":"*",
-    "urllib": "2.0.2"  
+    "urllib": "2.0.2" ,
+    "cookie-parser":"*",
+    "express-session":"*"
   }
 }
 
