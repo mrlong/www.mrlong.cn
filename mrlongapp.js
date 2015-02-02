@@ -25,15 +25,13 @@ var app = express();
 module.exports = app;
 
 //参数
-//app.settings = {};
-app.set('config',config);
 app.set('appdir',__dirname);
 
 app.use(bodyParser());
 app.use(express.static(__dirname + '/public',{ maxAge: 86400000 }));
 app.use(express.static(__dirname + '/uploads'));
 
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'views_pc'));
 app.set('view engine', 'html');
 app.engine('html', ejs.renderFile);
 app.set('view cache', false);
@@ -53,8 +51,8 @@ app.use(session({
 //app.use(connect.static(__dirname + '/public', { maxAge: 86400000 }));
 
 app.use(function(req,res,next){
-	res.locals.settings = app.settings;
-	next();
+  res.locals.appdir  = __dirname;
+  next();
 });
 
 

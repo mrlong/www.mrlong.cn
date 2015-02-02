@@ -1,4 +1,4 @@
-//var app = require('./mrlongapp');
+
 var fs = require('fs');
 var ejs = require('ejs');
 var path = require('path');
@@ -10,7 +10,7 @@ var API = require('../wechat/api');
 var api = new API(config.weixin.appid,config.weixin.appsecret);
 
 exports.pic = function(req,res,next){
-  var appdir = res.locals.settings.appdir;
+  var appdir = res.locals.appdir;
   /*
   fs.readdir(appdir + '/public/shf', function(err, filenames){
     filenames.sort(function(val1, val2){
@@ -47,10 +47,11 @@ exports.pic = function(req,res,next){
 };
 
 
+//单个图片浏览
 exports.pictrueone = function(req,res,next){
-  var appdir = res.locals.settings.appdir;
+  var appdir = res.locals.appdir;
   var picname = req.query.picname;
-  var tpl = ejs.compile(fs.readFileSync(path.join(appdir, 'views/pictrueone.html'),'utf-8'));
+  var tpl = ejs.compile(fs.readFileSync(path.join(appdir, 'views_pc/pictrueone.html'),'utf-8'));
   //console.log('ss'+res.locals.settings['picfilenames']);
   db.query('select * from shfimg order by ct desc',function(err,rows){
     if(!err){
@@ -61,23 +62,21 @@ exports.pictrueone = function(req,res,next){
     else{
       util.errBox('显示出错','/'); 
     }
-  
   });
-  
 };
 
 //修改书法信息
 exports.editshinfo = function(req,res,next){
   var zguid = req.query.zguid||req.body.zguid;
-  var appdir = res.locals.settings.appdir;
+  var appdir = res.locals.appdir;
   
   var txt = req.body.txt || ''; 
   var tag = req.body.tag || '';
-  var tpl = ejs.compile(fs.readFileSync(path.join(appdir, 'views/editpictrue.html'),'utf-8'));
+  var tpl = ejs.compile(fs.readFileSync(path.join(appdir, 'views_moblie/editpictrue.html'),'utf-8'));
   
   
-  //weixin的认证信息
- var param = {
+//weixin的认证信息
+  var param = {
     debug:true,
     jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage','openLocation','getLocation'],
     url: 'http://' + config.domain + req.originalUrl

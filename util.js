@@ -34,7 +34,7 @@ exports.randomString=function(size) {
 //
 exports.msgBox=function(msg,url){
   var ejs = require('ejs')
-      ,str = fs.readFileSync( + './views/error.html', 'utf8');
+      ,str = fs.readFileSync( + './views_pc/error.html', 'utf8');
   var ret = ejs.render(str,{
         content:msg,
         url:url,
@@ -51,7 +51,7 @@ exports.msgBox=function(msg,url){
 //
 exports.errBox=function(msg,url){
   var ejs = require('ejs')
-      ,str = fs.readFileSync('./views/error.html', 'utf8');
+      ,str = fs.readFileSync('./views_pc/error.html', 'utf8');
   var ret = ejs.render(str,{
         content:msg,
         url:url,
