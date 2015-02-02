@@ -23,22 +23,7 @@
     jsApiList:['openLocation','getLocation','getNetworkType','onMenuShareTimeline','onMenuShareAppMessage']
   });
   
-  wx.ready(function () {
-    wx.getNetworkType({
-      success: function (res) {
-        var networkType = res.networkType; // 返回网络类型2g，3g，4g，wifi
-        document.getElementById('nettype').innerHTML = networkType;
-      }
-    }); 
-    var shareData = {
-			title: '这里是分享标题',
-			desc: '这里是发送给好友的时候的简介',
-			link: 'http://baidu.com',
-			imgUrl: 'http://baidu.com/logo.jpg'
-		};
-    wx.onMenuShareAppMessage(shareData);
-    wx.onMenuShareTimeline(shareData);
-    
+  wx.ready(function () {        
     wx.getLocation({
       success: function (res) {
         var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
@@ -80,6 +65,13 @@
         <label for="4">其他</label>
         <input type="radio" name="tag" id="4" value="其他">        
       
+      </div>
+      <div data-data-role="fieldcontain">
+        <label for="switch">记下位置：</label>
+        <select name="switch" id="switch" data-role="slider">
+          <option value="on">On</option>
+          <option value="off">Off</option>
+        </select>
       </div>
       <input type="submit" value="   提  交  " data-role="button" data-icon="check"  data-inline="true" />
       <input type="button" name="Submit"  data-role="button" onclick="javascript:history.back(-1);" value="返回" data-inline="true" />    
