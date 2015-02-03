@@ -66,7 +66,7 @@ app.use(function(req,res,next){
 });
 
 //上但有post方法说明是有更新，记下更新的日期。（有性能问题）
-app.post(function(req,res,next){
+app.post('*',function(req,res,next){
   db.exec('update sysvar set syva_update=?',[new Date().getTime]);
   next();
 });
