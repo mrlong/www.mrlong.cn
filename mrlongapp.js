@@ -52,9 +52,24 @@ app.use(session({
 
 app.use(function(req,res,next){
   res.locals.appdir  = __dirname;
+  //取出更新的日期,这地方有性能问题。
+  db.query('select syva_update from sysvar',function(err,rows){
+    if(!err && rows.length>0){
+        res.locals.syva_update = rows[0].syva_update;
+    }
+    else{
+      res.locals.syva_update= '无法读出';
+    };
+  });
+  
   next();
 });
 
+//上但有post方法说明是有更新，记下更新的日期。（有性能问题）
+app.post(function(req,res,next){
+  db.exec('update sysvar set syva_update=?',[new Date().getTime]);
+  next();
+});
 
 //微信
 app.use('/wechat', require('./wechat').mywechat);

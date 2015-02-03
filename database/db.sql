@@ -3,6 +3,11 @@
 /*
 */
 
+/*
+ *  版本信息：
+ *    ver=6
+ *
+ */
 
 
 /*书法索引*/
@@ -39,5 +44,12 @@ create table location(
   loc_address varchar(250),                 /* 地址的祥情说明*/
   loc_scale integer,                        /* 地图缩放级别,整形值,范围从1~28。默认为最大 */
   loc_infourl varchar(250)                  /* 在查看位置界面底部显示的超链接,可点击跳转 */
-)
+);
+
+
+/*系统变量 var=5,6*/
+create table sysvar(
+  syva_id integer primary key,
+  syva_update datetime                      /*更新时间网站*/
+);
 
