@@ -28,15 +28,62 @@
     
   }
   
+  header{
+   border-bottom: 1px solid #EEE; 
+  }
+  
+  .navs{
+    line-height:20px; 
+  }
+  .navs .action{
+    background-color:rgba(188, 193, 190, 0.17);
+    color: rgb(255, 255, 255);
+  }
+  
 </style>  
+  
+<script>
+  function SetActionNav(sname){
+    //1.先去掉原来的。
+    $(".navs .action").removeClass('action');
+    //2.增加现在的
+    $(".navs li[name=" + sname + "]").addClass('action');
+  }
+  
+</script>
 <body>
-  <div class="nav-tool">
+  <header>
+    <div>
       <table width="100%">
-        <tr>
-          <td  style=""><a href="/">关于我</a></td>
-          <td><a href="/pic">书法绘画</a></td>
-          <td>我的读书</td>
-          <td>我的人脉</td>
+      <tr><td width='60%'>
+      <table>
+        <tr><td>
+        <img src="/img/selfwechat.png" style="width: 100px;" alt="扫一扫，微信关注我。"></img>
+        </td>
+        <td>
+        <h1 style="margin-top: 35px;margin-bottom: 0px;">关于<a href="http://www.mrlong.cn">龙仕云</a>
+          <div style="margin-left: 50px;margin-top: 5px;"><wb:follow-button uid="1805167840" type="gray_2" width="136" height="24" ></wb:follow-button></div>
+        </h1>
+        </td>
         </tr>
-      </table>
-  </div>
+        </table>
+      </div>
+      
+      <p style="margin-top: 0px;">
+    		想做最好的软件并是无证程序员，会写Delphi和<a href="http://nodejs.org" target="_blank">Node.js</a>。
+        <br>
+         <a href="mailto:mrlong.com@gmail.com"><img src="/img/selfmail.png" style="width:200px;height=50px"></img></a>
+      </p>
+    </td>
+    <td width='40%' class="navs">
+      <!--    导航-->
+      <ul>
+        <li class="action" name='关于我'><a href="/">关于我</a></li>
+        <li name='书法绘画' ><a href="/pic" >书法绘画</a></li>
+        <li name='我的读书' >我的读书</li>
+        <li name='我的足迹'>我的足迹</li>
+      </ul>
+    </td>
+    </tr>
+   </table>
+  </header>
