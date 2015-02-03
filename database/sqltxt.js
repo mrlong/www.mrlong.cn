@@ -5,7 +5,7 @@
 //
 
 module.exports = {
-  verstion : 6,
+  verstion : 5,
   sql:[
     {ver:1,txt:"CREATE TABLE shfimg(zguid CHAR(36) Primary Key," +
               "ct  datetime default (datetime('now','localtime'))," +
@@ -18,9 +18,10 @@ module.exports = {
               "zlatitude integer, zlongitude integer,"+
               "zname varchar(250), zaddress varchar(250), " +
               "zscale integer, zinfourl varchar(250))"},
-    {ver:4,txt:"ALTER TABLE shfimg ADD COLUMN loc_guid char(36);"},
-    {ver:5,txt:"create table sysvar(syva_id integer primary key,syva_update datetime);"},
-    {ver:6,txt:"insert into  sysvar(syva_update) values(datetime('now','localtime'))"}
+    {ver:4,txt:"ALTER TABLE shfimg ADD COLUMN loc_guid char(36)"},
+    {ver:5,txt:"create table sysvar(syva_id integer primary key,syva_update datetime);" + 
+              "insert into  sysvar(syva_update) values(datetime('now','localtime'))"}
+
   ]  
 };
 

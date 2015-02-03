@@ -5,7 +5,7 @@
 
 /*
  *  版本信息：
- *    ver=6
+ *    ver=5
  *
  */
 
@@ -47,7 +47,7 @@ create table location(
 );
 
 
-/*系统变量 var=5,6*/
+/*系统变量 var=5*/
 create table sysvar(
   syva_id integer primary key,
   syva_update datetime                      /*更新时间网站*/

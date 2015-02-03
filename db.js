@@ -40,7 +40,7 @@ var do_upgrade =function(aver/*当前版本*/){
   for (var i=aver;i<sqltxt.verstion;i++){
     // sqltxt.sql[i].ver==i+1 ,这时的i+1 = 11
     if (sqltxt.sql[i].ver-1==i){  
-      db.run(sqltxt.sql[i].txt);
+      db.exec(sqltxt.sql[i].txt);
       //console.log(sqltxt.sql[i].txt);
     }
   };
@@ -111,7 +111,7 @@ exports.query = function(sql,data,callback){
 
 
 /*
- * 直接执行SQL语言,不能执行多个sql并用;分开的情况,并无返回值的。
+ * 直接执行SQL语言,最多支持三个sql并用;分开的情况,并无返回值的。
  * 
  * sql 为语言
  * data 参数
@@ -132,9 +132,24 @@ exports.exec = function(sql,data,callback){
     mydata = data;
   };
   
-  db_exec.run(sql,mydata,function(err){
-      if(mycallback){mycallback(err)} 
-  }); 
+  var sql_array = sql.split(";");
+  db_exec.run(sql_array[0],function(err){  //1
+    if(!err && sql_array.length>1 && sql_array[1]!=''){
+      db_exec.run(sql_array[1],function(err){ //2
+        if(!err && sql_array.length>2 && sql_array[2]!=''){
+          db_exec.run(sql_array[2],function(err){if(mycallback){mycallback(err)}}); //3
+        }
+        else{
+          if(mycallback){mycallback(err)}; 
+        }
+      });      
+    }
+    else{
+      if(mycallback){mycallback(err)};     
+    }
+  });
+   
+  
   db_exec.close(); 
 };
 
