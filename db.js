@@ -133,11 +133,11 @@ exports.exec = function(sql,data,callback){
   };
   
   var sql_array = sql.split(";");
-  db_exec.run(sql_array[0],function(err){  //1
+  db_exec.run(sql_array[0],data,function(err){  //1
     if(!err && sql_array.length>1 && sql_array[1]!=''){
-      db_exec.run(sql_array[1],function(err){ //2
+      db_exec.run(sql_array[1],data,function(err){ //2
         if(!err && sql_array.length>2 && sql_array[2]!=''){
-          db_exec.run(sql_array[2],function(err){if(mycallback){mycallback(err)}}); //3
+          db_exec.run(sql_array[2],data,function(err){if(mycallback){mycallback(err)}}); //3
         }
         else{
           if(mycallback){mycallback(err)}; 
