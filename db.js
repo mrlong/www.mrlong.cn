@@ -179,6 +179,7 @@ exports.newGuid = function()
 exports.newLocation=function (style,lat,lng,contguid,fn){
   var myfn;
   var mycontguid;
+  var myoldguid;  //原来的内容。
   if (typeof contguid === 'function'){
     myfn = contguid;
     mycontguid = undefined;
@@ -190,12 +191,19 @@ exports.newLocation=function (style,lat,lng,contguid,fn){
   
   //有可能会重复，则要删除掉原来的。
   if(mycontguid){
-    this.exec('delete from location where loc_style=? and loc_content=?',[style,mycontguid]); 
+    this.exec('select * from location where loc_style=? and loc_content=?',[style,mycontguid],function(err,rows){
+      if(rows.length>0){
+        myoldguid = rows[0].loc_guid;    //todo:如这地方没有执行完成，就要到下面删除了怎么办，会异步的情况了？？？
+      }
+    }); 
   }
   
   var zguid = this.newGuid();
   this.exec('insert into location(loc_guid,loc_style,loc_latitude,loc_longitude,loc_content)' +
        'values(?,?,?,?,?)',[zguid,style,lat,lng,mycontguid],function(err){
+    if(!err && myoldguid){
+      this.exec('delete from location where loc_guid=?',[myoldguid]);
+    };
     if(myfn){myfn(err,zguid)};
   });
 };
