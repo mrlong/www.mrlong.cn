@@ -21,7 +21,10 @@ module.exports = {
     appid:'wx4303956526e51e03',
     token:'mrlongwechat',   /*令牌*/
     appsecret:'aedcefb3ef3762bf561ad894c81dd392'
-  }
+  },
+  
+  /*腾讯地图*/
+  qxdtkey:'RTUBZ-3DUWW-WCERE-R5XFN-5B5WT-6ZFRU'
   
 
 }; 
