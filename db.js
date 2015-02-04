@@ -23,6 +23,7 @@ var fs = require("fs");
 var config = require("./config.js");
 var file = config.sqlite.file;  //数据库文件 long.db
 var sqltxt = require('./database/sqltxt');  //升级的sql语句
+var async = require('async');
 
 //确定文件是否存在
 var exists = fs.existsSync(file);
@@ -188,24 +189,36 @@ exports.newLocation=function (style,lat,lng,contguid,fn){
     myfn = fn;
     mycontguid = contguid;
   }
+  var dbthis = this;
   
-  //有可能会重复，则要删除掉原来的。
-  if(mycontguid){
-    this.exec('select * from location where loc_style=? and loc_content=?',[style,mycontguid],function(err,rows){
-      if(rows.length>0){
-        myoldguid = rows[0].loc_guid;    //todo:如这地方没有执行完成，就要到下面删除了怎么办，会异步的情况了？？？
-      }
-    }); 
-  }
-  
-  var zguid = this.newGuid();
-  this.exec('insert into location(loc_guid,loc_style,loc_latitude,loc_longitude,loc_content)' +
+  async.series({
+    one:function(callback){
+      //有可能会重复，则要删除掉原来的。
+      if(mycontguid){
+        dbthis.query('select * from location where loc_style=? and loc_content=?',[style,mycontguid],function(err,rows){
+          if(rows.length>0){
+            myoldguid = rows[0].loc_guid;    //todo:如这地方没有执行完成，就要到下面删除了怎么办，会异步的情况了？？？
+            callback(null,myoldguid);
+          }
+      })};
+    },
+    tow:function(callback){
+      var zguid = this.newGuid();
+      dbthis.exec('insert into location(loc_guid,loc_style,loc_latitude,loc_longitude,loc_content)' +
        'values(?,?,?,?,?)',[zguid,style,lat,lng,mycontguid],function(err){
-    if(!err && myoldguid){
-      this.exec('delete from location where loc_guid=?',[myoldguid]);
-    };
-    if(myfn){myfn(err,zguid)};
+          callback(err,zguid);
+        });
+    }},
+    function(err, results){
+      if(!err && results.one){
+        dbthis.exec('delete from location where loc_guid=?',[results.one]);
+      };
+      if(myfn){myfn(err,results.tow)};
+      
   });
+  
+  
+  
 };
 
 //module.exports=db;
