@@ -96,7 +96,7 @@ exports.editshinfo = function(req,res,next){
             var myloc_guid;
             if(!err) myloc_guid = loc_guid;
             
-            db.exec('update shfimg set tag=?,txt=?,loc_guid=? where zguid=?',[tag,txt,zguid,myloc_guid],function(err){
+            db.exec('update shfimg set tag=?,txt=?,loc_guid=? where zguid=?',[tag,txt,myloc_guid,zguid],function(err){
               res.writeHead(200);
               res.end(tpl({'zguid':zguid,'msg': err?'保存失败':'保存成功(有位置)。',wechatconfig:result}));
             });

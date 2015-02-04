@@ -188,6 +188,11 @@ exports.newLocation=function (style,lat,lng,contguid,fn){
     mycontguid = contguid;
   }
   
+  //有可能会重复，则要删除掉原来的。
+  if(mycontguid){
+    this.exec('delete from location where loc_style=? and loc_content=?',[style,mycontguid]); 
+  }
+  
   var zguid = this.newGuid();
   this.exec('insert into location(loc_guid,loc_style,loc_latitude,loc_longitude,loc_content)' +
        'values(?,?,?,?,?)',[zguid,style,lat,lng,mycontguid],function(err){
