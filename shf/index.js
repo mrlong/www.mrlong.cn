@@ -72,24 +72,43 @@ exports.editshinfo = function(req,res,next){
   
   var txt = req.body.txt || ''; 
   var tag = req.body.tag || '';
+  var lat_lng = req.body.lat_lng || '';
   var tpl = ejs.compile(fs.readFileSync(path.join(appdir, 'views_moblie/editpictrue.html'),'utf-8'));
   
   
 //weixin的认证信息
   var param = {
-    debug:true,
+    debug:false,
     jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage','openLocation','getLocation'],
     url: 'http://' + config.domain + req.originalUrl
   };
   
   api.getJsConfig(param,function(err,result){
     if(!err){
-      if(txt || tag){
-        //写入库内
-        db.exec('update shfimg set tag=?,txt=? where zguid=?',[tag,txt,zguid],function(err){
-          res.writeHead(200);
-          res.end(tpl({'zguid':zguid,'msg': err?'保存失败':'保存成功。',wechatconfig:result}));
-        });
+      if(txt || tag ){
+        //如有地图则先写入地图信息
+        if(lat_lng){
+          var array = lat_lng.split(',');
+          var lat = array[0];
+          var lng = array[1];
+          db.newLocation(1/*表示书法绘画*/,lat,lng,zguid,function(err,loc_guid){
+             //写入库内
+            var myloc_guid;
+            if(!err) myloc_guid = loc_guid;
+            
+            db.exec('update shfimg set tag=?,txt=?,loc_guid=? where zguid=?',[tag,txt,zguid,myloc_guid],function(err){
+              res.writeHead(200);
+              res.end(tpl({'zguid':zguid,'msg': err?'保存失败':'保存成功(有位置)。',wechatconfig:result}));
+            });
+          }); 
+        }
+        else{
+          //写入库内
+          db.exec('update shfimg set tag=?,txt=? where zguid=?',[tag,txt,zguid],function(err){
+            res.writeHead(200);
+            res.end(tpl({'zguid':zguid,'msg': err?'保存失败':'保存成功。',wechatconfig:result}));
+          });
+        }
       }
       else{
         res.end(tpl({'zguid':zguid,'msg':'',wechatconfig:result}));  

@@ -13,11 +13,11 @@ module.exports = {
     
     {ver:2,txt:"ALTER TABLE shfimg ADD COLUMN tag VARCHAR(20);"},
     
-    {ver:3,txt:"create table location(zguid char(36) primary key,"+
-              "zstyle integer not null default 0, zcontent char(50), " +     
-              "zlatitude integer, zlongitude integer,"+
-              "zname varchar(250), zaddress varchar(250), " +
-              "zscale integer, zinfourl varchar(250))"},
+    {ver:3,txt:"create table location(loc_guid char(36) primary key,"+
+              "loc_style integer not null default 0, loc_content char(50), " +     
+              "loc_latitude integer, loc_longitude integer,"+
+              "loc_name varchar(250), loc_address varchar(250), " +
+              "loc_scale integer, loc_infourl varchar(250))"},
     {ver:4,txt:"ALTER TABLE shfimg ADD COLUMN loc_guid char(36)"},
     {ver:5,txt:"create table sysvar(syva_id integer primary key,syva_update datetime);" + 
               "insert into  sysvar(syva_update) values(datetime('now','localtime'))"}
@@ -27,3 +27,4 @@ module.exports = {
 
 // module.exports 不同点就这样显示出来。
 //exports.sqltxt = sqltxt
+

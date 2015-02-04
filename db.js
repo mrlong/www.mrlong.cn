@@ -168,7 +168,32 @@ exports.newGuid = function()
   return guid;    
 }
 
-
+//
+// 写入地图的信息
+//  loc_style  = 1 书法绘画
+//  contguid  书法绘画的guid
+// 返回值：
+//  err
+//  zguid: 地图的guid
+//  
+exports.newLocation=function (style,lat,lng,contguid,fn){
+  var myfn;
+  var mycontguid;
+  if (typeof contguid === 'function'){
+    myfn = contguid;
+    mycontguid = undefined;
+  }
+  else{
+    myfn = fn;
+    mycontguid = contguid;
+  }
+  
+  var zguid = this.newGuid();
+  this.exec('insert into location(loc_guid,loc_style,loc_latitude,loc_longitude,loc_content)' +
+       'values(?,?,?,?,?)',[zguid,style,lat,lng,mycontguid],function(err){
+    if(myfn){myfn(err,zguid)};
+  });
+};
 
 //module.exports=db;
 
