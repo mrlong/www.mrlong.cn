@@ -4,7 +4,8 @@
 
 <link rel="stylesheet" type="text/css" href="/css/bttrlazyloading.min.css" />  
 <script src="/js/jquery.bttrlazyloading.min.js"></script>
-  
+<script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&key=RTUBZ-3DUWW-WCERE-R5XFN-5B5WT-6ZFRU"></script>
+
 <style>
 	.ttrlazyloadingb{
       padding: 0 2px;
@@ -25,6 +26,12 @@
       box-shadow: 0 0 2px rgba(0, 0, 0, 0.06);
 /*      text-align:center;*/
     }
+  
+  .container {
+    margin: 4px;
+    width:250px; 
+    height:250px;
+  };
 
     
         
@@ -64,8 +71,9 @@
        <% if(imgs[i].loc_guid) {%> 
          <div>
           <p><small>位置:<a  ></small>
-            <div id="<%='map'+i %>"></div>
             <button type="button" map="1"  guid=<%=imgs[i].loc_guid %> cid="<%=i%>" >地图显示</button>
+            <div class="container" id="<%='map'+i %>" style="display:none;"></div>
+            
          </div>
       <%}%>
       </td>
@@ -82,7 +90,17 @@
         var id = $(this).attr('cid');
         $.get(myurl,function(obj){
           if (obj.success==true){
-            $('#map'+id).html('lat:' + obj.lat + ',lng:' + obj.lng);
+            var center = new qq.maps.LatLng(obj.lat,obj.lng); // 地图的中心地理坐标。
+            var map = new qq.maps.Map(document.getElementById("map"+id), {
+              center: center,
+              zoom:13,
+            });
+            var marker = new qq.maps.Marker({
+              position: center,
+              map: map
+            });
+            
+            $('#map'+id).show();
           }
           else{
             $('#map'+id).html(obj.msg);  
