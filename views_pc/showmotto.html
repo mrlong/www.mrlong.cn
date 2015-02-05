@@ -1,0 +1,28 @@
+  
+<% include header.html %>
+
+  <style>
+    #motto_table{
+      margin:auto;
+      width: 80%;
+    }
+  
+  </style>
+  <h3>格言：</h3>
+  <table id="motto_table">
+    <% for(var i=0;i<rows.length;i++){%>
+      <tr>
+        <td><%=i+1%></td>
+        <td><%=rows[i].mot_txt%></td>
+        <td><%=rows[i].mot_time%></td>
+        <td><%=rows[i].mot_from%></td>
+        <td><%=rows[i].mot_stop%></td>
+      </tr>  
+    <%}%>
+  </table>
+  
+<script>
+  SetActionNav('');
+</script>      
+<% include footer.html %>
+  

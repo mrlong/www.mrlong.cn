@@ -30,5 +30,18 @@ router.get('/getcurtxt',function(req,res,next){
   });
 });
 
+
+//显示格言
+router.get('/show',function(req,res,next){
+  db.query('select * from motto order by mot_id desc',function(err,rows){
+    if(!err){
+      res.render('./showmotto.html', {rows:rows});  
+    }
+    else
+      res.render('./showmotto.html', {rows:[]});
+  });
+  
+
+});
 module.exports = router;
 
