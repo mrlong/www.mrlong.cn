@@ -94,6 +94,9 @@
             var map = new qq.maps.Map(document.getElementById("map"+id), {
               center: center,
               zoom:13,
+              zoomControl: false,
+              panControl:false,
+              mapTypeControl:false
             });
             var marker = new qq.maps.Marker({
               position: center,
