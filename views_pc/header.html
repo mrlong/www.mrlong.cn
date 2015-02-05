@@ -25,7 +25,6 @@
     max-width: 980px;
     font-size: 14px;
     line-height: 1.6;
-    
   }
   
   header{
@@ -43,6 +42,7 @@
 </style>  
   
 <script>
+  /*给子类用的公共方法*/
   function SetActionNav(sname){
     //1.先去掉原来的。
     $(".navs .action").removeClass('action');
@@ -50,6 +50,14 @@
     $(".navs li[name=" + sname + "]").addClass('action');
   }
   
+  //格言
+  $(document).ready(function(){
+    $.get('/motto/getcurtxt',function(data){
+      if(data.success==true)
+        $("#motto").html(data.txt);
+    });
+  });  
+ 
 </script>
 <body>
   <header>
@@ -70,7 +78,7 @@
       </div>
       
       <div style="margin-top: 4px;margin-left: 4px;margin-bottom: 4px;">
-        <strong>静水潜流 --春雨润物细无声。</strong>
+        <strong id="motto"></strong>
       </div>  
     </td>
     <td width='40%' class="navs">

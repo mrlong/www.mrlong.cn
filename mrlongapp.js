@@ -17,9 +17,10 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 
 var config = require('./config');
-var shf = require('./shf');
+var shf = require('./controller/shf');
 var test = require('./test');
 var db = require('./db');
+var motto = require('./controller/motto'); 
 
 var app = express();
 module.exports = app;
@@ -52,16 +53,6 @@ app.use(session({
 
 app.use(function(req,res,next){
   res.locals.appdir  = __dirname;
-  //取出更新的日期,这地方有性能问题。
-  db.query('select syva_update from sysvar',function(err,rows){
-    if(!err && rows.length>0){
-        res.locals.syva_update = rows[0].syva_update;
-    }
-    else{
-      res.locals.syva_update= '无法读出';
-    };
-  });
-  
   next();
 });
 
@@ -79,11 +70,31 @@ app.use('/wechat', require('./wechat').mywechat);
 // 	res.end('hello' + name);
 // });
 
+app.get('/getsysvar/:name',function(req,res,next){
+  var myname = req.params.name;
+  switch(myname){
+    case 'syva_update':
+      db.query('select syva_update from sysvar',function(err,rows){
+        if(!err && rows.length>0){
+          res.json({success:true,txt:rows[0].syva_update})
+        }
+        else{
+          res.json({success:false,txt:''});
+        };
+      });
+      break;
+    case '...':
+      break;
+  };
+});
+
+
 //书法
 app.use('/pic',shf.pic);
 app.use('/pictrueone',shf.pictrueone);
 app.use('/test_index',test.index);
 app.use('/editshfinfo',shf.editshinfo);
+app.use('/motto', motto);
 
 //取出地图信息
 app.get('/location/:guid',function(req,res,next){

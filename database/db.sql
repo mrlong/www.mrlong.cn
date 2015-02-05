@@ -5,7 +5,7 @@
 
 /*
  *  版本信息：
- *    ver=5
+ *    ver=6
  *
  */
 
@@ -53,3 +53,11 @@ create table sysvar(
   syva_update datetime                      /*更新时间网站*/
 );
 
+/*格言 var=6*/
+create table motto(
+  mot_id integer primary key autoincrement,
+  mot_txt char(50) not null, 
+  mot_time datetime,                      /*收集时间*/
+  mot_from varchar(200),                  /*来由*/
+  mot_stop bool default false             /*是否删除掉*/ 
+);

@@ -10,9 +10,16 @@ footer {
 
 </style>
 
+<script>
+  $.get('/getsysvar/syva_update',function(data){
+    if(data.success==true)
+      $('#syva_update').html(data.txt);
+  });
+</script>
+
 <footer >
   <div style="text-align: center;">
-    <a href="http://www.miibeian.gov.cn/">浙ICP备13037124号</a> | <span>2014-11-2~<%=locals.syva_update%>(最后更新时间) </span>
+    <a href="http://www.miibeian.gov.cn/">浙ICP备13037124号</a> | 2014-11-2~<span id='syva_update'></span>(最后更新时间)
     <br>
     <a href="mailto:mrlong.com@gmail.com"><img src="/img/selfmail.png" style="width:200px;height=50px"></img></a>
   </div>

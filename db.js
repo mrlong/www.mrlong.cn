@@ -41,7 +41,11 @@ var do_upgrade =function(aver/*当前版本*/){
   for (var i=aver;i<sqltxt.verstion;i++){
     // sqltxt.sql[i].ver==i+1 ,这时的i+1 = 11
     if (sqltxt.sql[i].ver-1==i){  
-      db.exec(sqltxt.sql[i].txt);
+      db.exec(sqltxt.sql[i].txt,function(err){
+        if(err){
+          console.log('执行sql出错：'+sqltxt.sql[i].txt); 
+        }
+      });
       //console.log(sqltxt.sql[i].txt);
     }
   };
@@ -67,7 +71,6 @@ db.serialize(function() {
     db.each("select * from version", function(err, row) {
       if (err) throw err;
       curver = row.ver;
-      //console.log('curver='+curver);
       do_upgrade(curver);
     });
   };    
@@ -134,7 +137,7 @@ exports.exec = function(sql,data,callback){
     mycallback = callback;
     mydata = data;
   };
-  
+
   var sql_array = sql.split(";");
   db_exec.run(sql_array[0],data,function(err){  //1
     if(!err && sql_array.length>1 && sql_array[1]!=''){

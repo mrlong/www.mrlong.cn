@@ -5,7 +5,7 @@
 //
 
 module.exports = {
-  verstion : 5,
+  verstion : 6,
   sql:[
     {ver:1,txt:"CREATE TABLE shfimg(zguid CHAR(36) Primary Key," +
               "ct  datetime default (datetime('now','localtime'))," +
@@ -20,10 +20,19 @@ module.exports = {
               "loc_scale integer, loc_infourl varchar(250))"},
     {ver:4,txt:"ALTER TABLE shfimg ADD COLUMN loc_guid char(36)"},
     {ver:5,txt:"create table sysvar(syva_id integer primary key,syva_update datetime);" + 
-              "insert into  sysvar(syva_update) values(datetime('now','localtime'))"}
+              "insert into  sysvar(syva_update) values(datetime('now','localtime'))"},
+    {ver:6,txt:"create table motto(" + 
+               "mot_id integer primary key autoincrement," +
+               "mot_txt char(50) not null, " + 
+               "mot_time datetime, " + 
+               "mot_from varchar(200), " +
+               "mot_stop bool default false)"}
+    
 
   ]  
 };
+
+
 
 // module.exports 不同点就这样显示出来。
 //exports.sqltxt = sqltxt
