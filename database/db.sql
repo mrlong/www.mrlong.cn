@@ -5,7 +5,7 @@
 
 /*
  *  版本信息：
- *    ver=6
+ *    ver=7
  *
  */
 
@@ -43,7 +43,8 @@ create table location(
   loc_name varchar(250),                    /* 位置名*/
   loc_address varchar(250),                 /* 地址的祥情说明*/
   loc_scale integer,                        /* 地图缩放级别,整形值,范围从1~28。默认为最大 */
-  loc_infourl varchar(250)                  /* 在查看位置界面底部显示的超链接,可点击跳转 */
+  loc_infourl varchar(250),                 /* 在查看位置界面底部显示的超链接,可点击跳转 */
+  loc_precision integer                     /* 位置精度 ver=7*/
 );
 
 
