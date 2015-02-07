@@ -77,19 +77,15 @@ app.use('/wechat', require('./wechat').mywechat);
 
 
 
+//主页
 app.use('/',index);
-
 //书法
 app.use('/shf',shf);
-
-//app.use('/pic',shf.pic);
-//app.use('/pictrueone',shf.pictrueone);
-app.use('/test_index',test.index);
-//app.use('/editshfinfo',shf.editshinfo);
-
+//格言
 app.use('/motto', motto);
 
 
+app.use('/test_index',test.index);
 
 app.listen(3002);
 console.log('mrlong.cn stated on port 3002');
