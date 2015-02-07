@@ -13,12 +13,6 @@ var router = express.Router();
 // backcall 参数：
 //  err
 //  txt  格言内容。
-exports.getcurMotto = function(fn){
-  
-};
-
-
-
 router.get('/getcurtxt',function(req,res,next){  
   db.query('select mot_txt from motto order by mot_id desc',function(err,rows){
     if(!err && rows.length>0){

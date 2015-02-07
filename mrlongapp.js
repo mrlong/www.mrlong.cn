@@ -17,10 +17,15 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 
 var config = require('./config');
-var shf = require('./controller/shf');
+
 var test = require('./test');
 var db = require('./db');
+
+//控制器
+var shf = require('./controller/shf');
 var motto = require('./controller/motto'); 
+var index = require('./controller/index');
+
 
 var app = express();
 module.exports = app;
@@ -70,62 +75,20 @@ app.use('/wechat', require('./wechat').mywechat);
 // 	res.end('hello' + name);
 // });
 
-app.get('/getsysvar/:name',function(req,res,next){
-  var myname = req.params.name;
-  switch(myname){
-    case 'syva_update':
-      db.query('select syva_update from sysvar',function(err,rows){
-        if(!err && rows.length>0){
-          res.json({success:true,txt:rows[0].syva_update})
-        }
-        else{
-          res.json({success:false,txt:''});
-        };
-      });
-      break;
-    case '...':
-      break;
-  };
-});
 
+
+app.use('/',index);
 
 //书法
-app.use('/pic',shf.pic);
-app.use('/pictrueone',shf.pictrueone);
+app.use('/shf',shf);
+
+//app.use('/pic',shf.pic);
+//app.use('/pictrueone',shf.pictrueone);
 app.use('/test_index',test.index);
-app.use('/editshfinfo',shf.editshinfo);
+//app.use('/editshfinfo',shf.editshinfo);
+
 app.use('/motto', motto);
 
-//取出地图信息
-app.get('/location/:guid',function(req,res,next){
-  var zguid = req.params.guid;
-  db.query('select * from location where loc_guid=?',[zguid],function(err,rows){
-    if(!err && rows.length>0){
-      res.json({success:true,lat:rows[0].loc_latitude,lng:rows[0].loc_longitude});
-    }
-    else{
-      res.json({success:false,msg:'在库内找不到地图信息'});
-    }
-  });
-});
-
-//起始页
-app.get('/',function (req, res,next) {	
-  var data=[];
-
-  db.query('select  * from shfimg order by ct desc  limit 0,4',function(err,rows){
-    if(!err){
-      rows.forEach(function(row){data.push(row.imgfile)});
-    };
-    
-    //res.writeHead(200);
-    //console.log(data);
-    //var tpl = ejs.compile(fs.readFileSync(path.join(__dirname, 'views/index.html'),'utf-8'));
-    //res.end(tpl({'imgs':data}));
-    res.render('./index', {'imgs':data});
-  });
-  
-});
 
 
 app.listen(3002);

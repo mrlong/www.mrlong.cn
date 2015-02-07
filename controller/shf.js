@@ -7,9 +7,13 @@ var util = require('../util.js');
 var config = require('../config');
 var API = require('../wechat/api');
 
+var express = require('express');
+var router = express.Router();
+
+
 var api = new API(config.weixin.appid,config.weixin.appsecret);
 
-exports.pic = function(req,res,next){
+router.use('/pic',function(req,res,next){
   var appdir = res.locals.appdir;
   /*
   fs.readdir(appdir + '/public/shf', function(err, filenames){
@@ -44,11 +48,11 @@ exports.pic = function(req,res,next){
     }
   });
   
-};
+});
 
 
 //单个图片浏览
-exports.pictrueone = function(req,res,next){
+router.use('/pictrueone',function(req,res,next){
   var appdir = res.locals.appdir;
   var picname = req.query.picname;
   var tpl = ejs.compile(fs.readFileSync(path.join(appdir, 'views_pc/pictrueone.html'),'utf-8'));
@@ -63,10 +67,10 @@ exports.pictrueone = function(req,res,next){
       util.errBox('显示出错','/'); 
     }
   });
-};
+});
 
 //修改书法信息
-exports.editshinfo = function(req,res,next){
+router.use('/editshinfo',function(req,res,next){
   var zguid = req.query.zguid||req.body.zguid;
   var appdir = res.locals.appdir;
   
@@ -119,4 +123,6 @@ exports.editshinfo = function(req,res,next){
       util.errBox(err,'/');
      }
   });    
-};
+});
+
+module.exports = router;
