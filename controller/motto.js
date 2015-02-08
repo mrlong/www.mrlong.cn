@@ -37,5 +37,45 @@ router.get('/show',function(req,res,next){
   
 
 });
+
+
+//增加
+router.post('/add',function(req,res,next){
+  if(!req.session.adminlogin)
+  {
+    res.redirect('show');
+    return true;  
+  };
+  
+  var mot_txt = req.body.mot_txt;
+  var mot_time = req.body.mot_time;
+  var mot_from = req.body.mot_from;
+  
+  db.exec('insert into motto(mot_txt,mot_time,mot_from) values(?,?,?)',[mot_txt,mot_time,mot_from],function(err){
+    res.redirect('show');  
+  });
+
+});
+
+//删除
+router.post('/del',function(req,res,next){
+  if(req.session.adminlogin){
+    var id = req.body.mot_id;
+    db.exec('delete from motto where mot_id=?',[id],function(err){
+      if(!err){
+        res.json({success:true,msg:'删除成功'});
+      }
+      else{
+        res.json({success:false,msg:'删除不成功'}); 
+      }
+    });
+  }
+  else{
+    res.json({success:false,msg:'不能删除'});
+  }
+});
+
+
+
 module.exports = router;
 

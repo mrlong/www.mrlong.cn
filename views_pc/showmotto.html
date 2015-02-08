@@ -8,15 +8,51 @@
     }
   
   </style>
+  
+  <script>
+  $(document).ready(function(){
+    $("button[class=del]").click(function(){
+      if(!confirm('确实要删除该内容吗?')){return false;}
+        
+      var myid = $(this).attr('mot_id');
+      $.post('/motto/del',{"mot_id":myid},function(data){
+        if(data.success==true){
+          $("#mot"+myid).hide();
+        }
+        else{
+          alert(data.msg);
+        };
+      });      
+    });
+  });
+    
+  </script>
+  
   <h3>格言：</h3>
   <table id="motto_table">
-    <% for(var i=0;i<rows.length;i++){%>
+    <% if(locals.adminlogin) {%>
       <tr>
+        <form method="post"  action="/motto/add">
+        <td></td>
+        <td><input type="text" name="mot_txt"></td>
+        <td><input type="date" name="mot_time"</td>
+        <td><input type="text" name="mot_from"</td>
+        <td></td>
+        <td><input type="submit" value="提  交"</td>
+        </form>
+      </tr>
+      </p>
+    <% } %>
+    <% for(var i=0;i<rows.length;i++){%>
+      <tr id="mot<%=rows[i].mot_id%>">
         <td><%=i+1%></td>
         <td><%=rows[i].mot_txt%></td>
         <td><%=rows[i].mot_time%></td>
         <td><%=rows[i].mot_from%></td>
         <td><%=rows[i].mot_stop%></td>
+        <% if(locals.adminlogin) {%>
+          <td><button type="button" class="del" mot_id="<%=rows[i].mot_id%>" >删除</button></td>
+        <% } %>  
       </tr>  
     <%}%>
   </table>
