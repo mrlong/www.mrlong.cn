@@ -5,7 +5,7 @@
 
 /*
  *  版本信息：
- *    ver=8
+ *    ver=10
  *
  */
 
@@ -62,4 +62,31 @@ create table motto(
   mot_time datetime,                      /*收集时间*/
   mot_from varchar(200),                  /*来由*/
   mot_stop bool default false             /*是否删除掉*/ 
+);
+
+
+/*读书 ver=9*/
+create table books(
+  boo_isbn char(20) primary key,         /*ISBN*/
+  boo_name varchar(100),                 /*书名*/
+  boo_price float,                       /*书的购买价格*/
+  boo_img blob,                          /*书的图片*/
+  boo_tag varchar(20),                   /*书的标签*/
+  boo_buytime datetime,                  /*购买时间*/
+  boo_pubdate char(10),                  /*出版年*/
+  boo_state integer default 0,           /* =0 表示读过,1=在读 */
+  boo_url varchar(50)                    /* 外部页面*/
+);
+
+/*读书笔记 ver=10*/
+create table books_notes(
+  bno_guid char(36) primary key,        /*日记guid*/
+  boo_isbn char(20),                    /*对应读书*/
+  bno_time datetime,                    /*日期*/
+  loc_guid char(36),                    /*地点*/
+  bno_txt varchar(250),                 /*笔记内容*/
+  bno_page integer,                     /*页码*/
+  bno_title varchar(50),                /*章节名称*/
+  bno_viewstyle integer default 0,      /*=0 所有人都能看,=1表示自己才能看*/
+  
 );

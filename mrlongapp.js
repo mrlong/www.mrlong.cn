@@ -25,6 +25,7 @@ var db = require('./db');
 var shf = require('./controller/shf');
 var motto = require('./controller/motto'); 
 var index = require('./controller/index');
+var books = require('./controller/books');
 
 
 var app = express();
@@ -84,6 +85,8 @@ app.use('/',index);
 app.use('/shf',shf);
 //格言
 app.use('/motto', motto);
+//读书
+app.use('/books',books);
 
 
 app.use('/test_index',test.index);
