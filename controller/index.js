@@ -37,16 +37,27 @@ router.get('/getqrcode',function(req,res,next){
 //
 router.post('/login',function(req,res,next){
   var password = req.body.password;
-  if (password == '7895123'){
-    req.session.adminlogin = true; //表示管理员已登录
-    res.json({success:true,msg:'登录成功。'});
-  }
-  else{
-    res.json({success:false,msg:'登录失败'});
-  }
-
+  
+  db.query('select syva_adminpw from sysvar',function(err,rows){
+    if(!err){
+      var pw = rows[0].syva_adminpw;
+      if (password === pw){
+        req.session.adminlogin = true; //表示管理员已登录
+        res.json({success:true,msg:'登录成功。'});
+      }
+      else{
+        res.json({success:false,msg:'密码错误，登录失败'});
+      } 
+    }
+    else{
+      res.json({success:false,msg:'登录失败'});  
+    };
+  });
 });
 
+//
+// 退出
+//
 router.post('/logout',function(req,res,next){
   if(req.session.adminlogin){
     req.session.destroy();

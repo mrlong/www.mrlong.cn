@@ -5,7 +5,7 @@
 //
 
 module.exports = {
-  verstion : 7,
+  verstion : 8,
   sql:[
     {ver:1,txt:"CREATE TABLE shfimg(zguid CHAR(36) Primary Key," +
               "ct  datetime default (datetime('now','localtime'))," +
@@ -27,7 +27,8 @@ module.exports = {
                "mot_time datetime, " + 
                "mot_from varchar(200), " +
                "mot_stop bool default false)"},
-    {ver:7,txt:"ALTER TABLE location ADD COLUMN loc_precision integer"}
+    {ver:7,txt:"ALTER TABLE location ADD COLUMN loc_precision integer"},
+    {ver:8,txt:"ALTER TABLE sysvar ADD COLUMN syva_adminpw char(20)"}
     
 
   ]  
