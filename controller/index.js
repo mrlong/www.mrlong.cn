@@ -47,6 +47,16 @@ router.post('/login',function(req,res,next){
 
 });
 
+router.post('/logout',function(req,res,next){
+  if(req.session.adminlogin){
+    req.session.destroy();
+    res.json({success:true,msg:'注销登录成功'});
+  } 
+  else{
+    res.json({success:false,msg:'注销失败'});
+  }
+});
+
 
 //
 // 取出系统的参数

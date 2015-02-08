@@ -5,8 +5,6 @@
 <link rel="stylesheet" type="text/css" href="/css/bttrlazyloading.min.css" />  
 <script src="/js/jquery.bttrlazyloading.min.js"></script>
 <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&key=RTUBZ-3DUWW-WCERE-R5XFN-5B5WT-6ZFRU"></script>
-<script src="http://apps.bdimg.com/libs/lightbox/2.6/js/lightbox.min.js"></script>
-<link rel="stylesheet" type="text/css" href="http://apps.bdimg.com/libs/lightbox/2.6/css/lightbox.css"/>
 
 <style>
 	.ttrlazyloadingb{
@@ -55,7 +53,7 @@
           
      </td>
      <td>       
-      <a rel="lightbox[1]" title="<%=imgs[i].tag %>|<%=imgs[i].txt %>" href="/shf/<%= imgs[i].imgfile %>">  
+       <a href="/shf/pictrueone?picname=<%= imgs[i].imgfile %>"> 
   	   <img class="ttrlazyloadingb" 
 			data-bttrlazyloading-sm-src="/shf/<%= imgs[i].imgfile %>"
 			
