@@ -30,6 +30,23 @@ router.get('/getqrcode',function(req,res,next){
   });
 });
 
+//
+//登录
+// 参数：
+//   password
+//
+router.post('/login',function(req,res,next){
+  var password = req.body.password;
+  if (password == '7895123'){
+    req.session.adminlogin = true; //表示管理员已登录
+    res.json({success:true,msg:'登录成功。'});
+  }
+  else{
+    res.json({success:false,msg:'登录失败'});
+  }
+
+});
+
 
 //
 // 取出系统的参数

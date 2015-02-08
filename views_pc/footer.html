@@ -18,9 +18,17 @@ footer {
   
   $(document).ready(function(){
     $("button[class=admin]").click(function(){
-                                 
-      alert('sss');
-                               
+      var value = $('#adminpassword').val();
+      $.post('/login',{"password":value},function(data){
+        if(data.success==true){
+          alert(data.msg);
+          $("#adminpassword").hide(); 
+          $("button[class=admin]").hide();
+        }
+        else{
+          alert(data.msg);
+        }
+      });      
     });
     
   });
@@ -31,7 +39,9 @@ footer {
     <a href="http://www.miibeian.gov.cn/">浙ICP备13037124号</a> | 2014-11-2~<span id='syva_update'></span>(最后更新时间)
     <br>
     <a href="mailto:mrlong.com@gmail.com"><img src="/img/selfmail.png" style="width:200px;height=50px"></img></a>
-    <button type="button"  class="admin" >登录</button>
+    <% if(!locals.adminlogin){ %>
+    <input type="password"  id="adminpassword" style="width: 86px;"/><button type="button"  class="admin" >登录</button>
+    <% } %>
   </div>
 </footer>
 </body>

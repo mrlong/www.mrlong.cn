@@ -47,7 +47,7 @@ app.use(session({
   name:'mrlongapp',
   secret: '7895123', 
   key: 'mrlongapp', 
-  cookie: { secure: false,maxAge: 1000 * 60 * 60 * 24 * 7 }  //7天保存
+  cookie: { secure: false,maxAge: 1000 * 60 * 60 * 24 * 1 }  //1天保存
 }));
 
 
@@ -58,6 +58,7 @@ app.use(session({
 
 app.use(function(req,res,next){
   res.locals.appdir  = __dirname;
+  res.locals.adminlogin = req.session.adminlogin;  //是否管理员账号登录过
   next();
 });
 
