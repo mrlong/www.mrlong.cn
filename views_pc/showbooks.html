@@ -1,6 +1,114 @@
 <% include header.html %>
+<script type="application/javascript"  src="/js/jquery.form.js"></script>
+ 
+<style>
+  
+ #books_table{
+      margin:auto;
+      width: 90%;
+    }  
+</style>  
+  
+<script>
+  
+  function showSummary(isbn){    
+      $("#summary" + isbn).toggle(100); 
+  };
+  
+  $(document).ready(function(){
+    $(".summary").hide();        
+    
+    //打开读书笔记
+    $("button[class=bj]").click(function(){
+      var myisbn = $(this).attr('isbn');
+      alert(myisbn);
+    });    
+    
+    //增加书
+    $("#submit_data").click(function(){
+      $.ajax({
+          type: 'post',
+          url:'/books/addbook',
+          data: $("#addbook").serialize(),
+          async: true,
+          success:function(){
+            alert(data.msg);
+          },
+          error:function(data){
+            alert(data.msg);
+          }        
+      });      
+    });
 
-  <h3>读书</h3>
+    var options = {
+      success: function (data) {
+            $("#responseText").text(data);
+      }
+    };
+    $("#addbook").ajaxForm(options);
+ 
+    //删除读书
+    $("button[class=del]").click(function(){
+      if(!confirm('确实要删除该内容吗?')){return false;}
+        
+      var myid = $(this).attr('isbn');
+      $.post('/books/del',{"isbn":myid},function(data){
+        if(data.success==true){
+          $("#summary" + myid).hide(); 
+          $("#book"+myid).hide();
+        }
+        else{
+          alert(data.msg);
+        };
+      });      
+    });
+    
+  });
+  
+</script>
+
+<h3>我的读书</h3>
+  
+  <table id="books_table" >
+    <% if(locals.adminlogin) { %>
+      <tr>
+        <td></td>
+        <td>ISBN*：</td>
+        <td>书名：</td>
+        <td>我的购买价格：</td>
+        <td>购买日期：</td>
+      </tr>
+      <tr>
+        <form  id="addbook" method="post" action="/books/addbook">
+        <td>*</td>
+        <td><input type="text" name="boo_isbn" required></td>
+        <td><input type="text" name="boo_name"></td>
+        <td><input type="number" name="boo_price" ></td>
+        <td><input type=date name="boo_buytime"</td>
+        <td></td>
+        <td><input type="submit" value="提  交"/></td>
+        </form>
+      </tr>
+    <% } %>  
+    <% for(var i=0;i<rows.length;i++){%>
+      <tr id="book<%=rows[i].boo_isbn%>">
+        <td><%=i+1%></td>
+        <td><img src="books/bookimg/<%=rows[i].boo_isbn%>"/></td>
+        <td><a href="javascript:void(0)" onclick="showSummary(<%=rows[i].boo_isbn%>)"><%=rows[i].boo_name%></a></td>
+        <td><%=rows[i].boo_publisher %> (<%=rows[i].boo_pubdate %>)</td>
+        <td><%=rows[i].boo_buytime%></td>
+        <td><button type="button" class="bj" isbn="<%=rows[i].boo_isbn%>" >读书笔记</button></td>
+        <% if(locals.adminlogin) { %>
+          <td><button type="button" class="del" isbn="<%=rows[i].mot_id%>" >删除</button></td>
+        <% } %>
+        
+      </tr>
+      <tr class="summary" id="summary<%=rows[i].boo_isbn%>">
+        <td></td>
+        <td colspan="5"><%=rows[i].boo_summary%></div>
+      </tr>
+    <% } %>
+  </table>
   
 <script>
   SetActionNav('我的读书');

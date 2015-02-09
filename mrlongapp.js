@@ -2,7 +2,7 @@
 //
 //  龙仕云的主页。
 // 
-//  为生活积累点点滴滴 － 20140=1015
+//  为生活积累点点滴滴 － 20140-10-15
 //
 //
 //
@@ -33,10 +33,10 @@ module.exports = app;
 
 //参数
 app.set('appdir',__dirname);
-
 app.use(bodyParser());
 app.use(express.static(__dirname + '/public',{ maxAge: 86400000 }));
 app.use(express.static(__dirname + '/uploads'));
+
 
 app.set('views', path.join(__dirname, 'views_pc'));
 app.set('view engine', 'html');

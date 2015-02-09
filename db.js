@@ -20,12 +20,14 @@
 //////////////////////////////////////////
 
 var fs = require("fs");
+var path = require('path');
 var config = require("./config.js");
-var file = config.sqlite.file;  //数据库文件 long.db
+
 var sqltxt = require('./database/sqltxt');  //升级的sql语句
 
 
 //确定文件是否存在
+var file = path.join(__dirname,config.sqlite.file);   //数据库文件 long.db,采用path将相对路径改为绝对路径
 var exists = fs.existsSync(file);
 
 var sqlite3 = require("sqlite3").verbose();

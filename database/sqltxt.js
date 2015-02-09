@@ -37,7 +37,12 @@ module.exports = {
                "boo_tag varchar(20)," +
                "boo_pubdate char(10)," +
                "boo_buytime datetime," +
-               "boo_state integer default 0,boo_url varchar(50))"},
+               "boo_state integer default 0," + 
+               "boo_url varchar(50)," + 
+               "boo_summary blob," + 
+               "boo_catalog blob," + 
+               "boo_publisher char(30)," + 
+               "boo_doubandata blob)"},
     {ver:10,txt:"create table books_notes(" +
                 "bno_guid char(36) primary key, " +
                 "boo_isbn char(20)," +
