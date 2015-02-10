@@ -59,8 +59,8 @@
   });
   
 </script>
-
-<h3>我的读书</h3>
+<% var mycount = 0; for(var i=0;i<rows.length;i++){mycount = mycount + rows[i].boo_price;}%>
+<h3 style="text-align: center">我的读书共<%=rows.length%>本,购书费合计: <%=mycount%></h3>
   
   <table id="books_table" border="0" >
     <% if(locals.adminlogin) { %>
