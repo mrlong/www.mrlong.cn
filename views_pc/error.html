@@ -3,7 +3,7 @@
 <head>
 <title><%=title%></title>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<script type="text/javascript" src="/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
 <% if(url) { %>
     <meta http-equiv="refresh" content="3;URL=<%=url%>" />
 <%  } %>
@@ -26,10 +26,10 @@
 
 <script type="text/javascript">
     $(function(){
-        var jCount = 0;
-        setInterval(function(){
-            ++jCount;
+        var jCount = 1;
+        setInterval(function(){           
             $("#icount").text(jCount);
+            ++jCount;
         },1000);
     })
   
@@ -43,7 +43,7 @@
         </h1>
         <h2>
             <% if(url) { %>
-                正在跳转... <strong id="icount">0</strong>/3 <a href="<%=url%>">等不了直接跳</a>
+                正在跳转... <strong id="icount">1</strong>/3 <a href="<%=url%>">等不回到原来页面</a>
             <% } %>
         </h2>
         <p>

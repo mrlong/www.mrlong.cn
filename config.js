@@ -13,7 +13,7 @@ module.exports = {
   },
   
   domain: 'www.mrlong.cn',
-  title:'龙仕云',   //应用标题,
+  title:'成功就是抢先一步的创新',   //应用标题,
   
   /*微信配置*/
   weixin:{

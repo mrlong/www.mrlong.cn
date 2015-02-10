@@ -107,17 +107,25 @@ router.get('/location/:guid',function(req,res,next){
 //起始页
 router.get('/',function (req, res,next) {	
   var data=[];
-
-  db.query('select  * from shfimg order by ct desc  limit 0,4',function(err,rows){
-    if(!err){
-      rows.forEach(function(row){data.push(row.imgfile)});
-    };
-    
+  var books=[]; //书
+  db.query('select  * from shfimg order by ct desc  limit 0,4',function(err1,rows,db){
+    db.all('select boo_isbn,boo_name  from books order by boo_buytime desc limit 0,8',function(err2,rows2){
+      
+      if(!err1){
+        rows.forEach(function(row){data.push(row.imgfile)});
+      };
+      
+      if(!err2){
+        rows2.forEach(function(book){books.push({isbn:book.boo_isbn,title:book.boo_name})}); 
+      };
+      
+     res.render('./index', {'imgs':data,'books':books}); 
+      
+    });    
     //res.writeHead(200);
     //console.log(data);
     //var tpl = ejs.compile(fs.readFileSync(path.join(__dirname, 'views/index.html'),'utf-8'));
-    //res.end(tpl({'imgs':data}));
-    res.render('./index', {'imgs':data});
+    //res.end(tpl({'imgs':data}));    
   });
   
 });

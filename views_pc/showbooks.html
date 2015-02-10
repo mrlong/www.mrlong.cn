@@ -94,7 +94,9 @@
       <tr id="book<%=rows[i].boo_isbn%>" style="border-bottom: 1px solid #EEE;">
         <td><%=i+1%></td>
         <td width="40%">
-          <img src="books/bookimg/<%=rows[i].boo_isbn%>"/ style="margin:4px;float:left">
+          <a href="/books/info/<%=rows[i].boo_isbn%>">
+            <img src="books/bookimg/<%=rows[i].boo_isbn%>"/ style="margin:4px;float:left">
+          </a>
           <div style="margin-top:20px">
           <a href="javascript:void(0)" onclick="showSummary(<%=rows[i].boo_isbn%>)"><%=rows[i].boo_name%><br></a>
           <%=rows[i].boo_publisher %> (<%=rows[i].boo_pubdate %>)<br>

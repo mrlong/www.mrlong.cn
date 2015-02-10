@@ -58,9 +58,12 @@
       color:red;
     }
 
-    #doubanfm { 
-      margin-left: 100px; 
-    }  
+    #doubanfm { margin-left: 100px;}           
+         
+    .booklist{ margin-left: 10px; width:608px; height:320px; float:left;}    
+    .booklist ul{ width:580px;}    
+    .booklist li{ width:110px; height: 140px; float:left; display:block;margin-top: 4px } //150px两行,100px三行,以此类推...      
+
 	</style>
 
   <script language="javascript">
@@ -93,18 +96,24 @@
 
     <section>
       <h3>读书:</h3>
-      <ul>
-        <li>
-        <blockquote>
 
-          <script type="text/javascript" src="http://www.douban.com/service/badge/mrlong/?selection=random&amp;picsize=medium&amp;show=collection&amp;n=8&amp;hidelogo=on&amp;hideself=on&amp;cat=book&amp;columns=4"></script>
-        </blockquote>
-        </li>
-        <a href="http://book.douban.com/people/mrlong/collect?start=0&sort=time&rating=all&filter=all&mode=grid">我读过的更多书籍...</a> 
-        
-      </ul>
+          <div class="booklist"> 
+            <ul>
+            <% for(var i=0; i<books.length;i++){%>
+              <li>
+                <a href="/books/info/<%=books[i].isbn%>">
+                <img class="bookimg" src="/books/bookimg/<%=books[i].isbn%>" width="100px" height="135px">
+                </a>
+              </li>    
+            <% } %>
+            </ul> 
+            </div>
+ 
+        <a href="/books" style="margin-left: 20px;">我读过的更多书籍...</a> 
+
     </section>
 
+      
     <section>
       <h3>书法绘画:</h3>
       <blockquote>

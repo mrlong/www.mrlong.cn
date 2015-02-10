@@ -1,0 +1,37 @@
+<% include header.html %>
+ 
+  <style>
+    .bookinfo{
+      margin: 10px; 
+      
+    }
+    
+    .bookinfo h3{ text-align: center};
+  
+  </style>
+  
+  <div class="bookinfo">
+  <h3><%=book.title%></h3>
+  <img src="<%=book.images.large%>" style=" margin-left: 100px;" >
+  <img src="/books/bookimg/<%=isbn%>">
+  <br>
+  
+    <b>author</b>: <%=book.author%> ,  <b>translator</b>：<%=book.translator[0]%><br>
+    <b>pages</b>:<%=book.pages%><br>
+    <b>publisher</b>:<%=book.publisher%>(<%=book.pubdate%>)<br>
+    <b>price</b>:<%=book.price%><br>
+    
+      <b>catalog</b>:<br><small><%=book.catalog%></small> <br>
+    
+      <b>summary</b>:<br><small><%=book.summary%></small>
+    
+    
+    </div>
+  
+<script>
+  SetActionNav('');
+</script>      
+<% include footer.html %>
+  
+  
+ 

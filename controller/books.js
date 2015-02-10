@@ -13,6 +13,7 @@
 var express = require('express');
 var db = require('../db');
 var urllib = require('urllib');
+var util = require('../util');
 
 
 var router = express.Router();
@@ -173,6 +174,22 @@ router.post('/delbook',function(req,res,next){
   else{
    res.json({success:false,msg:"你需要登录"}); 
   }  
+});
+
+//
+// 取出书的祥细信息
+//
+router.get('/info/:isbn',function(req,res,next){
+  var isbn = req.params.isbn;
+  db.query('select boo_isbn,boo_doubandata from books where boo_isbn=?',[isbn],function(err,rows){
+    if(!err && rows.length>0){
+      res.render('./bookinfo.html',{isbn:isbn,book:JSON.parse(rows[0].boo_doubandata)});  
+    }
+    else{
+      res.end(util.errBox('打不到这本书','/books'));
+    }
+  });
+
 });
 
 
