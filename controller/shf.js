@@ -1,3 +1,9 @@
+/*
+ *
+ * 书法绘画
+ * 作者：龙仕云  
+ *
+ */
 
 var fs = require('fs');
 var ejs = require('ejs');
