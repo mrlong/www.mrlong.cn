@@ -20,15 +20,40 @@ var router = express.Router();
 
 //显示书
 router.get('/',function(req,res,next){
+  var page = req.query['page']||1;
+  var startpage = (page-1)*3;
   db.query('select boo_isbn,boo_name,boo_pubdate,boo_buytime,boo_publisher,boo_summary, ' + 
-           'boo_buytime,boo_tag,boo_price,boo_state from books order by boo_buytime desc',function(err,rows){
+           'boo_buytime,boo_tag,boo_price,boo_state from books order by boo_buytime desc limit ?,3',
+           [startpage],function(err,rows,db){
     if(!err){
-      res.render('./showbooks.html', {rows:rows});  
+      db.get('select count(*) as rowcount,sum(boo_price) as totle from books',function(err,row){
+        res.render('./showbooks.html', {rows:rows,
+                                        curpage:page,
+                                        rowcount:row.rowcount,
+                                        totle:row.totle});
+      
+      });
+        
     }
     else
-      res.render('./showbooks.html', {rows:[]});
-  });
-  
+      res.render('./showbooks.html', {rows:[],curpage:1,rowcount:0,totle:0});
+  });  
+});
+
+//显示ajax显示
+router.post('/',function(req,res,next){
+  var page = req.body.page||1;
+  var startpage = (page-1)*3;
+  db.query('select boo_isbn,boo_name,boo_pubdate,boo_buytime,boo_publisher,boo_summary, ' + 
+           'boo_buytime,boo_tag,boo_price,boo_state from books order by boo_buytime desc limit ?,3',
+           [startpage],function(err,rows,db){
+    if(!err){
+      res.json({success:true,data:rows,msg:'操作成功'});
+             
+    }
+    else
+      res.json({success:false,msg:'取出错误'+err});
+  });  
 
 });
 

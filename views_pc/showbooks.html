@@ -16,6 +16,10 @@
       $("#summary" + isbn).toggle(100); 
   };
   
+  function doloadbook(page){
+    alert(page); 
+  }
+  
   $(document).ready(function(){
     $(".summary").hide();            
     //打开读书笔记
@@ -60,7 +64,7 @@
   
 </script>
 <% var mycount = 0; for(var i=0;i<rows.length;i++){mycount = mycount + rows[i].boo_price;}%>
-<h3 style="text-align: center">我的读书共<%=rows.length%>本,购书费合计: <%=mycount%></h3>
+<h3 style="text-align: center">我的读书共<%=rowcount%>本,购书费合计: <%=totle%></h3>
   
   <table id="books_table" border="0" >
     <% if(locals.adminlogin) { %>
@@ -123,6 +127,15 @@
     <% } %>
   </table>
   
+  <% var totalpage = rowcount%3>0?1:0;totalpage = totalpage + parseInt(rowcount/3);  %>
+  <% if (curpage < totalpage){  %>
+    <a href="javascript:void(0)" onclick="doloadbook(<%==Number(curpage)+1%>)"><button style="width: 90%;height: 31px;margin-left: 50px;">下一页</button></a>
+  <%}else{%>
+    <button style="width: 90%;height: 31px;margin-left: 50px;">后面没有了，就这么多。总共<%=rowcount%>本书 共<%=totalpage%>页。</button>
+      
+  <%}%>
+    
+    
 <script>
   SetActionNav('我的读书');
 </script>     
