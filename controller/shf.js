@@ -76,7 +76,7 @@ router.use('/pictrueone',function(req,res,next){
 });
 
 //修改书法信息
-router.use('/editshinfo',function(req,res,next){
+router.use('/editshfinfo',function(req,res,next){
   var zguid = req.query.zguid||req.body.zguid;
   var appdir = res.locals.appdir;
   
