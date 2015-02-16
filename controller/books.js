@@ -21,9 +21,9 @@ var router = express.Router();
 //显示书
 router.get('/',function(req,res,next){
   var page = req.query['page']||1;
-  var startpage = (page-1)*3;
+  var startpage = (page-1)*20;
   db.query('select boo_isbn,boo_name,boo_pubdate,boo_buytime,boo_publisher,boo_summary, ' + 
-           'boo_buytime,boo_tag,boo_price,boo_state from books order by boo_buytime desc limit ?,3',
+           'boo_buytime,boo_tag,boo_price,boo_state from books order by boo_buytime desc limit ?,20',
            [startpage],function(err,rows,db){
     if(!err){
       db.get('select count(*) as rowcount,sum(boo_price) as totle from books',function(err,row){
@@ -40,22 +40,6 @@ router.get('/',function(req,res,next){
   });  
 });
 
-//显示ajax显示
-router.post('/',function(req,res,next){
-  var page = req.body.page||1;
-  var startpage = (page-1)*3;
-  db.query('select boo_isbn,boo_name,boo_pubdate,boo_buytime,boo_publisher,boo_summary, ' + 
-           'boo_buytime,boo_tag,boo_price,boo_state from books order by boo_buytime desc limit ?,3',
-           [startpage],function(err,rows,db){
-    if(!err){
-      res.json({success:true,data:rows,msg:'操作成功'});
-             
-    }
-    else
-      res.json({success:false,msg:'取出错误'+err});
-  });  
-
-});
 
 //增加图书
 /* douban的格式如下：

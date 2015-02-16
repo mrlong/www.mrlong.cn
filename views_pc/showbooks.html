@@ -95,8 +95,12 @@
     <% } %>  
       
     <% for(var i=0;i<rows.length;i++){%>
-      <tr id="book<%=rows[i].boo_isbn%>" style="border-bottom: 1px solid #EEE;">
-        <td><%=i+1%></td>
+      <% if (i === rows.length-1){ %>
+        <tr id="book<%=rows[i].boo_isbn%>" >    <!-- 最后一本时下线不要画了 -->
+      <%} else {%>
+        <tr id="book<%=rows[i].boo_isbn%>" style="border-bottom: 1px solid #EEE;">
+      <%}%>
+        <td><%=(curpage-1)*20 + i+1%></td>
         <td width="40%">
           <a href="/books/info/<%=rows[i].boo_isbn%>">
             <img src="books/bookimg/<%=rows[i].boo_isbn%>"/ style="margin:4px;float:left">
@@ -127,14 +131,16 @@
     <% } %>
   </table>
   
-  <% var totalpage = rowcount%3>0?1:0;totalpage = totalpage + parseInt(rowcount/3);  %>
-  <% if (curpage < totalpage){  %>
-    <a href="javascript:void(0)" onclick="doloadbook(<%==Number(curpage)+1%>)"><button style="width: 90%;height: 31px;margin-left: 50px;">下一页</button></a>
-  <%}else{%>
-    <button style="width: 90%;height: 31px;margin-left: 50px;">后面没有了，就这么多。总共<%=rowcount%>本书 共<%=totalpage%>页。</button>
-      
+  <div style="margin-left: 200px;">
+  <% var totalpage = rowcount%20>0?1:0;totalpage = totalpage + parseInt(rowcount/20);  %>
+  <% if (curpage >1) { %>
+    <a href="/books?page=<%=Number(curpage)-1%>"> <button style="width: 100px;height: 31px;">上一页</button></a>      
   <%}%>
-    
+
+  <% if (curpage < totalpage){  %>
+    <a href="/books?page=<%=Number(curpage)+1%>" ><button style="width:100px;height: 31px;">下一页</button></a>
+  <%}%> 第<%=curpage%>页,共<%=totalpage%>页 总共<%=rowcount%>本书。 
+  </div>
     
 <script>
   SetActionNav('我的读书');
