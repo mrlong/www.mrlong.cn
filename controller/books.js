@@ -30,7 +30,7 @@ router.get('/',function(req,res,next){
         res.render('./showbooks.html', {rows:rows,
                                         curpage:page,
                                         rowcount:row.rowcount,
-                                        totle:row.totle});
+                                        totle:parseInt(row.totle)});
       
       });
         
