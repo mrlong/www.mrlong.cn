@@ -201,5 +201,20 @@ router.get('/info/:isbn',function(req,res,next){
 
 });
 
+//
+// 取出读书的笔记
+//
+router.get('/notes/:isbn',function(req,res,next){
+  var isbn = req.params.isbn;
+  db.query('select * from books_notes where boo_isbn=? order by bno_time desc',[isbn],function(err,rows){
+    if(!err){
+      res.json({success:true,rows:rows,msg:'读取日记成功'});
+    }
+    else{
+      res.json({success:false,msg:'读取日志出错'+err}); 
+    }
+  });
+});
+
 
 module.exports = router;

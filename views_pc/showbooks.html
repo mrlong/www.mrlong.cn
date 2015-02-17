@@ -1,13 +1,18 @@
 <% include header.html %>
 <script type="application/javascript"  src="/js/jquery.form.js"></script>
+<script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&key=RTUBZ-3DUWW-WCERE-R5XFN-5B5WT-6ZFRU"></script>
  
 <style>
   
- #books_table{
+  #books_table{
       margin:auto;
       width: 90%;
-    }  
+  }  
   .single{width:200px;margin: 2px}
+  
+  .notes{
+    background-color:  #EEE; 
+  }
 </style>  
   
 <script>
@@ -16,16 +21,74 @@
       $("#summary" + isbn).toggle(100); 
   };
   
-  function doloadbook(page){
-    alert(page); 
+  function loadmap(id){
+     var myguid =  $('button[map='+  id + ']').attr('guid');
+     var myurl = "/location/" + myguid;
+     $.get(myurl,function(obj){
+          if (obj.success==true){
+            var center = new qq.maps.LatLng(obj.lat,obj.lng); // 地图的中心地理坐标。
+            var map = new qq.maps.Map(document.getElementById("map"+id), {
+              center: center,
+              zoom:13,
+              zoomControl: false,
+              panControl:false,
+              mapTypeControl:false
+            });
+            var marker = new qq.maps.Marker({
+              position: center,
+              map: map
+            });       
+            $('#map'+id).show();
+          }
+          else{
+            $('#map'+id).html(obj.msg);  
+          }
+        });
+    $('button[map='+  id + ']').hide();
   }
-  
+    
   $(document).ready(function(){
-    $(".summary").hide();            
+    $(".summary").hide();   
+    
     //打开读书笔记
     $("button[class=bj]").click(function(){
       var myisbn = $(this).attr('isbn');
-      alert(myisbn);
+      var hasclose = $(this).attr('close');
+      
+      if (hasclose == 'true'){
+        $("#notes"+myisbn+" table").hide();
+        $("#notes"+myisbn+" table tr").remove();
+        $(this).attr('close',false);
+        $(this).html('读取笔记');
+        return; 
+      };
+      
+      
+      $.get('/books/notes/'+myisbn,{},function(data,status){
+        if(status==='success'){
+          for( var i= 0; i< data.rows.length; i++){
+
+           var mymap = data.rows[i].loc_guid?'<td><button type="button" map="'+ i +'" guid="' +  data.rows[i].loc_guid +  '" onclick="loadmap(' + i +')">地图显示</button>' +
+            '<div class="container" id=map' + i + ' style="display:none;width: 200px;height: 100px;">d</div></td>' : '<td></td>';
+            
+           $("#notes"+myisbn+" table").append('<tr><td>'+ (i+1) +')</td><td>'+ data.rows[i].bno_txt +'</td>' +
+            '<td>' + data.rows[i].bno_time + '</td>' +  
+            '<td>' + data.rows[i].bno_title + '(页码:' + data.rows[i].bno_page + ')</td>' + 
+             mymap +                                   
+            '</tr>'); 
+            
+            
+          }
+        }
+        else{
+          alert('读取出错'); 
+        }      
+      });
+      $("#notes"+myisbn+" table").show();
+      $(this).html('关闭笔记');
+      $(this).attr('close',true);
+      
+    
     });    
     
     //增加书
@@ -56,7 +119,6 @@
         };
       });      
     });
-    
     //end
     
     
@@ -127,7 +189,13 @@
         <td></td>
         <td colspan="5"><small><%=rows[i].boo_summary%></small></div>
       </tr>
-      
+      <!--  读书笔记     -->
+      <tr class="notes" id="notes<%=rows[i].boo_isbn%>">
+        <td colspan="5">
+        <table></table>
+        </td>
+      </tr>
+      <!--  end    -->
     <% } %>
   </table>
   
@@ -143,7 +211,7 @@
   </div>
     
 <script>
-  SetActionNav('我的读书');
+  SetActionNav('我的读书');    
 </script>     
   
 <% include footer.html %>

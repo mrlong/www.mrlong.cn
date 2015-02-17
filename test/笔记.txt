@@ -22,3 +22,29 @@ budgetfour.mysql.rds.aliyuncs.com
 <!--  <%}%>-->
 
 <% var totalpage = rowcount%3>0?1:0;totalpage = totalpage + parseInt(rowcount/3);  %>
+
+
+
+var myurl = "/location/" + $(this).attr('guid');
+     var id = $(this).attr('cid');
+     $.get(myurl,function(obj){
+          if (obj.success==true){
+            var center = new qq.maps.LatLng(obj.lat,obj.lng); // 地图的中心地理坐标。
+            var map = new qq.maps.Map(document.getElementById("map"+id), {
+              center: center,
+              zoom:13,
+              zoomControl: false,
+              panControl:false,
+              mapTypeControl:false
+            });
+            var marker = new qq.maps.Marker({
+              position: center,
+              map: map
+            });
+            
+            $('#map'+id).show();
+          }
+          else{
+            $('#map'+id).html(obj.msg);  
+          }
+        });
