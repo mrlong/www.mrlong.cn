@@ -46,7 +46,7 @@ router.use('/pic',function(req,res,next){
       //var tpl = ejs.compile(fs.readFileSync(path.join(appdir, 'views/showpictrue.html'),'utf-8'));
       //console.log(rows);
       //res.end(tpl({'imgs':rows}));
-      res.render('./showpictrue', {'imgs':rows});
+      res.render('./views_pc/showpictrue', {'imgs':rows});
     }
     else {
       //出错的情况
@@ -83,7 +83,8 @@ router.use('/editshfinfo',function(req,res,next){
   var txt = req.body.txt || ''; 
   var tag = req.body.tag || '';
   var lat_lng = req.body.lat_lng || '';
-  var tpl = ejs.compile(fs.readFileSync(path.join(appdir, 'views_moblie/editpictrue.html'),'utf-8'));
+  
+  //var tpl = ejs.compile(fs.readFileSync(path.join(appdir, 'views_moblie/editpictrue.html'),'utf-8'));
   
   
 //weixin的认证信息
@@ -107,21 +108,20 @@ router.use('/editshfinfo',function(req,res,next){
             if(!err) myloc_guid = loc_guid;
             
             db.exec('update shfimg set tag=?,txt=?,loc_guid=? where zguid=?',[tag,txt,myloc_guid,zguid],function(err){
-              res.writeHead(200);
-              res.end(tpl({'zguid':zguid,'msg': err?'保存失败':'保存成功(有位置)。',wechatconfig:result}));
+              res.render('./views_moblie/editpictrue.html', {'zguid':zguid,'msg': err?'保存失败':'保存成功(有位置)。',wechatconfig:result}); 
             });
           }); 
         }
         else{
           //写入库内
           db.exec('update shfimg set tag=?,txt=? where zguid=?',[tag,txt,zguid],function(err){
-            res.writeHead(200);
-            res.end(tpl({'zguid':zguid,'msg': err?'保存失败':'保存成功。',wechatconfig:result}));
+            //res.writeHead(200);
+            res.render('./views_moblie/editpictrue.html', {'zguid':zguid,'msg': err?'保存失败':'保存成功。',wechatconfig:result}); 
           });
         }
       }
-      else{
-        res.end(tpl({'zguid':zguid,'msg':'',wechatconfig:result}));  
+      else{ 
+        res.render('./views_moblie/editpictrue.html', {'zguid':zguid,'msg':'',wechatconfig:result}); 
       } 
       //console.log(result); 
     }

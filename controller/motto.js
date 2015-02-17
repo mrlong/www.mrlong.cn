@@ -29,10 +29,10 @@ router.get('/getcurtxt',function(req,res,next){
 router.get('/show',function(req,res,next){
   db.query('select * from motto order by mot_id desc',function(err,rows){
     if(!err){
-      res.render('./showmotto.html', {rows:rows});  
+      res.render('./views_pc/showmotto.html', {rows:rows});  
     }
     else
-      res.render('./showmotto.html', {rows:[]});
+      res.render('./views_pc/showmotto.html', {rows:[]});
   });
   
 

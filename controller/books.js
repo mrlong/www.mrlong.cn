@@ -27,7 +27,7 @@ router.get('/',function(req,res,next){
            [startpage],function(err,rows,db){
     if(!err){
       db.get('select count(*) as rowcount,sum(boo_price) as totle from books',function(err,row){
-        res.render('./showbooks.html', {rows:rows,
+        res.render('./views_pc/showbooks.html', {rows:rows,
                                         curpage:page,
                                         rowcount:row.rowcount,
                                         totle:parseInt(row.totle)});
@@ -36,7 +36,7 @@ router.get('/',function(req,res,next){
         
     }
     else
-      res.render('./showbooks.html', {rows:[],curpage:1,rowcount:0,totle:0});
+      res.render('./views_pc/showbooks.html', {rows:[],curpage:1,rowcount:0,totle:0});
   });  
 });
 
@@ -192,7 +192,7 @@ router.get('/info/:isbn',function(req,res,next){
   var isbn = req.params.isbn;
   db.query('select boo_isbn,boo_doubandata from books where boo_isbn=?',[isbn],function(err,rows){
     if(!err && rows.length>0){
-      res.render('./bookinfo.html',{isbn:isbn,book:JSON.parse(rows[0].boo_doubandata)});  
+      res.render('./views_pc/bookinfo.html',{isbn:isbn,book:JSON.parse(rows[0].boo_doubandata)});  
     }
     else{
       res.end(util.errBox('打不到这本书','/books'));

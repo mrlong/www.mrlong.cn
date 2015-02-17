@@ -38,7 +38,7 @@ app.use(express.static(__dirname + '/public',{ maxAge: 86400000 }));
 app.use(express.static(__dirname + '/uploads'));
 
 
-app.set('views', path.join(__dirname, 'views_pc'));
+app.set('views', path.join(__dirname, './'));
 app.set('view engine', 'html');
 app.engine('html', ejs.renderFile);
 app.set('view cache', false);

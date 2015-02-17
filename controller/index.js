@@ -119,7 +119,7 @@ router.get('/',function (req, res,next) {
         rows2.forEach(function(book){books.push({isbn:book.boo_isbn,title:book.boo_name})}); 
       };
       
-     res.render('./index', {'imgs':data,'books':books}); 
+     res.render('./views_pc/index', {'imgs':data,'books':books}); 
       
     });    
     //res.writeHead(200);
