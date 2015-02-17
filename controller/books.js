@@ -14,9 +14,12 @@ var express = require('express');
 var db = require('../db');
 var urllib = require('urllib');
 var util = require('../util');
+var API = require('../wechat/api');
+var config = require('../config');
 
 
 var router = express.Router();
+var api = new API(config.weixin.appid,config.weixin.appsecret);
 
 //显示书
 router.get('/',function(req,res,next){
@@ -201,6 +204,67 @@ router.get('/info/:isbn',function(req,res,next){
 
 });
 
+
+
+//
+// 增加读书笔记
+//
+router.use('/notes/add',function(req,res,next){
+  var txt = req.query.txt;
+  var bno_isbn = req.body.book || ''; 
+  var bno_txt   = req.body.txt || '';
+  var bno_title = req.body.title;
+  var bno_page  = req.body.page;
+  var lat_lng   = req.body.lat_lng || '';  //地图信息
+  var bno_viewstyle = req.body.style || 0;
+  
+  //weixin的认证信息
+  var param = {
+    debug:false,
+    jsApiList: ['openLocation','getLocation'],
+    url: 'http://' + config.domain + req.originalUrl
+  };
+  api.getJsConfig(param,function(err,result){
+    if(!err){
+      //请求
+      if(bno_isbn==''){
+        db.query('select boo_name,boo_isbn from books order by boo_state desc, boo_buytime desc limit  0,10',function(err,rows){
+          res.render('./views_moblie/books_notes_add.html', {'txt':txt,books:rows,'msg':'',wechatconfig:result});  
+        });
+      }
+      //提交
+      else{
+        var myloc_guid = null;
+        if(lat_lng){
+          var array = lat_lng.split(',');
+          var lat = array[0];
+          var lng = array[1];
+          db.newLocation(2/*表示书法绘画*/,lat,lng,zguid,function(err,loc_guid){
+            if(!err) myloc_guid = loc_guid;
+          });
+
+        };
+         
+        var myguid = db.newGuid();
+        //datetime("now","localtime")
+        db.exec('insert into books_notes(bno_guid,boo_isbn,bno_txt,bno_title,bno_page,bno_viewstyle,bno_time,loc_guid) values(?,?,?,?,?,?,datetime("now","localtime"),?)',
+                  [myguid,bno_isbn,bno_txt,bno_title,bno_page,bno_viewstyle,myloc_guid],function(err){
+              
+            if(!err){
+              res.render('./views_moblie/books_notes_add.html', {'txt':txt,books:[],'msg':myloc_guid?'保存成功(有位置)':'保存成功',wechatconfig:result}); 
+            }
+            else{
+              res.render('./views_moblie/books_notes_add.html', {'txt':txt,books:[],'msg':'保存失败',wechatconfig:result});    
+            }
+          });                                      
+      }
+    }
+    else{
+      util.errBox(err,'/');  
+    }
+  });    
+});
+
 //
 // 取出读书的笔记
 //
@@ -215,6 +279,7 @@ router.get('/notes/:isbn',function(req,res,next){
     }
   });
 });
+
 
 
 module.exports = router;

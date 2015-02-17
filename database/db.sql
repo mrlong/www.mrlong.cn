@@ -36,7 +36,7 @@ create table sysparams(
 /*地点位置信息列表 ver=3*/
 create table location(
   loc_guid char(36) primary key,            /*这个是主键*/
-  loc_style integer not null default 0,     /*0=表示没有关联上的， 内容类型 1=书法的拍照位置*/
+  loc_style integer not null default 0,     /*0=表示没有关联上的， 内容类型 1=书法的拍照位置 2=读书笔记位置*/
   loc_content char(50),                     /*关联内容的信息，如是书法，则这个是书法的zguid*/
   loc_latitude integer,                     /* 纬度，浮点数，范围为90 ~ -90*/
   loc_longitude integer,                    /* 经度，浮点数，范围为180 ~ -180。*/

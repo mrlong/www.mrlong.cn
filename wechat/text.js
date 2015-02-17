@@ -11,6 +11,17 @@ module.exports = function(message, req, res, next){
   var input = (message.Content || '').trim();
   var content = '不支持请取消关注';
 
+  var content = [];
+  content.push({
+    title: '格言',
+    url: config.domain + '/motto/add?txt=' + input
+  });
+  
+  content.push({
+    title: '读书笔记',
+    url: config.domain + '/books/notes/add?txt=' + input
+  });
+  
   res.reply(content);
   
 };
