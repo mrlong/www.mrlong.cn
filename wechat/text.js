@@ -9,7 +9,6 @@ module.exports = function(message, req, res, next){
   //console.log(message);
   
   var input = (message.Content || '').trim();
-  var content = '不支持请取消关注';
 
   var content = [];
   content.push({
