@@ -241,7 +241,7 @@ router.use('/notes/add',function(req,res,next){
           var array = lat_lng.split(',');
           var lat = array[0];
           var lng = array[1];
-          db.newLocation(2/*表示书法绘画*/,lat,lng,zguid,function(err,loc_guid){
+          db.newLocation(2/*表示书法绘画*/,lat,lng,myguid,function(err,loc_guid){
             if(!err) myloc_guid = loc_guid;
               db.exec('insert into books_notes(bno_guid,boo_isbn,bno_txt,bno_title,bno_page,bno_viewstyle,bno_time,loc_guid) values(?,?,?,?,?,?,datetime("now","localtime"),?)',
                   [myguid,bno_isbn,bno_txt,bno_title,bno_page,bno_viewstyle,myloc_guid],function(err){
