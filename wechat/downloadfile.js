@@ -31,7 +31,7 @@ http.get(url,function(e) {
           var fileguid = db.newGuid();
 		  var filename = getFileName(fileguid);
           
-		  console.log(filename);
+		  //console.log(filename);
 		  fs.writeFile(filename, data, 'binary',function (err) {
   			if (!err) {
                 //写入库内

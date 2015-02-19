@@ -11,7 +11,8 @@ var express = require('express');
 var db = require('../db');
 var API = require('../wechat/api');
 var config = require('../config');
-
+var fs = require('fs');
+var path = require('path');
 var router = express.Router();
 
 
@@ -101,6 +102,31 @@ router.get('/location/:guid',function(req,res,next){
       res.json({success:false,msg:'在库内找不到地图信息'});
     }
   });
+});
+
+//取出图片的信息
+router.get('/images/:guid',function(req,res,next){
+  var img_guid = req.params.guid;
+  db.query('select * from image where img_guid=?',[img_guid],function(err,rows){
+    if(!err && rows.length>0){
+      var myfilename = path.join(res.locals.appdir,config.sqlite.images) +'/'+ rows[0].img_filename; 
+      fs.readFile(myfilename,function(err,data){
+        if(!err){
+          res.set('Content-Type', 'image/jpg');
+          res.status(200).send(data); 
+        }
+        else{
+          res.status(404).send('Sorry, not find that!');   
+        }
+      });
+      
+    }
+    else{
+      res.status(404).send('Sorry, not find that!'); 
+    }
+  
+  });
+
 });
 
 

@@ -5,7 +5,7 @@
 
 /*
  *  版本信息：
- *    ver=10
+ *    ver=12
  *
  */
 
@@ -16,7 +16,7 @@ CREATE TABLE shfimg(
   zguid CHAR(36) Primary Key,   /*guid*/
   ct  datetime default (datetime('now','localtime')),        /*创建时间*/
   txt VARCHAR(250),                 /*说明*/
-  imgfile VARCHAR(250) not null,    /*文件名，文件固定存放在./public/shf目录之内*/
+  imgfile VARCHAR(250) not null,    /*文件名，文件固定存放在./public/shf目录之内,从2015-2-19改为采用统一的image库存放，这个值就是image的guid*/
   tag VARCHAR(20),                  /*标签 var=2*/
   loc_guid char(36)                 /* var=4 地图信息内容，如有说明在什么位置拍照*/
   
@@ -94,4 +94,23 @@ create table books_notes(
   bno_title varchar(50),                /*章节名称*/
   bno_viewstyle integer default 0,      /*=0 所有人都能看,=1表示自己才能看*/
   
+);
+
+/*我的足迹 var＝11*/
+create table footer(
+  foer_guid char(36) primary key,
+  foer_txt  varchar(250),              /*内容*/
+  foer_time datetime,                  /*时间*/
+  loc_guid char(36),                   /*位置*/
+  foer_viewstyle integer default 0,    /* 0=公开  1=私有*/
+  foer_tag varchar(20)                 /*标签*/
+);
+
+/*图片资源表 ver=12*/
+create table image(
+  img_guid char(36) primary key,         /*, 保存在图定的位置，暂定在database/images 下面,与guid进行命名*/
+  img_filename varchar(100),             /*文件的原名称*/
+  img_style integer not null default 0,  /*类型 1=我的足迹的图片*/
+  img_content char(50),                  /*关联内容的信息，如是我的足迹，则这个是我的足迹的guid*/
+  img_time default (datetime('now','localtime')) 
 );

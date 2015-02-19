@@ -9,7 +9,8 @@
 
 module.exports = { 
   sqlite :{
-    file: './database/long.db' 
+    file: './database/long.db',
+    images : './database/images'
   },
   
   domain: 'www.mrlong.cn',

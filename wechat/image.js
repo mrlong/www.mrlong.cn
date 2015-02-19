@@ -22,6 +22,7 @@ module.exports = function(image, req, res, next){
   var PicUrl = image.PicUrl;
 
   if (fromOpenID === 'o5Lr2t1c6b0JV0xidlxbClJa56s4'){
+    
  		download(PicUrl,function(err,msg){
  				res.reply(msg);
  		}); 			

@@ -5,7 +5,7 @@
 //
 
 module.exports = {
-  verstion : 10,
+  verstion : 12,
   sql:[
     {ver:1,txt:"CREATE TABLE shfimg(zguid CHAR(36) Primary Key," +
               "ct  datetime default (datetime('now','localtime'))," +
@@ -51,7 +51,20 @@ module.exports = {
                 "bno_txt varchar(250), " +
                 "bno_page integer," +
                 "bno_title varchar(50),   " +
-                "bno_viewstyle integer default 0)"}
+                "bno_viewstyle integer default 0)"},
+    {ver:11,txt:"create table footer(" + 
+                "foer_guid char(36) primary key," +
+                "foer_txt  varchar(250),"+
+                "foer_time datetime," + 
+                "loc_guid char(36),"  +
+                "foer_viewstyle integer default 0," +
+                "foer_tag varchar(20) )"},
+    {ver:12,txt:"create table image(" + 
+                "img_guid char(36) primary key," +
+                "img_filename varchar(100), " +
+                "img_style integer not null default 0," + 
+                "img_content char(50)," +
+                "img_time default (datetime('now','localtime')) )"}
     
 
   ]  
