@@ -44,8 +44,7 @@
   <table border="0">
     <% var c=1; %>
   	<% for(var i=0; i<imgs.length; i++) { %>
-  	<% if ((imgs[i].imgfile.indexOf('.JPG')>0)||(imgs[i].imgfile.indexOf('.jpg')>0)||
-  	       (imgs[i].imgfile.indexOf('.PNG')>0)||(imgs[i].imgfile.indexOf('.png')>0)) {  %>
+  	<% if (1==1) {  %>
 
    <tr>
      <td>
@@ -55,7 +54,7 @@
      <td>       
        <a href="/shf/pictrueone?picname=<%= imgs[i].imgfile %>"> 
   	   <img class="ttrlazyloadingb" 
-			data-bttrlazyloading-sm-src="/shf/<%= imgs[i].imgfile %>"
+			data-bttrlazyloading-sm-src="/images/<%= imgs[i].imgfile %>"
 			
             data-bttrlazyloading-sm-width="450"
 			data-bttrlazyloading-event="mouseover"
