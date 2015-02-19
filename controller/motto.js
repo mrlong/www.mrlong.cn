@@ -57,6 +57,8 @@ router.post('/add',function(req,res,next){
 
 });
 
+
+
 //删除
 router.post('/del',function(req,res,next){
   if(req.session.adminlogin){
@@ -74,6 +76,33 @@ router.post('/del',function(req,res,next){
     res.json({success:false,msg:'不能删除'});
   }
 });
+
+
+//
+// wechat内的增加
+//
+router.get('/we_add',function(req,res,next){
+  var txt = req.query.txt;
+  res.loadview('motto_add',{txt:txt,msg:''},true);
+});
+
+router.post('/we_add',function(req,res,next){
+  var txt = req.body.txt || '';
+  var from = req.body.from;
+  
+  if (txt != ''){
+    db.exec('insert into motto(mot_txt,mot_from,mot_time) values(?,?,datetime("now","localtime"))',
+            [txt,from],function(err){
+    res.loadview('motto_add',{txt:txt,msg:!err?'保存成功':'保存失败'},true);  
+    
+    });
+  }
+  else{
+    res.msgbox('格言内容为空，不能增加',true); 
+  }
+  
+});
+
 
 
 

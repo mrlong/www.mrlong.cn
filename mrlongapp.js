@@ -33,6 +33,44 @@ module.exports = app;
 
 //参数
 app.set('appdir',__dirname);
+app.response.loadview=function(filename,params,ismoble){
+  var myismoble = ismoble || false;
+  if (myismoble == false){
+    this.render('./views_pc/' + filename,params); 
+  }
+  else{
+    this.render('./views_moblie/' + filename,params);   
+  }
+};
+
+app.response.msgBox=function(msg,url,ismoble){
+  var myurl,myismoble;
+  if (typeof url === 'boolean'){
+    myismoble = url;
+    myurl = null;
+  }
+  else{
+    myurl = url;
+    myismoble = ismoble || false;
+  };
+
+  if (myismoble == false){
+     this.render('./views_pc/error.html',{
+        content:msg,
+        url:myurlurl,
+        title:config.title
+      });
+  }
+  else{
+    this.render('./views_moblie/msgbox.html',{
+        content:msg,
+        url:myurl,
+        title:config.title
+      });  
+  }
+};
+
+
 app.use(bodyParser());
 app.use(express.static(__dirname + '/public',{ maxAge: 86400000 }));
 app.use(express.static(__dirname + '/uploads'));

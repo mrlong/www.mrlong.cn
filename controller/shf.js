@@ -46,7 +46,8 @@ router.use('/pic',function(req,res,next){
       //var tpl = ejs.compile(fs.readFileSync(path.join(appdir, 'views/showpictrue.html'),'utf-8'));
       //console.log(rows);
       //res.end(tpl({'imgs':rows}));
-      res.render('./views_pc/showpictrue', {'imgs':rows});
+      //res.render('./views_pc/showpictrue', {'imgs':rows});
+      res.loadview('showpictrue',{'imgs':rows});
     }
     else {
       //出错的情况

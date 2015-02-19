@@ -1,0 +1,29 @@
+<% include header.html %>
+  
+  
+  <body>
+  <div data-role="page" id="pageone" data-theme="b">
+    <div data-role="content">
+      <p><%=msg%></p>
+      
+      <form action="/motto/we_add" method="post" autocomplete="yes"> 
+        <label for="txt">内容:</label> 
+        <input type="text" name="txt" id="txt" value="<%=txt%>">
+        
+        <label for="from">出自:</label> 
+        <input type="text" name="from" id="from">
+        
+        <input type="submit" value="   提  交  " data-inline="false" data-role="button" data-icon="check"  data-inline="true" />  
+
+      </form>
+        
+      
+    </div>
+  </div>
+  </body>
+
+<script>
+  SetTitle('增加格言');
+</script>
+  
+<% include footer.html %>

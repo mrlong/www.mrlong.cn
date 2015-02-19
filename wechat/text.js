@@ -24,7 +24,7 @@ module.exports = function(message, req, res, next){
   
   content.push({
     title: '格言',
-    url: config.domain + '/motto/add?txt=' + input
+    url: config.domain + '/motto/we_add?txt=' + input
   });
   
   
