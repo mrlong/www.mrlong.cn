@@ -235,28 +235,44 @@ router.use('/notes/add',function(req,res,next){
       //提交
       else{
         var myloc_guid = null;
+        var myguid = db.newGuid();
+        
         if(lat_lng){
           var array = lat_lng.split(',');
           var lat = array[0];
           var lng = array[1];
           db.newLocation(2/*表示书法绘画*/,lat,lng,zguid,function(err,loc_guid){
             if(!err) myloc_guid = loc_guid;
-          });
-
-        };
-         
-        var myguid = db.newGuid();
-        //datetime("now","localtime")
-        db.exec('insert into books_notes(bno_guid,boo_isbn,bno_txt,bno_title,bno_page,bno_viewstyle,bno_time,loc_guid) values(?,?,?,?,?,?,datetime("now","localtime"),?)',
+              db.exec('insert into books_notes(bno_guid,boo_isbn,bno_txt,bno_title,bno_page,bno_viewstyle,bno_time,loc_guid) values(?,?,?,?,?,?,datetime("now","localtime"),?)',
                   [myguid,bno_isbn,bno_txt,bno_title,bno_page,bno_viewstyle,myloc_guid],function(err){
               
+              if(!err){
+                res.render('./views_moblie/books_notes_add.html', {'txt':txt,books:[],'msg':'保存成功(有位置)',wechatconfig:result}); 
+              }
+              else{
+                res.render('./views_moblie/books_notes_add.html', {'txt':txt,books:[],'msg':'保存失败(有位置)',wechatconfig:result});    
+              }
+            });  
+            
+            
+            
+          });
+
+        }
+        else{ 
+        
+        //datetime("now","localtime")
+        db.exec('insert into books_notes(bno_guid,boo_isbn,bno_txt,bno_title,bno_page,bno_viewstyle,bno_time) values(?,?,?,?,?,?,datetime("now","localtime"))',
+                  [myguid,bno_isbn,bno_txt,bno_title,bno_page,bno_viewstyle],function(err){
+              
             if(!err){
-              res.render('./views_moblie/books_notes_add.html', {'txt':txt,books:[],'msg':myloc_guid?'保存成功(有位置)':'保存成功',wechatconfig:result}); 
+              res.render('./views_moblie/books_notes_add.html', {'txt':txt,books:[],'msg':'保存成功',wechatconfig:result}); 
             }
             else{
               res.render('./views_moblie/books_notes_add.html', {'txt':txt,books:[],'msg':'保存失败',wechatconfig:result});    
             }
           });                                      
+        } //end else
       }
     }
     else{
