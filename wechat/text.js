@@ -10,13 +10,15 @@ module.exports = function(message, req, res, next){
   
   var input = (message.Content || '').trim();
 
-  var content = '';
-  content.push({title:'你要选择:'});
+  var content = [];
+
+  content.push({
+    title:'你要选择:',
+    url:''});
   
   
   content.push({
     title: '读书笔记',
-    type: 'text',
     url: config.domain + '/books/notes/add?txt=' + input
   });
   
