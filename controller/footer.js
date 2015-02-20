@@ -55,7 +55,7 @@ router.post('/add',function(req,res,next){
       db.exec('update location loc_style=3,loc_content=? where loc_guid=?',[zguid,loc_guid]);
     };
     
-    res.msgBox(!err?'保存成功':'保存出错'+err);
+    res.msgBox(!err?'保存成功':'保存出错'+err,true);
     
   });
 });
