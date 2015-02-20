@@ -29,7 +29,7 @@
               
         
         <input type="hidden" name="img_guid"    id="img_guid" value="<%=img_guid%>">
-        <input type="text" name="foer_images" id="foer_images" value="<%=rows.length>0?rows[0].foer_images:''%>">
+        <input type="text" name="foer_images" id="foer_images" value="<%=rows.length>0 && rows[0].foer_images?rows[0].foer_images:''%>">
         <input type="submit" value="   提  交  " data-inline="false" data-role="button" data-icon="check"  data-inline="true" />  
 
       </form>
