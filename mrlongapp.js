@@ -35,12 +35,21 @@ module.exports = app;
 //参数
 app.set('appdir',__dirname);
 app.response.loadview=function(filename,params,ismoble){
-  var myismoble = ismoble || false;
-  if (myismoble == false){
-    this.render('./views_pc/' + filename,params); 
+  var myismoble;
+  var myparams = {};
+  if(typeof params ==='boolean'){
+      myismoble = params;
   }
   else{
-    this.render('./views_moblie/' + filename,params);   
+    myparams = params;
+    myismoble = ismoble || false; 
+  };
+
+  if (myismoble == false){
+    this.render('./views_pc/' + filename,myparams); 
+  }
+  else{
+    this.render('./views_moblie/' + filename,myparams);   
   }
 };
 

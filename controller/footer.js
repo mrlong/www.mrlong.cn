@@ -31,8 +31,50 @@ router.get('/',function(req,res,next){
   });    
 });
 
+//
+// 从微信过来的信息
+//
+
+router.get('/add',function(req,res,next){
+  var loc_guid = req.params.loc_guid;
+  res.loadview('footer_add.html',{loc_guid:loc_guid},true);
+});
+
+router.post('/add',function(req,res,next){
+  var loc_guid = req.body.loc_guid;
+  var txt = req.body.txt || '';
+  var tag = req.body.tag || '';
+  var time = req.body.time;
+  var style = req.body.style || 0;
+  
+  var zguid = db.newGuid();
+  db.exec('insert into footer(foer_guid,foer_txt,foer_time,loc_guid,foer_viewstyle,foer_tag) values(?,?,?,?,?,?)',
+          [zguid,txt,time,loc_guid,style,tag],function(err){
+    
+    if(!err && loc_guid){
+      db.exec('update location loc_style=3,loc_content=? where loc_guid=?',[zguid,loc_guid]);
+    };
+    
+    res.msgBox(!err?'保存成功':'保存出错'+err);
+    
+  });
+});
+
 
 module.exports = router;
+
+
+
+///*我的足迹 var＝11*/
+//create table footer(
+//  foer_guid char(36) primary key,
+//  foer_txt  varchar(250),              /*内容*/
+//  foer_time datetime,                  /*时间*/
+//  loc_guid char(36),                   /*位置*/
+//  foer_viewstyle integer default 0,    /* 0=公开  1=私有*/
+//  foer_tag varchar(20)                 /*标签*/
+//);
+
 
 
 
