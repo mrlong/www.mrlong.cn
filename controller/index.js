@@ -106,7 +106,11 @@ router.get('/location/:guid',function(req,res,next){
   var zguid = req.params.guid;
   db.query('select * from location where loc_guid=?',[zguid],function(err,rows){
     if(!err && rows.length>0){
-      res.json({success:true,lat:rows[0].loc_latitude,lng:rows[0].loc_longitude});
+      res.json({success:true,
+                lat:rows[0].loc_latitude,
+                lng:rows[0].loc_longitude,
+                scale:rows[0].loc_scale,
+                address:rows[0].loc_address});
     }
     else{
       res.json({success:false,msg:'在库内找不到地图信息'});

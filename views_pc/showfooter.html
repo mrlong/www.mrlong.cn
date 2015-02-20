@@ -1,18 +1,103 @@
 <% include header.html %>
   
-<h1>ssss</h1>
-  <table>
+<script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&key=RTUBZ-3DUWW-WCERE-R5XFN-5B5WT-6ZFRU"></script>  
+  
+<style>
+  #footer_table{
+      margin:auto;
+      width: 90%;
+  }  
+  
+  .container {
+    margin: 4px;
+    width:150px; 
+    height:150px;
+  };
+  
+</style>
+  
+  
+<script type="text/javascript">
+    $(document).ready(function(){
+      $('button[map="1"]').click(function(){
+        var myurl = "/location/" + $(this).attr('guid');
+        var id = $(this).attr('cid');
+        $.get(myurl,function(obj){
+          if (obj.success==true){
+            var center = new qq.maps.LatLng(obj.lat,obj.lng); // 地图的中心地理坐标。
+            var map = new qq.maps.Map(document.getElementById("map"+id), {
+              center: center,
+              zoom: obj.scale || 13,
+              zoomControl: false,
+              panControl:false,
+              mapTypeControl:false
+            });
+            var marker = new qq.maps.Marker({
+              position: center,
+              map: map
+            });
+            
+            $('#map'+id).show();
+          }
+          else{
+            $('#map'+id).html(obj.msg);  
+          }
+        });
+        $(this).hide();
+      });    
+    });
+   
+
+</script>
+  
+  
+<h3 style="text-align: center">我总共记录了<%=rowcount%>个去向</h3>
+  <table id="footer_table">
+    <tr>
+      <td>序号</td>
+      <td>发生日期</td>
+      <td>事迹简述</td>
+      <td>地理位置</td>
+      <td>相关图片</td>
+    </tr>
   <% for(var i=0;i<rows.length;i++){ %>
       
-    <tr>
-      <td><%=curpage*20+i+1%></td>  
+    <% if (i === rows.length-1){ %>
+      <tr id="footer<%=rows[i].foer_guid%>" >    <!-- 最后一本时下线不要画了 -->
+    <%} else {%>
+      <tr id="footer<%=rows[i].foer_guid%>" style="border-bottom: 1px solid #EEE;">
+    <%}%>
+        
+      <td><%=(curpage-1)*20+i+1%></td>  
       <td><%=rows[i].foer_time%></td>
       <td><%=rows[i].foer_txt%></td>
+      <% if(rows[i].loc_guid) {%>
+        <td>
+          <button type="button" map="1"  guid=<%=rows[i].loc_guid %> cid="<%=i%>" >地图显示</button>
+          <div class="container" id="<%='map'+i %>" style="display:none;"></div>
+        </td>
+      <% } else {%>
+        <td></td>
+      <%}%>
+      <td>
+      
+      </td>
     </tr>  
   
   <% } %>
     
   </table>
+        
+  <div style="margin-left: 200px;">
+  <% var totalpage = rowcount%20>0?1:0;totalpage = totalpage + parseInt(rowcount/20);  %>
+  <% if (curpage >1) { %>
+    <a href="/footer?page=<%=Number(curpage)-1%>"> <button style="width: 100px;height: 31px;">上一页</button></a>      
+  <%}%>
+
+  <% if (curpage < totalpage){  %>
+    <a href="/footer?page=<%=Number(curpage)+1%>" ><button style="width:100px;height: 31px;">下一页</button></a>
+  <%}%> 第<%=curpage%>页,共<%=totalpage%>页 总共<%=rowcount%>本书。 
+  </div>
   
 <script>
   SetActionNav('我的足迹');

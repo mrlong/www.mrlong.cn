@@ -19,9 +19,9 @@ router.get('/',function(req,res,next){
   
   //登录了管理员，全部显示，否则只显示公开的。
   var mywhere = req.session.adminlogin?'1=1':'foer_viewstyle=0';
-  db.query('select * from footer where ? order by foer_time desc limit ?,20',[mywhere,startpage],function(err,rows,db){
+  db.query('select * from footer where '+ mywhere +' order by foer_time desc limit ?,20',[startpage],function(err,rows,db){
     if(!err){
-      db.get('select count(*) as mycount from footer where ?',[mywhere],function(err,row){
+      db.get('select count(*) as mycount from footer where ' + mywhere,function(err,row){
         res.loadview('showfooter.html',{rows:rows,rowcount:row.mycount,curpage:page}); 
       });             
     }
@@ -49,10 +49,10 @@ router.post('/add',function(req,res,next){
   
   var zguid = db.newGuid();
   db.exec('insert into footer(foer_guid,foer_txt,foer_time,loc_guid,foer_viewstyle,foer_tag) values(?,?,?,?,?,?)',
-          [zguid,txt,time,loc_guid,style,tag],function(err){
+          [zguid,txt,time,loc_guid,style,tag],function(err,db){
     
-    if(!err && loc_guid){
-      db.exec('update location loc_style=3,loc_content=? where loc_guid=?',[zguid,loc_guid]);
+    if(!err && loc_guid != ''){
+      db.run('update location set loc_style=3,loc_content=? where loc_guid=?',[zguid,loc_guid]);
     };
     
     res.msgBox(!err?'保存成功':'保存出错'+err,true);
