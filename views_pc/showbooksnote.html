@@ -1,0 +1,106 @@
+<% include header.html %>
+<script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&key=RTUBZ-3DUWW-WCERE-R5XFN-5B5WT-6ZFRU"></script>
+  
+ <style>
+  
+  #booknote_table{
+      margin:auto;
+      width: 90%;
+  }  
+   
+  .mapview {
+    margin: 4px;
+    width:150px; 
+    height:150px;
+  };
+  
+  
+</style>  
+
+<script>
+  $(document).ready(function(){
+    $(" #booknote_table tr:odd").css('background-color','#d0cece');
+    
+    $('button[map="1"]').click(function(){
+        var myurl = "/location/" + $(this).attr('guid');
+        var id = $(this).attr('cid');
+        $.get(myurl,function(obj){
+          if (obj.success==true){
+            var center = new qq.maps.LatLng(obj.lat,obj.lng); // 地图的中心地理坐标。
+            var map = new qq.maps.Map(document.getElementById("map"+id), {
+              center: center,
+              zoom: obj.scale || 13,
+              zoomControl: false,
+              panControl:false,
+              mapTypeControl:false
+            });
+            var marker = new qq.maps.Marker({
+              position: center,
+              map: map
+            });
+            
+            $('#map'+id).show();
+          }
+          else{
+            $('#map'+id).html(obj.msg);  
+          }
+        });
+        $(this).hide();
+      });    
+  
+  });
+</script>
+  
+<h3 style="text-align: center">我总共记录了<%=rowcount%>次笔记</h3>
+  
+  
+<table id="booknote_table">
+  <tr>
+    <td>序号</td>
+    <td>发生日期</td>
+    <td>笔记内容</td>
+    <td>哪本书</td>
+    <td>书的位置</td>
+    <td>地理位置</td>
+    <td>相关图片</td>
+    
+  </tr>
+  <% for(var i=0;i<rows.length;i++) { %>
+    <tr guid="<%=rows[i].bno_guid%>">
+      <td><%=(i+1)%></td>
+      <td><%=rows[i].bno_time%></td>
+      <td><%=rows[i].bno_txt%></td>
+      <td><a href="/books/info/<%=rows[i].boo_isbn%>"><%=rows[i].boo_name%></td>
+      <td><%=rows[i].bno_title%><%=rows[i].bno_title!=''?',':''%><%=rows[i].bno_page%></td>
+      <%if(rows[i].loc_guid) {%>
+        <td>
+          <button type="button" map="1"  guid=<%=rows[i].loc_guid %> cid="<%=i%>" >地图显示</button>
+          <div class="mapview" id="<%='map'+i %>" style="display:none;"></div>
+        </td>
+      <%} else { %>
+        <td></td>
+      <%}%>
+        
+      <!-- 相关图片       -->
+      <td>
+        <% var myimages = (rows[i].bno_images || '').split(',');  %>
+        <% var c=0%>
+        <% for (var k=0;k<myimages.length;k++) if(myimages[k] !='') { c=c+1  %>
+          
+          <a href="/images/<%=myimages[k]%>" target="_blank">图片<%=c %></a>
+        <%}%>
+      </td>
+    </tr>
+  <% } %>
+  
+  
+</table>  
+  
+  
+<script>
+  SetActionNav('读书笔记');    
+</script>     
+  
+<% include footer.html %>
+  
+  

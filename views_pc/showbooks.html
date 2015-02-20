@@ -20,76 +20,10 @@
   function showSummary(isbn){    
       $("#summary" + isbn).toggle(100); 
   };
-  
-  function loadmap(id){
-     var myguid =  $('button[map='+  id + ']').attr('guid');
-     var myurl = "/location/" + myguid;
-     $.get(myurl,function(obj){
-          if (obj.success==true){
-            var center = new qq.maps.LatLng(obj.lat,obj.lng); // 地图的中心地理坐标。
-            var map = new qq.maps.Map(document.getElementById("map"+id), {
-              center: center,
-              zoom:13,
-              zoomControl: false,
-              panControl:false,
-              mapTypeControl:false
-            });
-            var marker = new qq.maps.Marker({
-              position: center,
-              map: map
-            });       
-            $('#map'+id).show();
-          }
-          else{
-            $('#map'+id).html(obj.msg);  
-          }
-        });
-    $('button[map='+  id + ']').hide();
-  }
     
   $(document).ready(function(){
     $(".summary").hide();   
-    
-    //打开读书笔记
-    $("button[class=bj]").click(function(){
-      var myisbn = $(this).attr('isbn');
-      var hasclose = $(this).attr('close');
-      
-      if (hasclose == 'true'){
-        $("#notes"+myisbn+" table").hide();
-        $("#notes"+myisbn+" table tr").remove();
-        $(this).attr('close',false);
-        $(this).html('读取笔记');
-        return; 
-      };
-      
-      
-      $.get('/books/notes/'+myisbn,{},function(data,status){
-        if(status==='success'){
-          for( var i= 0; i< data.rows.length; i++){
-
-           var mymap = data.rows[i].loc_guid?'<td><button type="button" map="'+ i +'" guid="' +  data.rows[i].loc_guid +  '" onclick="loadmap(' + i +')">地图显示</button>' +
-            '<div class="container" id=map' + i + ' style="display:none;width: 200px;height: 100px;margin:2px;">d</div></td>' : '<td></td>';
-            
-           $("#notes"+myisbn+" table").append('<tr><td>'+ (i+1) +')</td><td>'+ data.rows[i].bno_txt +'</td>' +
-            '<td>' + data.rows[i].bno_time + '</td>' +  
-            '<td>' + data.rows[i].bno_title + '(' + data.rows[i].bno_page + '页)</td>' + 
-             mymap +                                   
-            '</tr>'); 
-            
-            
-          }
-        }
-        else{
-          alert('读取出错'); 
-        }      
-      });
-      $("#notes"+myisbn+" table").show();
-      $(this).html('关闭笔记');
-      $(this).attr('close',true);
-      
-    
-    });    
+       
     
     //增加书
     var options = {
@@ -177,7 +111,7 @@
 
         <td width="50%">
           <%=rows[i].boo_state===0?"读过":"在读中..."%><br>
-          <button type="button" class="bj" isbn="<%=rows[i].boo_isbn%>" >读书笔记</button>
+          <a href="/books/notes?isbn=<%=rows[i].boo_isbn%>"> <button type="button" class="bj" >读书笔记</button></a>
         </td>
         <% if(locals.adminlogin) { %>
           <td><button type="button" class="del" isbn="<%=rows[i].boo_isbn%>" >删除</button></td>
@@ -188,13 +122,7 @@
         <td></td>
         <td colspan="5"><small><%=rows[i].boo_summary%></small></div>
       </tr>
-      <!--  读书笔记     -->
-      <tr class="notes" id="notes<%=rows[i].boo_isbn%>">
-        <td colspan="5">
-        <table></table>
-        </td>
-      </tr>
-      <!--  end    -->
+
     <% } %>
   </table>
   

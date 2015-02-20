@@ -46,7 +46,7 @@
       <form action="/books/notes/add" method="post" autocomplete="yes"> 
 
         <label for="book">哪本书:</label>
-        <select name="book" id="book" required="required">
+        <select name="book" id="book" >
           <% for(var i=0;i<books.length;i++) {%>
             <option value="<%= books[i].boo_isbn %>"><%= books[i].boo_name %></option>
           <% } %>

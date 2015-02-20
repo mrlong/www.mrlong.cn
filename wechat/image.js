@@ -39,7 +39,12 @@ module.exports = function(image, req, res, next){
           });
           
           content.push({
-            title:'3、上传错了，现在删除掉。',
+            title:'3、添加读书笔记',
+            url: config.domain + '/books/notes/addimage?img_guid=' + img_guid
+          });
+          
+          content.push({
+            title:'4、上传错了，现在删除掉。',
             url: config.domain + '/images/del/' + img_guid
           });
           

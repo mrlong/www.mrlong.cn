@@ -206,9 +206,44 @@ router.get('/info/:isbn',function(req,res,next){
 
 
 
-//
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // 增加读书笔记
 //
+
+router.get('/notes',function(req,res,next){
+  var page = req.query.page || 1;
+  var startpage = (page-1)*20;
+  var isbn = req.query.isbn;
+  
+  if(isbn){
+    db.query('select a.*,b.boo_name from books_notes as a left join books as b on a.boo_isbn=b.boo_isbn where a.boo_isbn=? order by a.bno_time desc  ',[isbn],function(err,rows){
+      if(!err){
+        res.loadview('showbooksnote.html',{rowcount:rows.length,rows:rows});
+      }
+      else{
+        res.msgBox('读取笔记失败','/books'); 
+      }
+  
+    });  
+  }
+  else{
+  
+    db.query('select a.*,b.boo_name from books_notes as a left join books as b on a.boo_isbn=b.boo_isbn order by a.bno_time desc limit ?,20 ',[startpage],function(err,rows,db){
+      if(!err){
+        db.get('select count(*) as mycount from books_notes',function(err,row){
+          res.loadview('showbooksnote.html',{rowcount:row.mycount,rows:rows});
+        });
+      
+      }
+      else{
+        res.msgBox('读取笔记失败','/books'); 
+      }
+  
+    });
+  }
+
+});
+
 router.use('/notes/add',function(req,res,next){
   var txt = req.query.txt;
   var bno_isbn = req.body.book || ''; 
@@ -265,11 +300,11 @@ router.use('/notes/add',function(req,res,next){
         
       
       //修改书中的状态
-      if(bno_state=='1'){
+      if(bno_state=='1' && bno_isbn !=''){
         db.exec('update books set boo_state=1 where boo_isbn=?',[bno_isbn]);
       };
       
-      if(bno_state=='0'){
+      if(bno_state=='0' && bno_isbn !=''){
         db.exec('update books set boo_state=0 where boo_isbn=?',[bno_isbn]);
       }
         
@@ -281,6 +316,43 @@ router.use('/notes/add',function(req,res,next){
     }
   });    
 });
+
+
+
+//
+//笔记增加图片
+//
+router.get('/notes/addimage',function(req,res,next){
+  var img_guid = req.query.img_guid;
+  db.query('select bno_guid,bno_txt,bno_images from books_notes order by bno_time desc limit 0,5',function(err,rows){
+    if(!err){
+      res.loadview('books_notes_addimage.html',{rows:rows,img_guid:img_guid},true);
+    }
+    else{
+      res.msgBox('读取笔记出错'+err,true); 
+    }
+  });
+});
+
+router.post('/notes/addimage',function(req,res,next){
+  var img_guid = req.body.img_guid;
+  var bno_images = req.body.bno_images ||'';
+  var bno_guid = req.body.booknote; 
+  
+  var myimages = bno_images==''? img_guid: bno_images + ',' + img_guid; 
+  db.exec('update books_notes set bno_images=? where bno_guid=?',[myimages,bno_guid],function(err,db){
+    if(!err){
+      db.run('update image set img_style=3 ,img_content=? where img_guid=?',[bno_guid,img_guid],function(err){
+        res.msgBox(!err?'保存成功':'更新图片库出错，但关联还在是的',true);
+      });
+    }
+    else{
+      res.msgBox('更新关联到笔记出错',true); 
+    }
+  });
+
+});
+
 
 //
 // 取出读书的笔记
@@ -296,7 +368,6 @@ router.get('/notes/:isbn',function(req,res,next){
     }
   });
 });
-
 
 
 module.exports = router;

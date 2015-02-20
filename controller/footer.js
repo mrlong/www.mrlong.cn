@@ -79,7 +79,7 @@ router.post('/addimage',function(req,res,next){
   var foer_guid = req.body.footer;
   
   if( img_guid && foer_guid){
-    var myimages = foer_images + ',' + img_guid; 
+    var myimages = foer_images==''?img_guid:foer_images + ',' + img_guid; 
     db.exec('update footer set foer_images=? where foer_guid=?',[myimages,foer_guid],function(err){
       if(!err){        
         db.exec('update image set img_style=1,img_content=? where img_guid=?',[foer_guid,img_guid],function(err){
@@ -98,15 +98,7 @@ module.exports = router;
 
 
 
-///*我的足迹 var＝11*/
-//create table footer(
-//  foer_guid char(36) primary key,
-//  foer_txt  varchar(250),              /*内容*/
-//  foer_time datetime,                  /*时间*/
-//  loc_guid char(36),                   /*位置*/
-//  foer_viewstyle integer default 0,    /* 0=公开  1=私有*/
-//  foer_tag varchar(20)                 /*标签*/
-//);
+
 
 
 
