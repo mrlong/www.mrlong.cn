@@ -69,11 +69,11 @@
           for( var i= 0; i< data.rows.length; i++){
 
            var mymap = data.rows[i].loc_guid?'<td><button type="button" map="'+ i +'" guid="' +  data.rows[i].loc_guid +  '" onclick="loadmap(' + i +')">地图显示</button>' +
-            '<div class="container" id=map' + i + ' style="display:none;width: 200px;height: 100px;">d</div></td>' : '<td></td>';
+            '<div class="container" id=map' + i + ' style="display:none;width: 200px;height: 100px;margin:2px;">d</div></td>' : '<td></td>';
             
            $("#notes"+myisbn+" table").append('<tr><td>'+ (i+1) +')</td><td>'+ data.rows[i].bno_txt +'</td>' +
             '<td>' + data.rows[i].bno_time + '</td>' +  
-            '<td>' + data.rows[i].bno_title + '(页码:' + data.rows[i].bno_page + ')</td>' + 
+            '<td>' + data.rows[i].bno_title + '(' + data.rows[i].bno_page + '页)</td>' + 
              mymap +                                   
             '</tr>'); 
             

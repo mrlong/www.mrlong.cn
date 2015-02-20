@@ -29,17 +29,17 @@ module.exports = function(image, req, res, next){
           var content = [];
           content.push({title:'选择你要做什么？'});
           content.push({
-            title: '书法绘画',
+            title: '1、书法绘画',
             url: config.domain + '/shf/editshfinfo?img_guid=' + img_guid
           });
           
           content.push({
-            title:'添加到我的足迹',
+            title:'2、添加到我的足迹',
             url: config.domain + '/footer/addimage?img_guid=' + img_guid
           });
           
           content.push({
-            title:'上传错了，现在删除掉。',
+            title:'3、上传错了，现在删除掉。',
             url: config.domain + '/images/del/' + img_guid
           });
           

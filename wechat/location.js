@@ -16,17 +16,17 @@ module.exports = function(location, req, res, next){
       var content = [];
 
       content.push({
-        title:'你要选择:',
+        title:'选择你要做什么?',
         url:''});
   
   
       content.push({
-        title: '我的足迹',
+        title: '1、我的足迹',
         url: config.domain + '/footer/add?loc_guid=' + loc_guid
       });
   
       content.push({
-        title: '上传错了,我要删除掉',
+        title: '2、上传错了,我要删除掉',
         url: config.domain + '/location/del/' + loc_guid
       });
 

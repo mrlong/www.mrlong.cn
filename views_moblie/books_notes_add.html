@@ -55,16 +55,26 @@
         
         <label for="txt">笔记:</label>  
         <textarea rows="6" cols="30"   name="txt" id="txt" autofocus required="required"><%=txt%></textarea>
+          
+          
         <label for="title">章节:</label> 
         <input type="text" name="title" id="title">
         <label for="page">页码:</label>
         <input type="number" name="page" id="page">
         
+        <div class="ui-grid-a" >
+        <div class="ui-block-a">
         <label for="style">权限：</label>
         <select name="style" id="style" data-role="slider">
             <option value="1">私密</option>
             <option value="0" selected="selected">公开</option>
         </select> 
+        </div>
+        <div class="ui-block-b">
+          <label for="bookstate">书状态(0=读过,1=在读中,空不处理)</label>
+          <input type="text" name="bookstate" id="bookstate">
+        </div>
+        </div>
           
         <div data-data-role="fieldcontain">
           <label for="sw2">记下位置：</label>
@@ -77,6 +87,9 @@
             <div class="ui-block-b"><input type="text" name="lat_lng" id="lat_lng"></div>
           </div>
         </div>
+          
+        
+        
 
       <input type="submit" value="   提  交  " data-inline="false" data-role="button" data-icon="check"  data-inline="true" />  
       </form>

@@ -13,17 +13,17 @@ module.exports = function(message, req, res, next){
   var content = [];
 
   content.push({
-    title:'你要选择:',
+    title:'选择你要做什么？',
     url:''});
   
   
   content.push({
-    title: '读书笔记',
+    title: '1、读书笔记',
     url: config.domain + '/books/notes/add?txt=' + input
   });
   
   content.push({
-    title: '格言',
+    title: '2、格言',
     url: config.domain + '/motto/we_add?txt=' + input
   });
   
