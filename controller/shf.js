@@ -78,9 +78,11 @@ router.use('/pictrueone',function(req,res,next){
 
 //修改书法信息
 router.use('/editshfinfo',function(req,res,next){
-  var zguid = req.query.zguid||req.body.zguid;
+  var img_guid = req.query.img_guid;
+    
   var appdir = res.locals.appdir;
   
+  var zguid = req.body.zguid || db.newGuid();
   var txt = req.body.txt || ''; 
   var tag = req.body.tag || '';
   var lat_lng = req.body.lat_lng || '';
@@ -108,26 +110,29 @@ router.use('/editshfinfo',function(req,res,next){
             var myloc_guid;
             if(!err) myloc_guid = loc_guid;
             
-            db.exec('update shfimg set tag=?,txt=?,loc_guid=? where zguid=?',[tag,txt,myloc_guid,zguid],function(err){
-              res.render('./views_moblie/editpictrue.html', {'zguid':zguid,'msg': err?'保存失败':'保存成功(有位置)。',wechatconfig:result}); 
+            db.exec('insert into shfimg(tag,txt,loc_guid,zguid) values(?,?,?,?)',[tag,txt,myloc_guid,zguid],function(err){
+              res.loadview('editpictrue.html', {'zguid':zguid,'msg': err?'保存失败':'保存成功(有位置)。',wechatconfig:result},true); 
+              
+              if(!err && img_guid){db.exec('update image img_style=2,img_content=? where img_guid=?',[zguid,img_guid]);}
             });
           }); 
         }
         else{
           //写入库内
-          db.exec('update shfimg set tag=?,txt=? where zguid=?',[tag,txt,zguid],function(err){
+          db.exec('insert into shfimg(tag,txt,zguid) values(?,?,?)',[tag,txt,zguid],function(err){
             //res.writeHead(200);
-            res.render('./views_moblie/editpictrue.html', {'zguid':zguid,'msg': err?'保存失败':'保存成功。',wechatconfig:result}); 
+            res.loadview('editpictrue.html', {'zguid':zguid,'msg': err?'保存失败':'保存成功。',wechatconfig:result},true); 
+            if(!err && img_guid){db.exec('update image img_style=2,img_content=? where img_guid=?',[zguid,img_guid]);}
           });
         }
       }
       else{ 
-        res.render('./views_moblie/editpictrue.html', {'zguid':zguid,'msg':'',wechatconfig:result}); 
+        res.loadview('editpictrue.html', {'zguid':zguid,'msg':'',wechatconfig:result},true); 
       } 
       //console.log(result); 
     }
     else{
-      util.errBox(err,'/');
+      res.msgbox(err,true);
      }
   });    
 });

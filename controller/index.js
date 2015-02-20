@@ -104,6 +104,14 @@ router.get('/location/:guid',function(req,res,next){
   });
 });
 
+//删除图片
+router.get('/images/del/:guid',function(req,res,next){
+  var img_guid = req.params.guid;
+  db.exec('delete from image where img_guid=?',[img_guid],function(err){
+    res.msgbox(!err?'删除成功':'删除失败'+err);
+  });
+});
+
 //取出图片的信息
 router.get('/images/:guid',function(req,res,next){
   var img_guid = req.params.guid;
@@ -124,10 +132,10 @@ router.get('/images/:guid',function(req,res,next){
     else{
       res.status(404).send('Sorry, not find that!'); 
     }
-  
   });
-
 });
+
+
 
 
 //起始页

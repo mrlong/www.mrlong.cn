@@ -14,6 +14,7 @@
 //http://mmbiz.qpic.cn/mmbiz/lMHkuTribIDj0aELcdFUV1bFWWQIAAFXFrBibv41sG9vnYibmZacpkcbD8a1H2kgib3Y1BXE8tQNgUJy8t7fSpOvEg/0
 
 var download = require('./downloadfile');
+var config = require('../config');
 
 
 module.exports = function(image, req, res, next){
@@ -23,8 +24,20 @@ module.exports = function(image, req, res, next){
 
   if (fromOpenID === 'o5Lr2t1c6b0JV0xidlxbClJa56s4'){
     
- 		download(PicUrl,function(err,msg){
- 				res.reply(msg);
+ 		download(PicUrl,function(err,img_guid){
+          
+          var content = [];
+          content.push({title:'选择你要做什么？'});
+          content.push({
+            title: '书法绘画',
+            url: config.domain + '/shf/editshfinfo?img_guid=' + img_guid
+          });
+          content.push({
+            title:'上传错了，现在删除掉。',
+            url: config.domain + '/images/del/' + img_guid
+          });
+          
+ 	      res.reply(!err?content:img_guid);
  		}); 			
   }
   else{

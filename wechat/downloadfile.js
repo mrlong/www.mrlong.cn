@@ -35,15 +35,9 @@ http.get(url,function(e) {
 		  fs.writeFile(filename, data, 'binary',function (err) {
   			if (!err) {
                 //写入库内
-                db.exec('insert into shfimg(zguid,txt,imgfile) values(?,?,?)',[fileguid,'',fileguid+'.jpg'],function(err){
+                db.exec('insert into image(img_guid,img_filename) values(?,?)',[fileguid,fileguid+'.jpg'],function(err){
                   if (!err){
-                    content = [];
-                    content.push({
-                      title: '上传图片',
-                      description: '你成功上传图片，如要再次修改祥细信息请点击',
-                      url: config.domain + '/shf/editshfinfo?zguid=' + fileguid
-                    });
-                    callabck(null,content);          
+                    callabck(null,fileguid);          
                   }
                   else{
                     callabck(err,'图片写入库sqlite出错');  
@@ -63,4 +57,7 @@ http.get(url,function(e) {
 };
 
 module.exports=downloadfile;
+
+
+
 
