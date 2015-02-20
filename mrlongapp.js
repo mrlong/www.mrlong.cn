@@ -57,7 +57,7 @@ app.response.msgBox=function(msg,url,ismoble){
   if (myismoble == false){
      this.render('./views_pc/error.html',{
         content:msg,
-        url:myurlurl,
+        url:myurl,
         title:config.title
       });
   }

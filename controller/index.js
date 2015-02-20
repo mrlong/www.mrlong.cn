@@ -108,7 +108,7 @@ router.get('/location/:guid',function(req,res,next){
 router.get('/images/del/:guid',function(req,res,next){
   var img_guid = req.params.guid;
   db.exec('delete from image where img_guid=?',[img_guid],function(err){
-    res.msgbox(!err?'删除成功':'删除失败'+err);
+    res.msgBox(!err?'删除成功':'删除失败'+err,true);
   });
 });
 
