@@ -91,6 +91,16 @@ router.get('/getsysvar/:name',function(req,res,next){
   };
 });
  
+
+//删除地图
+router.get('/location/del/:guid',function(req,res,next){
+  var zguid = req.params.guid;
+  db.exec('delete from location where loc_guid=? and loc_style=0',[zguid],function(err){
+     res.msgBox(!err?'删除成功':'删除失败'+err,true);   
+  });
+
+});
+
 //取出地图信息
 router.get('/location/:guid',function(req,res,next){
   var zguid = req.params.guid;
@@ -107,7 +117,7 @@ router.get('/location/:guid',function(req,res,next){
 //删除图片
 router.get('/images/del/:guid',function(req,res,next){
   var img_guid = req.params.guid;
-  db.exec('delete from image where img_guid=?',[img_guid],function(err){
+  db.exec('delete from image where img_guid=? and img_style=0',[img_guid],function(err){
     res.msgBox(!err?'删除成功':'删除失败'+err,true);
   });
 });
