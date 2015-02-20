@@ -121,9 +121,27 @@ router.get('/location/:guid',function(req,res,next){
 //删除图片
 router.get('/images/del/:guid',function(req,res,next){
   var img_guid = req.params.guid;
-  db.exec('delete from image where img_guid=? and img_style=0',[img_guid],function(err){
-    res.msgBox(!err?'删除成功':'删除失败'+err,true);
+  var appdir = res.locals.appdir;
+  db.query('select * from image where img_guid=? and img_style=0',[img_guid],function(err,rows,db){
+    if(!err && rows.length>0){
+      var imgefilename = path.join(appdir,config.sqlite.images) + '/' + rows[0].img_filename;
+      db.run('delete from image where img_guid=? and img_style=0',[img_guid],function(err){
+        //要删除本地的文件
+        if(!err){
+          fs.unlink(imgefilename,function(err){
+            res.msgBox(!err?'删除本地文件成功':'删除本地失败'+err,true);
+          });
+        }
+        else{
+          res.msgBox('删除失败'+err,true);
+        }
+      });
+    }
+    else{
+      res.msgBox('要删除的文件不存在'+err,true);  
+    }
   });
+  
 });
 
 //取出图片的信息
