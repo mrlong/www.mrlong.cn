@@ -3,6 +3,7 @@
 //
 
 var db = require('../db');
+var config = require('../config');
 
 module.exports = function(location, req, res, next){
   console.log(location);
