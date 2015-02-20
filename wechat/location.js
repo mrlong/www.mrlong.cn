@@ -22,7 +22,7 @@ module.exports = function(location, req, res, next){
   
       content.push({
         title: '我的足迹',
-        url: config.domain + '/books/notes/add?txt=' + input
+        url: config.domain + '/books/notes/add?txt=' + loc_guid
       });
   
       content.push({
