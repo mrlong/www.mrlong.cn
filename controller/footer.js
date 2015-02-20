@@ -18,7 +18,7 @@ router.get('/',function(req,res,next){
   var startpage = (page-1)*20;
   
   //登录了管理员，全部显示，否则只显示公开的。
-  var mywhere = req.session.adminlogin?'1=1':'foer_viewstyle=0';
+  var mywhere = req.session.adminlogin?'(1=1)':'(foer_viewstyle=0)';
   db.query('select * from footer where '+ mywhere +' order by foer_time desc limit ?,20',[startpage],function(err,rows,db){
     if(!err){
       db.get('select count(*) as mycount from footer where ' + mywhere,function(err,row){

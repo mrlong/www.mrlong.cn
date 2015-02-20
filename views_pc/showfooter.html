@@ -70,7 +70,7 @@
         
       <td><%=(curpage-1)*20+i+1%></td>  
       <td><%=rows[i].foer_time%></td>
-      <td><%=rows[i].foer_txt%></td>
+      <td><%=rows[i].foer_txt%><br><small>标签：<%=rows[i].foer_tag%></small></td>
       <% if(rows[i].loc_guid) {%>
         <td>
           <button type="button" map="1"  guid=<%=rows[i].loc_guid %> cid="<%=i%>" >地图显示</button>
@@ -83,9 +83,9 @@
       <td>
         <% var myimages = (rows[i].foer_images || '').split(',');  %>
         <% var c=0%>
-        <% for (var i=0;i<myimages.length;i++) if(myimages[i] !='') { c=c+1  %>
+        <% for (var k=0;k<myimages.length;k++) if(myimages[k] !='') { c=c+1  %>
           
-          <a href="/images/<%=myimages[i]%>" target="_blank">图片<%=c %></a>
+          <a href="/images/<%=myimages[k]%>" target="_blank">图片<%=c %></a>
         <%}%>
       </td>
     </tr>  
