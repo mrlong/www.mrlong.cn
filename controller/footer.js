@@ -60,6 +60,39 @@ router.post('/add',function(req,res,next){
   });
 });
 
+router.get('/addimage',function(req,res,next){
+  var img_guid = req.query.img_guid;
+  if(img_guid){
+    db.query('select foer_guid,foer_txt,foer_images from footer order by foer_time desc limit 0,5 ',function(err,rows){
+      res.loadview('footer_addimage.html',{img_guid:img_guid,rows:rows},true);
+    });
+    
+  }
+  else{
+    res.msgBox('图片的guid为空',true);
+  }
+});
+
+router.post('/addimage',function(req,res,next){
+  var img_guid  = req.body.img_guid;
+  var foer_images = req.body.foer_images || '';
+  var foer_guid = req.body.footer;
+  
+  if( img_guid && foer_guid){
+    var myimages = foer_images + ',' + img_guid; 
+    db.exec('update footer set foer_images=? where foer_guid=?',[myimages,foer_guid],function(err){
+      if(!err){        
+        db.exec('update image set img_style=1,img_content=? where img_guid=?',[foer_guid,img_guid],function(err){
+          res.msgBox(!err?'保存图片到我的足迹了':'回写到图片库信息出错，但足迹关联还在。',true);
+        });
+      }
+      else{
+        res.msgBox('足迹关联图片出错',true);  
+      }   
+    });  
+  }
+});
+
 
 module.exports = router;
 

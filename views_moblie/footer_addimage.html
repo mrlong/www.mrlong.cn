@@ -1,0 +1,46 @@
+<% include header.html %>
+  
+  <script>
+    function selectimage(obj){
+      if($(obj).attr('images') !='null'){
+        $("#foer_images").val($(obj).attr('images'));
+      }
+      else{
+        $("#foer_images").val('');
+      }
+    }
+  
+  
+  </script>
+  
+  
+  <body>
+  <div data-role="page" id="pageone" data-theme="b">
+    <div data-role="content">
+      
+      <form action="/footer/addimage" method="post" autocomplete="yes"> 
+        
+         <label for="footer">哪个足迹:</label>
+        <select name="footer" id="footer" required="required" onchange="selectimage(this.options[this.options.selectedIndex])">
+          <% for(var i=0;i<rows.length;i++) {%>
+            <option value="<%= rows[i].foer_guid %>" images="<%=rows[i].foer_images%>" <%=i==0?'selected':'' %> ><%= rows[i].foer_txt %></option>
+          <% } %>
+        </select>
+              
+        
+        <input type="hidden" name="img_guid"    id="img_guid" value="<%=img_guid%>">
+        <input type="text" name="foer_images" id="foer_images" value="<%=rows.length>0?rows[0].foer_images:''%>">
+        <input type="submit" value="   提  交  " data-inline="false" data-role="button" data-icon="check"  data-inline="true" />  
+
+      </form>
+        
+      
+    </div>
+  </div>
+  </body>
+
+<script>
+  SetTitle('增加足迹图片');
+</script>
+  
+<% include footer.html %>

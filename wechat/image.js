@@ -32,6 +32,12 @@ module.exports = function(image, req, res, next){
             title: '书法绘画',
             url: config.domain + '/shf/editshfinfo?img_guid=' + img_guid
           });
+          
+          content.push({
+            title:'添加到我的足迹',
+            url: config.domain + '/footer/addimage?img_guid=' + img_guid
+          });
+          
           content.push({
             title:'上传错了，现在删除掉。',
             url: config.domain + '/images/del/' + img_guid

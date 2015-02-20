@@ -79,8 +79,13 @@
       <% } else {%>
         <td></td>
       <%}%>
+        
       <td>
-      
+        <% var myimages = (rows[i].foer_images || '').split(',');  %>
+        <% for (var i=0;i<myimages.length;i++) if(myimages[i] !='') { %>
+          
+          <a href="/images/<%=myimages[i]%>" target="_blank">图片<%=(i+1)%></a>
+        <%}%>
       </td>
     </tr>  
   
