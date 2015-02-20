@@ -1,0 +1,20 @@
+<% include header.html %>
+  
+<h1>ssss</h1>
+  <table>
+  <% for(var i=0;i<rows.length;i++){ %>
+      
+    <tr>
+      <td><%=curpage*20+i+1%></td>  
+      <td><%=rows[i].foer_time%></td>
+      <td><%=rows[i].foer_txt%></td>
+    </tr>  
+  
+  <% } %>
+    
+  </table>
+  
+<script>
+  SetActionNav('我的足迹');
+</script>      
+<% include footer.html %>

@@ -26,6 +26,7 @@ var shf = require('./controller/shf');
 var motto = require('./controller/motto'); 
 var index = require('./controller/index');
 var books = require('./controller/books');
+var footer = require('./controller/footer');
 
 
 var app = express();
@@ -125,6 +126,8 @@ app.use('/shf',shf);
 app.use('/motto', motto);
 //读书
 app.use('/books',books);
+//我的足迹
+app.use('/footer',footer);
 
 
 app.use('/test_index',test.index);
