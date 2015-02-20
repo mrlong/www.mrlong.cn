@@ -36,7 +36,7 @@ router.get('/',function(req,res,next){
 //
 
 router.get('/add',function(req,res,next){
-  var loc_guid = req.params.loc_guid;
+  var loc_guid = req.query.loc_guid;
   res.loadview('footer_add.html',{loc_guid:loc_guid},true);
 });
 
