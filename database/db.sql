@@ -5,7 +5,7 @@
 
 /*
  *  版本信息：
- *    ver=13
+ *    ver=14
  *
  */
 
@@ -93,6 +93,7 @@ create table books_notes(
   bno_page integer,                     /*页码*/
   bno_title varchar(50),                /*章节名称*/
   bno_viewstyle integer default 0,      /*=0 所有人都能看,=1表示自己才能看*/
+  bno_images varchar(200)               /* 关联的图片guid,多个采用,号隔开 var=14*/
   
 );
 
@@ -111,7 +112,7 @@ create table footer(
 create table image(
   img_guid char(36) primary key,         /*, */
   img_filename varchar(100),             /*文件的原名称 保存在图定的位置，暂定在database/images 下面,与guid进行命名*/
-  img_style integer not null default 0,  /*类型 1=我的足迹的图片 2=书法图片*/
+  img_style integer not null default 0,  /*类型 1=我的足迹的图片 2=书法图片 3=读书笔记的图片*/
   img_content char(50),                  /*关联内容的信息，如是我的足迹，则这个是我的足迹的guid*/
   img_time default (datetime('now','localtime')) 
 );

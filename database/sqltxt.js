@@ -5,7 +5,7 @@
 //
 
 module.exports = {
-  verstion : 13,
+  verstion : 14,
   sql:[
     {ver:1,txt:"CREATE TABLE shfimg(zguid CHAR(36) Primary Key," +
               "ct  datetime default (datetime('now','localtime'))," +
@@ -65,7 +65,8 @@ module.exports = {
                 "img_style integer not null default 0," + 
                 "img_content char(50)," +
                 "img_time default (datetime('now','localtime')) )"},
-    {ver:13,txt:'ALTER TABLE footer ADD COLUMN foer_images varchar(200)'}
+    {ver:13,txt:'ALTER TABLE footer ADD COLUMN foer_images varchar(200)'},
+    {ver:14,txt:'ALTER TABLE books_notes ADD COLUMN bno_images varchar(200) '}
     
      
     
