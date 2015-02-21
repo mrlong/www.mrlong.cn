@@ -16,7 +16,7 @@ exports.wx=function(req,res,next){
   
   api.getJsConfig(param,function(err,result){
     if(!err){
-      res.locals.wx = result;
+      res.locals.wx = result; 
       next();
     }
     else{

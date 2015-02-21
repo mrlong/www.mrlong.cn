@@ -256,18 +256,12 @@ router.use('/notes/add',wxconfig.wx,function(req,res,next){
   
   var bno_state = req.body.bookstate || '';
   
-  //weixin的认证信息
-  var param = {
-    debug:false,
-    jsApiList: ['openLocation','getLocation'],
-    url: 'http://' + config.domain + req.originalUrl
-  };
-  api.getJsConfig(param,function(err,result){
-    if(!err){
+
+
       //请求
       if(bno_isbn==''){
         db.query('select boo_name,boo_isbn from books order by boo_state desc, boo_buytime desc limit  0,10',function(err,rows){
-          res.render('./views_moblie/books_notes_add.html', {'txt':txt,books:rows,'msg':'',wechatconfig:result});  
+          res.render('./views_moblie/books_notes_add.html', {'txt':txt,books:rows,'msg':''});  
         });
       }
       //提交
@@ -310,12 +304,7 @@ router.use('/notes/add',wxconfig.wx,function(req,res,next){
       }
         
       
-      }
-    }
-    else{
-      res.msgBox(err,true);  
-    }
-  });    
+      }    
 });
 
 

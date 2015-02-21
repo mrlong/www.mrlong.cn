@@ -1,16 +1,7 @@
 <% include header.html %>
   
 <script>
-  wx.config({
-    debug:<%=locals.wx.debug%>,
-    appId:'<%=locals.wx.appId%>',
-    timestamp:<%=locals.wx.timestamp%>,
-    nonceStr:'<%=locals.wx.nonceStr%>',
-    signature:'<%=locals.wx.signature%>',
-//    jsApiList:['openLocation','getLocation']
-  });
-  
-  
+    
   $(document).ready(function(){ 
     $('#switch').change(function(){
       var myvalue = $(this).children('option:selected').val(); 

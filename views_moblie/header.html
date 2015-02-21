@@ -13,14 +13,32 @@
   <script type="application/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>  
   <script type="application/javascript" src="http://apps.bdimg.com/libs/jquerymobile/1.4.2/jquery.mobile.min.js"></script>
   <!-- end  -->
-  <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+  
+  <% if(locals.wx) {%>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+  <%}%>
   
   <title>提示</title>
 
   <script>
+    
     function SetTitle(name){
       $("title").text(name); 
     };
+    
+    <% if(locals.wx) {%>
+       wx.config({
+        debug:<%=locals.wx.debug%>,
+        appId:'<%=locals.wx.appId%>',
+        timestamp:<%=locals.wx.timestamp%>,
+        nonceStr:'<%=locals.wx.nonceStr%>',
+        signature:'<%=locals.wx.signature%>',
+        //    jsApiList:['openLocation','getLocation']
+      });
+    <% } %>
+                      
+      
+    
   </script>
   
   
