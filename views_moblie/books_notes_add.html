@@ -2,12 +2,12 @@
   
 <script>
   wx.config({
-    debug:<%=wechatconfig.debug%>,
-    appId:'<%=wechatconfig.appId%>',
-    timestamp:<%=wechatconfig.timestamp%>,
-    nonceStr:'<%=wechatconfig.nonceStr%>',
-    signature:'<%=wechatconfig.signature%>',
-    jsApiList:['openLocation','getLocation']
+    debug:<%=locals.wx.debug%>,
+    appId:'<%=locals.wx.appId%>',
+    timestamp:<%=locals.wx.timestamp%>,
+    nonceStr:'<%=locals.wx.nonceStr%>',
+    signature:'<%=locals.wx.signature%>',
+//    jsApiList:['openLocation','getLocation']
   });
   
   

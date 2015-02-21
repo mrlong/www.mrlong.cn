@@ -16,6 +16,7 @@ var urllib = require('urllib');
 var util = require('../util');
 var API = require('../wechat/api');
 var config = require('../config');
+var wxconfig = require('../wxconfig');
 
 
 var router = express.Router();
@@ -244,7 +245,7 @@ router.get('/notes',function(req,res,next){
 
 });
 
-router.use('/notes/add',function(req,res,next){
+router.use('/notes/add',wxconfig.wx,function(req,res,next){
   var txt = req.query.txt;
   var bno_isbn = req.body.book || ''; 
   var bno_txt   = req.body.txt || '';
