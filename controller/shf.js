@@ -84,11 +84,12 @@ router.get('/editshfinfo',wxconfig.wx,function(req,res,next){
    res.loadview('editpictrue.html', {'zguid':zguid,'msg':'',img_guid:img_guid},true);
 });
 
-router.post('/editshfinfo',wxconfig.wx,function(req,res,next){
-  var img_guid = req.query.img_guid;
+router.post('/editshfinfo',function(req,res,next){
+  
     
   var appdir = res.locals.appdir;
   
+  var img_guid = req.body.img_guid;
   var zguid = req.body.zguid || db.newGuid();
   var txt = req.body.txt || ''; 
   var tag = req.body.tag || '';
