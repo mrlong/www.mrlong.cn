@@ -2,7 +2,7 @@
   
   <script>
     $(document).ready(function(){
-      $("#time").val(new Date().toLocaleDateString);
+//      $("#time").val(new Date().toLocaleDateString);
     
     });
   
@@ -16,20 +16,22 @@
         <label for="txt">内容:</label> 
         <textarea rows="6" cols="30" name="txt" id="txt" autofocus></textarea>
         <label for="time">时间</label>
-        <input type="datetime-local" name="time" id="time" value="2012-02-01">
+        <input type="datetime-local" name="time" id="time" value="">
         
         <label for="style">权限：</label>
         <select name="style" id="style" data-role="slider">
-            <option value="1">私密</option>
-            <option value="0" selected="selected">公开</option>
+            <option value="1" selected="selected">私密</option>
+            <option value="0" >公开</option>
         </select> 
         
         <div data-role="controlgroup" data-type="horizontal">
           <legend>标签：</legend>
           <label for="1">节假出游</label>
-          <input type="radio" name="tag"  id="1" value="节假出游" required="required" checked>  
+          <input type="radio" name="tag"  id="1" value="节假出游"  >  
+          <label for="2">朋友集会</label>
+          <input type="radio" name="tag"  id="2" value="朋友集会" >
           <label for="5">其他</label>
-          <input type="radio" name="tag" id="5" value="其他"> 
+          <input type="radio" name="tag" id="5" value="其他" checked> 
         </div>
         
         <input type="hidden" name="loc_guid" id="loc_guid" value="<%=loc_guid%>">

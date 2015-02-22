@@ -44,11 +44,25 @@ router.post('/add',function(req,res,next){
   var loc_guid = req.body.loc_guid;
   var txt = req.body.txt || '';
   var tag = req.body.tag || '';
-  var time = req.body.time;
+  var time = req.body.time || '';
   var style = req.body.style || 0;
+
   
   var zguid = db.newGuid();
-  db.exec('insert into footer(foer_guid,foer_txt,foer_time,loc_guid,foer_viewstyle,foer_tag) values(?,?,?,?,?,?)',
+  if(time==''){
+    db.exec('insert into footer(foer_guid,foer_txt,foer_time,loc_guid,foer_viewstyle,foer_tag) values(?,?,datetime("now","localtime"),?,?,?)',
+          [zguid,txt,loc_guid,style,tag],function(err,db){
+    
+    if(!err && loc_guid != ''){
+      db.run('update location set loc_style=3,loc_content=? where loc_guid=?',[zguid,loc_guid]);
+    };
+    
+    res.msgBox(!err?'保存成功':'保存出错'+err,true);
+    
+    }); 
+  }
+  else {
+    db.exec('insert into footer(foer_guid,foer_txt,foer_time,loc_guid,foer_viewstyle,foer_tag) values(?,?,?,?,?,?)',
           [zguid,txt,time,loc_guid,style,tag],function(err,db){
     
     if(!err && loc_guid != ''){
@@ -57,7 +71,8 @@ router.post('/add',function(req,res,next){
     
     res.msgBox(!err?'保存成功':'保存出错'+err,true);
     
-  });
+    });
+  }
 });
 
 router.get('/addimage',function(req,res,next){
