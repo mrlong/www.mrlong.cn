@@ -1,15 +1,6 @@
 <% include header.html %>
   
-<script>
-  wx.config({
-    debug:<%=wechatconfig.debug%>,
-    appId:'<%=wechatconfig.appId%>',
-    timestamp:<%=wechatconfig.timestamp%>,
-    nonceStr:'<%=wechatconfig.nonceStr%>',
-    signature:'<%=wechatconfig.signature%>',
-    jsApiList:['openLocation','getLocation']
-  });
-  
+<script>  
   
   $(document).ready(function(){ 
     $('#switch').change(function(){
@@ -75,8 +66,9 @@
           <div class="ui-block-b"><input type="text" name="lat_lng" id="lat_lng"></div>
         </div>
       </div>
-      <input type="submit" value="   提  交  " data-role="button" data-icon="check"  data-inline="true" />
-      <input type="button" name="Submit"  data-role="button" onclick="javascript:history.back(-1);" value="返回" data-inline="true" />    
+      
+      <input type="hidden" name="img_guid" id="img_guid" value="<%=img_guid%>">
+      <input type="submit" value="   提  交  " data-inline="false" data-role="button" data-icon="check"  data-inline="true" />  
     </form>
   
     </div>

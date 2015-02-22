@@ -12,6 +12,7 @@ var db = require('../db.js');
 var util = require('../util.js');
 var config = require('../config');
 var API = require('../wechat/api');
+var wxconfig = require('../wxconfig');
 
 var express = require('express');
 var router = express.Router();
@@ -77,7 +78,13 @@ router.use('/pictrueone',function(req,res,next){
 });
 
 //修改书法信息
-router.use('/editshfinfo',function(req,res,next){
+router.get('/editshfinfo',wxconfig.wx,function(req,res,next){
+   var img_guid = req.query.img_guid;
+   var zguid = db.newGuid();
+   res.loadview('editpictrue.html', {'zguid':zguid,'msg':'',img_guid:img_guid},true);
+});
+
+router.post('/editshfinfo',wxconfig.wx,function(req,res,next){
   var img_guid = req.query.img_guid;
     
   var appdir = res.locals.appdir;
@@ -88,53 +95,36 @@ router.use('/editshfinfo',function(req,res,next){
   var lat_lng = req.body.lat_lng || '';
   
   //var tpl = ejs.compile(fs.readFileSync(path.join(appdir, 'views_moblie/editpictrue.html'),'utf-8'));
-  
-  
-//weixin的认证信息
-  var param = {
-    debug:false,
-    jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage','openLocation','getLocation'],
-    url: 'http://' + config.domain + req.originalUrl
-  };
-  
-  api.getJsConfig(param,function(err,result){
-    if(!err){
-      if(txt || tag ){
-        //如有地图则先写入地图信息
-        if(lat_lng){
-          var array = lat_lng.split(',');
-          var lat = array[0];
-          var lng = array[1];
-          db.newLocation(1/*表示书法绘画*/,lat,lng,zguid,function(err,loc_guid){
+    
+
+    //如有地图则先写入地图信息
+    if(lat_lng){
+        var array = lat_lng.split(',');
+        var lat = array[0];
+        var lng = array[1];
+        db.newLocation(1/*表示书法绘画*/,lat,lng,zguid,function(err,loc_guid){
              //写入库内
-            var myloc_guid;
-            if(!err) myloc_guid = loc_guid;
+          var myloc_guid;
+          if(!err) myloc_guid = loc_guid;
             
-            db.exec('insert into shfimg(tag,txt,loc_guid,zguid) values(?,?,?,?)',[tag,txt,myloc_guid,zguid],function(err){
-              res.loadview('editpictrue.html', {'zguid':zguid,'msg': err?'保存失败':'保存成功(有位置)。',wechatconfig:result},true); 
-              
+          db.exec('insert into shfimg(tag,txt,loc_guid,zguid,imgfile) values(?,?,?,?,?)',
+                  [tag,txt,myloc_guid,zguid,img_guid],function(err){
+              res.msgBox(err?'保存失败(有位置)':'保存成功(有位置)。',true);
               if(!err && img_guid){db.exec('update image img_style=2,img_content=? where img_guid=?',[zguid,img_guid]);}
-            });
-          }); 
-        }
-        else{
-          //写入库内
-          db.exec('insert into shfimg(tag,txt,zguid) values(?,?,?)',[tag,txt,zguid],function(err){
-            //res.writeHead(200);
-            res.loadview('editpictrue.html', {'zguid':zguid,'msg': err?'保存失败':'保存成功。',wechatconfig:result},true); 
-            if(!err && img_guid){db.exec('update image img_style=2,img_content=? where img_guid=?',[zguid,img_guid]);}
           });
-        }
+        }); 
       }
-      else{ 
-        res.loadview('editpictrue.html', {'zguid':zguid,'msg':'',wechatconfig:result},true); 
-      } 
+      else{
+        //写入库内
+        db.exec('insert into shfimg(tag,txt,zguid,imgfile) values(?,?,?,?)',[tag,txt,zguid,img_guid],function(err){
+            //res.writeHead(200);
+            res.msgBox(err?'保存失败':'保存成功。',true);
+            if(!err && img_guid){db.exec('update image img_style=2,img_content=? where img_guid=?',[zguid,img_guid]);}
+        });
+      }
+    
       //console.log(result); 
-    }
-    else{
-      res.msgbox(err,true);
-     }
-  });    
+  
 });
 
 module.exports = router;
