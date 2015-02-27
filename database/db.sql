@@ -105,7 +105,8 @@ create table footer(
   loc_guid char(36),                   /*位置*/
   foer_viewstyle integer default 0,    /* 0=公开  1=私有*/
   foer_tag varchar(20),                /*标签*/
-  foer_images varchar(200)             /* 关联的图片guid,多个采用,号隔开 var=13*/
+  foer_images varchar(200),            /* 关联的图片guid,多个采用,号隔开 var=13*/
+  foer_price float                     /* 费用多少ver=16 */
 );
 
 /*图片资源表 ver=12*/
@@ -114,5 +115,6 @@ create table image(
   img_filename varchar(100),             /*文件的原名称 保存在图定的位置，暂定在database/images 下面,与guid进行命名*/
   img_style integer not null default 0,  /*类型 1=我的足迹的图片 2=书法图片 3=读书笔记的图片*/
   img_content char(50),                  /*关联内容的信息，如是我的足迹，则这个是我的足迹的guid*/
-  img_time default (datetime('now','localtime')) 
+  img_time default (datetime('now','localtime')),
+  img_info varchar(200)                  /*图片说明内容 ver=15 */
 );
