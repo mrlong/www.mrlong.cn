@@ -51,12 +51,13 @@
 </script>
   
   
-<h3 style="text-align: center">我总共记录了<%=rowcount%>个去向</h3>
+<h3 style="text-align: center">我总共记录了<%=rowcount%>个去向,共花费<%=totle%>。</h3>
   <table id="footer_table">
     <tr style="border-bottom: 2px solid #EEE;">
       <td>序号</td>
       <td>发生日期</td>
       <td>事迹简述</td>
+      <td>费用</td>
       <td>地理位置</td>
       <td>相关图片</td>
     </tr>
@@ -71,6 +72,7 @@
       <td><%=(curpage-1)*20+i+1%></td>  
       <td><%=rows[i].foer_time%></td>
       <td><%=rows[i].foer_txt%><br><small>标签：<%=rows[i].foer_tag%></small></td>
+      <td><%=rows[i].foer_price?rows[i].foer_price:''%></td>  
       <% if(rows[i].loc_guid) {%>
         <td>
           <button type="button" map="1"  guid=<%=rows[i].loc_guid %> cid="<%=i%>" >地图显示</button>

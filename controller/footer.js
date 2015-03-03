@@ -21,8 +21,8 @@ router.get('/',function(req,res,next){
   var mywhere = req.session.adminlogin?'(1=1)':'(foer_viewstyle=0)';
   db.query('select * from footer where '+ mywhere +' order by foer_time desc limit ?,20',[startpage],function(err,rows,db){
     if(!err){
-      db.get('select count(*) as mycount from footer where ' + mywhere,function(err,row){
-        res.loadview('showfooter.html',{rows:rows,rowcount:row.mycount,curpage:page}); 
+      db.get('select count(*) as mycount,sum(foer_price) as totle from footer where ' + mywhere,function(err,row){
+        res.loadview('showfooter.html',{rows:rows,rowcount:row.mycount,totle:row.totle,curpage:page}); 
       });             
     }
     else{
