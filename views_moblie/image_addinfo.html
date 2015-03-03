@@ -1,0 +1,26 @@
+<% include header.html %>
+      
+  <body>
+  <div data-role="page" id="pageone" data-theme="b">
+    <div data-role="content">
+      
+      <form action="/images/addinfo" method="post" autocomplete="yes"> 
+        
+        <label for="info">图片备注：</label>  
+        <textarea rows="6" cols="30"   name="info" id="info" autofocus></textarea>              
+        
+        <input type="hidden" name="img_guid"    id="img_guid" value="<%=img_guid%>">
+        <input type="submit" value="   提  交  " data-inline="false" data-role="button" data-icon="check"  data-inline="true" />  
+
+      </form>
+        
+      
+    </div>
+  </div>
+  </body>
+
+<script>
+  SetTitle('编辑图片的说明');
+</script>
+  
+<% include footer.html %>

@@ -144,6 +144,27 @@ router.get('/images/del/:guid',function(req,res,next){
   
 });
 
+
+
+//增加图片的备注说明
+router.get('/images/addinfo',function(req,res,next){
+  var img_guid = req.query.img_guid;
+  res.loadview('image_addinfo.html',{img_guid:img_guid},true);
+});
+router.post('/images/addinfo',function(req,res,next){
+  var img_guid = req.body.img_guid;
+  var info = req.body.info;
+  
+  db.exec('update image set img_info=? where img_guid=?',[info,img_guid],function(err){
+    if(!err){
+      res.msgBox('修改成功',true); 
+    }
+    else{
+      res.msgBox('修改失败'+err,true);
+    }
+  });
+});
+
 //取出图片的信息
 router.get('/images/:guid',function(req,res,next){
   var img_guid = req.params.guid;

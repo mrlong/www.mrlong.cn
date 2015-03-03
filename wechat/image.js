@@ -44,7 +44,12 @@ module.exports = function(image, req, res, next){
           });
           
           content.push({
-            title:'4、上传错了，现在删除掉。',
+            title:'4、增加图片的说明备注',
+            url: config.domain + '/images/addinfo?img_guid=' + img_guid
+          });
+          
+          content.push({
+            title:'5、上传错了，现在删除掉。',
             url: config.domain + '/images/del/' + img_guid
           });
           
