@@ -46,12 +46,13 @@ router.post('/add',function(req,res,next){
   var tag = req.body.tag || '';
   var time = req.body.time || '';
   var style = req.body.style || 0;
+  var price = req.body.price;
 
   
   var zguid = db.newGuid();
   if(time==''){
-    db.exec('insert into footer(foer_guid,foer_txt,foer_time,loc_guid,foer_viewstyle,foer_tag) values(?,?,datetime("now","localtime"),?,?,?)',
-          [zguid,txt,loc_guid,style,tag],function(err,db){
+    db.exec('insert into footer(foer_guid,foer_txt,foer_time,loc_guid,foer_viewstyle,foer_tag,foer_price) values(?,?,datetime("now","localtime"),?,?,?,?)',
+          [zguid,txt,loc_guid,style,tag,price],function(err,db){
     
     if(!err && loc_guid != ''){
       db.run('update location set loc_style=3,loc_content=? where loc_guid=?',[zguid,loc_guid]);
@@ -62,8 +63,8 @@ router.post('/add',function(req,res,next){
     }); 
   }
   else {
-    db.exec('insert into footer(foer_guid,foer_txt,foer_time,loc_guid,foer_viewstyle,foer_tag) values(?,?,?,?,?,?)',
-          [zguid,txt,time,loc_guid,style,tag],function(err,db){
+    db.exec('insert into footer(foer_guid,foer_txt,foer_time,loc_guid,foer_viewstyle,foer_tag,foer_price) values(?,?,?,?,?,?,?)',
+          [zguid,txt,time,loc_guid,style,tag,price],function(err,db){
     
     if(!err && loc_guid != ''){
       db.run('update location set loc_style=3,loc_content=? where loc_guid=?',[zguid,loc_guid]);
@@ -78,7 +79,7 @@ router.post('/add',function(req,res,next){
 router.get('/addimage',function(req,res,next){
   var img_guid = req.query.img_guid;
   if(img_guid){
-    db.query('select foer_guid,foer_txt,foer_images from footer order by foer_time desc limit 0,5 ',function(err,rows){
+    db.query('select foer_guid,foer_txt,foer_images,foer_price from footer order by foer_time desc limit 0,5 ',function(err,rows){
       res.loadview('footer_addimage.html',{img_guid:img_guid,rows:rows},true);
     });
     
@@ -88,14 +89,16 @@ router.get('/addimage',function(req,res,next){
   }
 });
 
+//增加我的足迹图片
 router.post('/addimage',function(req,res,next){
   var img_guid  = req.body.img_guid;
   var foer_images = req.body.foer_images || '';
   var foer_guid = req.body.footer;
+  var price = req.body.price;
   
   if( img_guid && foer_guid){
     var myimages = foer_images==''?img_guid:foer_images + ',' + img_guid; 
-    db.exec('update footer set foer_images=? where foer_guid=?',[myimages,foer_guid],function(err){
+    db.exec('update footer set foer_images=?,foer_price=? where foer_guid=?',[myimages,price,foer_guid],function(err){
       if(!err){        
         db.exec('update image set img_style=1,img_content=? where img_guid=?',[foer_guid,img_guid],function(err){
           res.msgBox(!err?'保存图片到我的足迹了':'回写到图片库信息出错，但足迹关联还在。',true);
