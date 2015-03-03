@@ -70,7 +70,7 @@
       <td><%=(i+1)%></td>
       <td><%=rows[i].bno_time%></td>
       <td><%=rows[i].bno_txt%></td>
-      <td><a href="/books/info/<%=rows[i].boo_isbn%>"><%=rows[i].boo_name%></td>
+      <td><a href="/books/info/<%=rows[i].boo_isbn%>"><%=rows[i].boo_name?rows[i].boo_name:''%></td>
       <td><%=rows[i].bno_title%><%=rows[i].bno_title!=''?',':''%><%=rows[i].bno_page%></td>
       <%if(rows[i].loc_guid) {%>
         <td>

@@ -208,7 +208,7 @@ router.get('/info/:isbn',function(req,res,next){
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// 增加读书笔记
+//读书笔记
 //
 
 router.get('/notes',function(req,res,next){
@@ -245,7 +245,15 @@ router.get('/notes',function(req,res,next){
 
 });
 
-router.use('/notes/add',wxconfig.wx,function(req,res,next){
+//增加笔记
+router.get('/notes/add',function(req,res,next){
+  var txt = req.query.txt;
+  db.query('select boo_name,boo_isbn from books order by boo_state desc, boo_buytime desc limit  0,10',function(err,rows){
+          res.loadview('books_notes_add.html', {'txt':txt,books:rows,'msg':''},true);  
+  });
+});
+
+router.post('/notes/add',wxconfig.wx,function(req,res,next){
   var txt = req.query.txt;
   var bno_isbn = req.body.book || ''; 
   var bno_txt   = req.body.txt || '';
@@ -256,16 +264,6 @@ router.use('/notes/add',wxconfig.wx,function(req,res,next){
   
   var bno_state = req.body.bookstate || '';
   
-
-
-      //请求
-      if(bno_isbn==''){
-        db.query('select boo_name,boo_isbn from books order by boo_state desc, boo_buytime desc limit  0,10',function(err,rows){
-          res.render('./views_moblie/books_notes_add.html', {'txt':txt,books:rows,'msg':''});  
-        });
-      }
-      //提交
-      else{
         var myloc_guid = null;
         var myguid = db.newGuid();
         
@@ -304,7 +302,7 @@ router.use('/notes/add',wxconfig.wx,function(req,res,next){
       }
         
       
-      }    
+          
 });
 
 
