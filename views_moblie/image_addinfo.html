@@ -7,7 +7,7 @@
       <form action="/images/addinfo" method="post" autocomplete="yes"> 
         
         <label for="info">图片备注：</label>  
-        <textarea rows="6" cols="30"   name="info" id="info" autofocus></textarea>              
+        <textarea rows="6" cols="30"   name="info" id="info" autofocus><%=img_info%></textarea>              
         
         <input type="hidden" name="img_guid"    id="img_guid" value="<%=img_guid%>">
         <input type="submit" value="   提  交  " data-inline="false" data-role="button" data-icon="check"  data-inline="true" />  

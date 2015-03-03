@@ -149,7 +149,14 @@ router.get('/images/del/:guid',function(req,res,next){
 //增加图片的备注说明
 router.get('/images/addinfo',function(req,res,next){
   var img_guid = req.query.img_guid;
-  res.loadview('image_addinfo.html',{img_guid:img_guid},true);
+  var img_info = '';
+  db.query('select img_info from image where img_guid=?',[img_guid],function(err,rows){
+    if(!err && rows.length>0 && rows[0].img_info){
+      img_info = rows[0].img_info; 
+    };
+    res.loadview('image_addinfo.html',{img_guid:img_guid,img_info:img_info},true);
+  });
+  
 });
 router.post('/images/addinfo',function(req,res,next){
   var img_guid = req.body.img_guid;
