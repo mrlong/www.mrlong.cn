@@ -10,7 +10,8 @@
 module.exports = { 
   sqlite :{
     file: './database/long.db',
-    images : './database/images'
+    images : './database/images',
+    videos :'./database/videos'      //视频的目录
   },
   
   domain: 'www.mrlong.cn',

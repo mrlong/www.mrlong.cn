@@ -196,6 +196,39 @@ router.get('/images/:guid',function(req,res,next){
 });
 
 
+//视频的处理
+router.get('/videos/del/:guid',function(req,res,next){
+  var vid_guid = req.params.guid;
+  db.query('select * from video where vid_guid=? and vid_style=0',[vid_guid],function(err,rows,db){
+    if(!err && rows.length>0){
+      var filename = path.join(appdir,config.sqlite.videos) + '/' + rows[0].vid_filename;
+      var filename_thmeb = path.join(appdir,config.sqlite.videos) + '/' + rows[0].vid_filenmae_thumb;
+      
+      db.run('delete from video where vid_guid=?',[vid_guid],function(err){
+        if(!err){
+          //删除本地文件
+          fs.unlink(filename,function(err){
+            if(!err){
+              fs.unlink(filename_thmeb,function(err){
+                res.msgBox(!err?'删除本地视频文件成功':'删除本地失败'+err,true);
+              });
+            }
+            else{
+              res.msgBox('删除本地视频失败'+err,true);    
+            }
+          });
+        }
+        else{
+          res.msgBox('无法删除掉的视频'+err,true);   
+        }
+      });
+    }
+    else{
+      res.msgBox('找不到要删除的视频'+err,true); 
+    }
+  });
+});
+
 
 
 //起始页
