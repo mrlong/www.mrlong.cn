@@ -5,7 +5,7 @@
 //
 
 module.exports = {
-  verstion : 16,
+  verstion : 18,
   sql:[
     {ver:1,txt:"CREATE TABLE shfimg(zguid CHAR(36) Primary Key," +
               "ct  datetime default (datetime('now','localtime'))," +
@@ -68,8 +68,21 @@ module.exports = {
     {ver:13,txt:'ALTER TABLE footer ADD COLUMN foer_images varchar(200)'},
     {ver:14,txt:'ALTER TABLE books_notes ADD COLUMN bno_images varchar(200) '},
     {ver:15,txt:'ALTER TABLE image ADD COLUMN img_info varchar(200) '},
-    {ver:16,txt:'ALTER TABLE footer ADD COLUMN foer_price float '}
-
+    {ver:16,txt:'ALTER TABLE footer ADD COLUMN foer_price float '},
+    {ver:17,txt:"create table video( " +
+                "vid_guid char(36) primary key," +
+                "vid_filename varchar(100)," +
+                "vid_style integer not null default 0," +
+                "vid_content char(50), " +
+                "vid_time default (datetime('now','localtime'))," +
+                "vid_info varchar(200) )"},
+    {ver:18,txt:"create table voice( " +
+                "voi_guid char(36) primary key," +
+                "voi_filename varchar(100)," +
+                "voi_style integer not null default 0," +
+                "voi_content char(50), " +
+                "voi_time default (datetime('now','localtime'))," +
+                "voi_info varchar(200) )"}
      
     
      
@@ -77,9 +90,6 @@ module.exports = {
 
   ]  
 };
-
-
-
 
 
 // module.exports 不同点就这样显示出来。

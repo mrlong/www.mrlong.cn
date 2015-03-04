@@ -5,7 +5,7 @@
 
 /*
  *  版本信息：
- *    ver=14
+ *    ver=18
  *
  */
 
@@ -118,3 +118,25 @@ create table image(
   img_time default (datetime('now','localtime')),
   img_info varchar(200)                  /*图片说明内容 ver=15 */
 );
+
+/*视频资源表 ver=17*/
+create table video(
+  vid_guid char(36) primary key,
+  vid_filename varchar(100),             /*文件原名称，保存在固定的位置，/database/videos 下面，与guid进行命名*/
+  vid_style integer not null default 0,  /*类型 1=我的足迹的频视*/
+  vid_content char(50),                  /*关联内容的信息，如是我的足迹，则这个是我的足迹的guid*/
+  vid_time default (datetime('now','localtime')),
+  vid_info varchar(200)                  /*内容说明内容 ver=15 */ 
+);
+
+/*语言资源表 ver=18*/
+create table voice(
+  voi_guid char(36) primary key,
+  voi_filename varchar(100),             /*文件原名称，保存在固定的位置，/database/voices 下面，与guid进行命名*/
+  voi_style integer not null default 0,  /*类型 暂空的*/
+  voi_content char(50),                  /*关联内容的信息，如是我的足迹，则这个是我的足迹的guid*/
+  voi_time default (datetime('now','localtime')),
+  voi_info varchar(200)                  /*内容说明内容 ver=15 */  
+);
+
+
