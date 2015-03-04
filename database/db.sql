@@ -5,7 +5,7 @@
 
 /*
  *  版本信息：
- *    ver=18
+ *    ver=19
  *
  */
 
@@ -107,6 +107,7 @@ create table footer(
   foer_tag varchar(20),                /*标签*/
   foer_images varchar(200),            /* 关联的图片guid,多个采用,号隔开 var=13*/
   foer_price float                     /* 费用多少ver=16 */
+  foer_video varchar(200),             /*视频内容 ver=19*/  
 );
 
 /*图片资源表 ver=12*/
@@ -123,6 +124,7 @@ create table image(
 create table video(
   vid_guid char(36) primary key,
   vid_filename varchar(100),             /*文件原名称，保存在固定的位置，/database/videos 下面，与guid进行命名*/
+  vid_filenmae_thumb varchar(100),       /*视频消息缩略图,保存在固定的位置，/database/videos 下面*/
   vid_style integer not null default 0,  /*类型 1=我的足迹的频视*/
   vid_content char(50),                  /*关联内容的信息，如是我的足迹，则这个是我的足迹的guid*/
   vid_time default (datetime('now','localtime')),

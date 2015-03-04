@@ -5,7 +5,7 @@
 //
 
 module.exports = {
-  verstion : 18,
+  verstion : 19,
   sql:[
     {ver:1,txt:"CREATE TABLE shfimg(zguid CHAR(36) Primary Key," +
               "ct  datetime default (datetime('now','localtime'))," +
@@ -72,6 +72,7 @@ module.exports = {
     {ver:17,txt:"create table video( " +
                 "vid_guid char(36) primary key," +
                 "vid_filename varchar(100)," +
+                "vid_filenmae_thumb varchar(100), " +
                 "vid_style integer not null default 0," +
                 "vid_content char(50), " +
                 "vid_time default (datetime('now','localtime'))," +
@@ -82,7 +83,10 @@ module.exports = {
                 "voi_style integer not null default 0," +
                 "voi_content char(50), " +
                 "voi_time default (datetime('now','localtime'))," +
-                "voi_info varchar(200) )"}
+                "voi_info varchar(200) )"},
+    
+    {ver:19,txt:"ALTER TABLE footer ADD COLUMN foer_video varchar(200)"}
+      
      
     
      
