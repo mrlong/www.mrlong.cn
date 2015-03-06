@@ -2,7 +2,10 @@
   
   <script>
     $(document).ready(function(){
-//      $("#time").val(new Date().toLocaleDateString);
+      
+     $("input[name=tag]").click(function(){
+          $("#txt").text($("input[name=tag]:checked").attr("value")==='健身运动'?"平时健身运动":"");
+      }); 
     
     });
   
