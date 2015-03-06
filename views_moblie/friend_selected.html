@@ -1,0 +1,64 @@
+<!--选择朋友页面
+  页面上必有两个存放值与名称的input
+  id = friend_name
+     = friend_guid
+
+-->
+<script>
+  
+  function doadd(obj){
+    if ($("#friend_name").val().indexOf($(obj).text()) < 0) 
+      $("#friend_name").val($("#friend_name").val()+','+$(obj).text());
+    if($("#friend_guid").val().indexOf($(obj).attr('guid')) < 0){
+      $("#friend_guid").val($("#friend_guid").val()+','+$(obj).attr('guid'));
+      $.get('/friend/selected/'+$(obj).attr('guid'));
+    };
+  };
+    
+  
+   $(document).ready(function(){
+    $("#dosearch").click(function(){
+      var searchtxt = $("#searchtxt").val();
+      $("#friends").empty();
+      var data = {};
+      if (searchtxt != ''){data={'searchtxt':searchtxt}};
+      $.get('/friend/selected',data,function(res,status){
+          if(status==='success' && res.success==true){
+            for(var i=0;i<res.data.length;i++){
+              var htmlLi = $('<li><a data-role="button" data-mini="true" onclick="doadd(this)" guid="' +
+                             res.data[i].fri_guid +  '">' +
+                             res.data[i].fri_name +'</a></li>');
+              $("#friends").append(htmlLi);
+            };
+            $("#friends").listview("refresh");
+            
+          };
+        });
+    });
+   
+   });
+</script>
+
+
+<div data-role="page" id="firend_selected" data-theme="b">
+  <div data-role="content">
+    <input type="text" name="friend_guid" id="friend_guid">
+    <label for="search">查找:</label>
+    <div class="ui-grid-a" id="search">    
+      <div class="ui-block-a"> 
+        <input type="text" name="searchtxt" id="searchtxt" >
+      </div>
+      <div class="ui-block-b">
+        <a data-role="button" data-icon="search" data-mini="true" id="dosearch">搜索</a>
+      </div>
+    </div>
+    
+    <div data-data-role="fieldcontain">
+    <ul data-role="listview" id="friends">
+      
+    </ul>
+    </div>
+    
+    <a href="#pageone" data-role="button" data-icon="arrow-l" data-iconpos="left">返回</a>
+  </div>
+</div>

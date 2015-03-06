@@ -5,7 +5,7 @@
 //
 
 module.exports = {
-  verstion : 19,
+  verstion : 23,
   sql:[
     {ver:1,txt:"CREATE TABLE shfimg(zguid CHAR(36) Primary Key," +
               "ct  datetime default (datetime('now','localtime'))," +
@@ -85,9 +85,28 @@ module.exports = {
                 "voi_time default (datetime('now','localtime'))," +
                 "voi_info varchar(200) )"},
     
-    {ver:19,txt:"ALTER TABLE footer ADD COLUMN foer_video varchar(200)"}
+    {ver:19,txt:"ALTER TABLE footer ADD COLUMN foer_video varchar(200)"},
       
-     
+    //2015-3-6
+    {ver:20,txt:"create table friend("+
+                "fri_guid char(36) primary key," +
+                "fri_name char(20) not null , " +
+                "fri_moblie varchar(100), " +
+                "fri_createtime datetime default (datetime('now','localtime'))," +
+                "fri_qq  char(15)," +
+                "fri_birthday datetime," +
+                "fri_tag varchar(50), " +
+                "fri_from varchar(50), " +
+                "fri_join char(36), " +
+                "fri_note varchar(50)," + 
+                "fri_usetime datetime " +
+                ")"},
+    {ver:21,txt:"ALTER TABLE image ADD COLUMN img_who varchar(100)"},
+    {ver:22,txt:"ALTER TABLE footer ADD COLUMN foer_who varchar(200)"},
+    {ver:23,txt:"ALTER TABLE footer ADD COLUMN foer_whoname varchar(200)"}
+    
+    
+    
     
      
     

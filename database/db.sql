@@ -5,7 +5,7 @@
 
 /*
  *  版本信息：
- *    ver=19
+ *    ver=23
  *
  */
 
@@ -108,6 +108,8 @@ create table footer(
   foer_images varchar(200),            /* 关联的图片guid,多个采用,号隔开 var=13*/
   foer_price float                     /* 费用多少ver=16 */
   foer_video varchar(200),             /*视频内容 ver=19*/  
+  foer_who varchar(200),                /*与friend.fir_guid关联 内有多人时，可以采用,号分开 var=22*/
+  foer_whoname varchar(200)            /*与friend.fir_name,用于显示之用var=23*/
 );
 
 /*图片资源表 ver=12*/
@@ -117,7 +119,8 @@ create table image(
   img_style integer not null default 0,  /*类型 1=我的足迹的图片 2=书法图片 3=读书笔记的图片*/
   img_content char(50),                  /*关联内容的信息，如是我的足迹，则这个是我的足迹的guid*/
   img_time default (datetime('now','localtime')),
-  img_info varchar(200)                  /*图片说明内容 ver=15 */
+  img_info varchar(200),                 /*图片说明内容 ver=15 */
+  img_who varchar(100)                   /*与friend.fir_guid关联 内有多人时，可以采用,号分开 var=21*/
 );
 
 /*视频资源表 ver=17*/
@@ -140,5 +143,21 @@ create table voice(
   voi_time default (datetime('now','localtime')),
   voi_info varchar(200)                  /*内容说明内容 ver=15 */  
 );
+
+/*人脉交际 var=20*/
+create table friend(
+  fri_guid char(36) primary key,
+  fri_name char(20) not null ,         /*姓名*/
+  fri_moblie varchar(100),             /*电话,多个以,分开*/
+  fri_createtime datetime default (datetime('now','localtime')), /*创建时间*/
+  fri_qq  char(15),                    /*qq*/
+  fri_birthday datetime,               /*生日*/
+  fri_tag varchar(50),                 /*标签*/
+  fri_from varchar(50),                /*来源*/
+  fri_join char(36),                   /*什么人介绍*/
+  fri_note varchar(50),                /*备注*/
+  fri_usetime datetime                 /*最后使用时间，用于排序选择之用*/
+);
+
 
 

@@ -47,12 +47,15 @@ router.post('/add',function(req,res,next){
   var time = req.body.time || '';
   var style = req.body.style || 0;
   var price = req.body.price;
+  var fri_guid = req.body.friend_guid;  
+  var fri_name = req.body.friend_name;
 
   
   var zguid = db.newGuid();
   if(time==''){
-    db.exec('insert into footer(foer_guid,foer_txt,foer_time,loc_guid,foer_viewstyle,foer_tag,foer_price) values(?,?,datetime("now","localtime"),?,?,?,?)',
-          [zguid,txt,loc_guid,style,tag,price],function(err,db){
+    db.exec('insert into footer(foer_guid,foer_txt,foer_time,loc_guid,foer_viewstyle,foer_tag,foer_price,foer_who,foer_whoname) '+
+            'values(?,?,datetime("now","localtime"),?,?,?,?,?,?)',
+          [zguid,txt,loc_guid,style,tag,price,fri_guid,fri_name],function(err,db){
     
     if(!err && loc_guid != ''){
       db.run('update location set loc_style=3,loc_content=? where loc_guid=?',[zguid,loc_guid]);
@@ -63,8 +66,9 @@ router.post('/add',function(req,res,next){
     }); 
   }
   else {
-    db.exec('insert into footer(foer_guid,foer_txt,foer_time,loc_guid,foer_viewstyle,foer_tag,foer_price) values(?,?,?,?,?,?,?)',
-          [zguid,txt,time,loc_guid,style,tag,price],function(err,db){
+    db.exec('insert into footer(foer_guid,foer_txt,foer_time,loc_guid,foer_viewstyle,foer_tag,foer_price,foer_who,foer_whoname) ' + 
+            ' values(?,?,?,?,?,?,?,?,?)',
+          [zguid,txt,time,loc_guid,style,tag,price,fri_guid,fri_name],function(err,db){
     
     if(!err && loc_guid != ''){
       db.run('update location set loc_style=3,loc_content=? where loc_guid=?',[zguid,loc_guid]);

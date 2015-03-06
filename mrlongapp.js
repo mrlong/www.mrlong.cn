@@ -27,6 +27,7 @@ var motto = require('./controller/motto');
 var index = require('./controller/index');
 var books = require('./controller/books');
 var footer = require('./controller/footer');
+var friend = require('./controller/friend');
 
 
 var app = express();
@@ -137,6 +138,8 @@ app.use('/motto', motto);
 app.use('/books',books);
 //我的足迹
 app.use('/footer',footer);
+//我的人脉
+app.use('/friend',friend);
 
 
 app.use('/test_index',test.index);
