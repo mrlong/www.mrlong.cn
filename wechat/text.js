@@ -35,7 +35,7 @@ module.exports = function(message, req, res, next){
   
   //直接显示姓名电话会直难过点。但速度会慢
   if (input.length ==3 || input.length ==2){
-    db.query('select fri_name,fri_guid,fri_moblie where fri_name=?',[input],function(err,rows){
+    db.query('select fri_name,fri_guid,fri_moblie from friend where fri_name=?',[input],function(err,rows){
       if(!err && rows.length>0){
         content.push({
           title: '4、我要找人 ' + rows[0].fri_name + ' ' + rows[0].fri_moblie,
@@ -54,7 +54,7 @@ module.exports = function(message, req, res, next){
     content.push({
           title: '4、我要找人',
           url: config.domain + '/friend/search?txt=' + input
-        }); 
+    }); 
   };
   //end
   
