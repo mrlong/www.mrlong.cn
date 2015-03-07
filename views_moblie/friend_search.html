@@ -1,5 +1,29 @@
 <% include header.html %>
   
+  <script>
+    $(document).ready(function(){
+      $("#dosearch").click(function(){
+      var searchtxt = $("#searchtxt").val();
+      $("#friends").empty();
+      var data = {};
+      if (searchtxt != ''){data={'searchtxt':searchtxt}};
+      $.get('/friend/selected',data,function(res,status){
+          if(status==='success' && res.success==true){
+            for(var i=0;i<res.data.length;i++){
+              var htmlLi = $('<li><a data-role="button" data-mini="true" data-icon="arrow-r" data-iconpos="right" '+ 
+                             ' onclick="doadd(this)" guid="' +
+                             res.data[i].fri_guid +  '">' +
+                             res.data[i].fri_name +' ' + res.data[i].fri_moblie + '</a></li>');
+              $("#friends").append(htmlLi);
+            };
+            
+            $("#friends").listview("refresh");           
+          };
+        });
+      });
+    });
+  
+  </script>
   
   <body>
   <div data-role="page" id="pageone" data-theme="b">
