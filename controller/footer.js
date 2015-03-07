@@ -80,6 +80,9 @@ router.post('/add',function(req,res,next){
   }
 });
 
+//
+//增加足迹的图片
+//
 router.get('/addimage',function(req,res,next){
   var img_guid = req.query.img_guid;
   if(img_guid){
@@ -93,7 +96,6 @@ router.get('/addimage',function(req,res,next){
   }
 });
 
-//增加我的足迹图片
 router.post('/addimage',function(req,res,next){
   var img_guid  = req.body.img_guid;
   var foer_images = req.body.foer_images || '';
