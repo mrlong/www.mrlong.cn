@@ -47,9 +47,10 @@ module.exports = function(message, req, res, next){
           title: '4、我要找人',
           url: config.domain + '/friend/search?txt=' + input
         }); 
-      }
+      };
+      res.reply(content);  //因为异步，所以将移到这地方
     });
-    res.reply(content);  //因为异步，所以将移到这地方
+    
   }
   else{
     content.push({
