@@ -1,22 +1,37 @@
 <% include header.html %>
       
   <body>
+  <form action="/images/addinfo" method="post" autocomplete="yes">   
   <div data-role="page" id="pageone" data-theme="b">
     <div data-role="content">
       
-      <form action="/images/addinfo" method="post" autocomplete="yes"> 
+      
         
         <label for="info">图片备注：</label>  
         <textarea rows="6" cols="30"   name="info" id="info" autofocus><%=img_info%></textarea>              
-        
+      
+        <label for="sw3">照片内有什么人:</label>
+        <div class="ui-grid-a" id="sw3">
+          <div class="ui-block-a">              
+            <input type="text" name="friend_name" id="friend_name">
+          </div>
+          <div class="ui-block-b">
+            <a href="#firend_selected" data-role="button" data-mini="true" data-icon="arrow-r" data-iconpos="right">选择</a>
+          </div>
+        </div>  
+          
         <input type="hidden" name="img_guid"    id="img_guid" value="<%=img_guid%>">
+          
         <input type="submit" value="   提  交  " data-inline="false" data-role="button" data-icon="check"  data-inline="true" />  
 
-      </form>
+      
         
       
     </div>
   </div>
+  <% include friend_selected.html %>
+    
+  </form>  
   </body>
 
 <script>

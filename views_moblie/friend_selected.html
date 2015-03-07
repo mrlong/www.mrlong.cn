@@ -45,7 +45,8 @@
 
 <div data-role="page" id="firend_selected" data-theme="b">
   <div data-role="content">
-    <input type="text" name="friend_guid" id="friend_guid">
+    <label for="friend_guid">注意:单选请将原来的删除掉</label>
+    <input type="text" name="friend_guid" id="friend_guid" value="<%=locals.friend_guid?locals.friend_guid:''%>">
     <label for="search">查找:</label>
     <div class="ui-grid-a" id="search">    
       <div class="ui-block-a"> 

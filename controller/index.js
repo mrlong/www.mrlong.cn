@@ -150,11 +150,15 @@ router.get('/images/del/:guid',function(req,res,next){
 router.get('/images/addinfo',function(req,res,next){
   var img_guid = req.query.img_guid;
   var img_info = '';
-  db.query('select img_info from image where img_guid=?',[img_guid],function(err,rows){
+  var img_who = '';
+  db.query('select img_info,img_who from image where img_guid=?',[img_guid],function(err,rows){
     if(!err && rows.length>0 && rows[0].img_info){
-      img_info = rows[0].img_info; 
+      img_info = rows[0].img_info;
+      img_who = rows[0].img_who;
     };
-    res.loadview('image_addinfo.html',{img_guid:img_guid,img_info:img_info},true);
+    res.locals.friend_guid = img_who; 
+    
+    res.loadview('image_addinfo.html',{img_guid:img_guid,img_info:img_info,img_who:img_who},true);
   });
   
 });
@@ -162,7 +166,11 @@ router.post('/images/addinfo',function(req,res,next){
   var img_guid = req.body.img_guid;
   var info = req.body.info;
   
-  db.exec('update image set img_info=? where img_guid=?',[info,img_guid],function(err){
+  var fri_guid = req.body.friend_guid;  
+  var fri_name = req.body.friend_name;
+  
+  
+  db.exec('update image set img_info=?,img_who=? where img_guid=?',[info,fri_guid,img_guid],function(err){
     if(!err){
       res.msgBox('修改成功',true); 
     }
