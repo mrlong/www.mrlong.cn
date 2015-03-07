@@ -40,12 +40,46 @@ router.get('/selected',function(req,res,next){
   }
 });
 
-
 router.get('/selected/:guid',function(req,res,next){
   var fri_guid = req.params.guid;
   db.exec("update friend set fri_usetime=datetime(CURRENT_TIMESTAMP,'localtime') where fri_guid=?",[fri_guid]);
   res.end();
 });
+
+//
+//增加我的人脉
+//
+router.get('/add',function(req,res,next){
+  var txt = req.query.txt;
+  res.loadview('friend_add.html',{txt:txt},true);
+});
+router.post('/add',function(req,res,next){
+  var fri_name = req.body.fri_name;
+  var fri_qq = req.body.fri_qq;
+  var fri_moblie = req.body.fri_moblie;
+  var fri_birthday = req.body.fri_birthday;
+  var fri_from = req.body.fri_from;
+  var fri_tag = req.body.fri_tag;
+  var fri_note = req.body.fri_note;
+  
+  var friend_name = req.body.friend_name;
+  var friend_guid = req.body.friend_guid;
+  
+  if (friend_guid){fri_from=fri_from+'介绍人:'+friend_name}
+  
+  var zguid = db.newGuid();
+  db.exec('insert into friend(fri_guid,fri_name,fri_moblie,fri_qq,fri_birthday,' +
+          'fri_tag,fri_from,fri_join,fri_note,fri_usetime' +
+          ') values(?,?,?,?,?,?,?,?,?,datetime(CURRENT_TIMESTAMP,"localtime"))',
+          [zguid,fri_name,fri_moblie,fri_qq,fri_birthday,fri_tag,fri_from,friend_guid,fri_note],function(err){
+  
+    res.msgBox(!err?"保存成功":"保存失败"+err,true);
+  });
+  
+});
+
+
+
 
 
 

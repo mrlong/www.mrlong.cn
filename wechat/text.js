@@ -27,6 +27,11 @@ module.exports = function(message, req, res, next){
     url: config.domain + '/motto/we_add?txt=' + input
   });
   
+  content.push({
+    title: '3.增加人脉',
+    url: config.domain + '/friend/add?txt=' + input
+  });
+  
   
   res.reply(content);
   

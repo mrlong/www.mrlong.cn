@@ -7,10 +7,13 @@
 <script>
   
   function doadd(obj){
-    if ($("#friend_name").val().indexOf($(obj).text()) < 0) 
-      $("#friend_name").val($("#friend_name").val()+','+$(obj).text());
+    if ($("#friend_name").val().indexOf($(obj).text()) < 0){
+      var txt = $("#friend_name").val()||'';
+      $("#friend_name").val((txt==''?'':txt+',')+$(obj).text());
+    }
     if($("#friend_guid").val().indexOf($(obj).attr('guid')) < 0){
-      $("#friend_guid").val($("#friend_guid").val()+','+$(obj).attr('guid'));
+      var txt = $("#friend_guid").val()||'';
+      $("#friend_guid").val((txt==''?'':txt+',')+$(obj).attr('guid'));
       $.get('/friend/selected/'+$(obj).attr('guid'));
     };
   };
