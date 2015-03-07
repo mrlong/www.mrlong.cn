@@ -12,7 +12,7 @@
             for(var i=0;i<res.data.length;i++){
               var htmlLi = $('<li><a data-role="button" data-mini="true" data-icon="arrow-r" data-iconpos="right" '+ 
                              ' onclick="doadd(this)" guid="' +
-                             res.data[i].fri_guid +  '">' +
+                             res.data[i].fri_guid +  '" href="/friend/edit/' + res.data[i].fri_guid + '">' +
                              res.data[i].fri_name +' ' + res.data[i].fri_moblie + '</a></li>');
               $("#friends").append(htmlLi);
             };
@@ -41,7 +41,7 @@
       <div data-data-role="fieldcontain">
         <ul data-role="listview" id="friends" data-inset="true">
           <% for(var i=0;i<rows.length;i++){%>
-            <li><a data-role="button" data-mini="true" data-icon="arrow-r" data-iconpos="right" onclick="doadd(this)" guid="<%=rows[i].fri_guid%>">
+            <li><a href="/friend/edit/<%=rows[i].fri_guid%>" target="_blank" data-role="button" data-mini="true" data-icon="arrow-r" data-iconpos="right" onclick="doadd(this)" guid="<%=rows[i].fri_guid%>">
               <%=rows[i].fri_name +' '+ rows[i].fri_moblie %> 
             </a></li>
           <%}%>

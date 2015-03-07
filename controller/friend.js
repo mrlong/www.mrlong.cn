@@ -95,6 +95,48 @@ router.get('/search',function(req,res,next){
   });
 });
 
+//
+// 编辑人
+//
+
+router.get('/edit/:guid',function(req,res,next){
+  var fri_guid = req.params.guid;
+  db.query('select * from friend where fri_guid=?',[fri_guid],function(err,rows){
+    if(!err && rows.length>0){
+      res.loadview('friend_edit.html',{data:rows[0]},true);
+    }
+    else{
+      res.msgBox('查无记录不能修改'+err,true); 
+    }
+  });
+});
+
+router.post('/edit',function(req,res,next){
+  var fri_guid = req.body.fri_guid;
+  var fri_name = req.body.fri_name;
+  var fri_moblie = req.body.fri_moblie;
+  var fri_qq = req.body.fri_qq;
+  var fri_birthday = req.body.fri_birthday;
+  var fri_from = req.body.fri_from;
+  var fri_tag = req.body.fri_tag;
+  var fri_note = req.body.fri_note;
+  
+  var fri_join = req.body.fri_join;  //原来的，如
+  var friend_name = req.body.friend_name;
+  var friend_guid = req.body.friend_guid;  //这个值不是原来的，怎么办？？
+  
+  //说明介绍人已有变化了，变化的值是 friend_guid
+  if(fri_join != friend_name){
+    fri_join = friend_guid;
+    fri_from = fri_from + '介绍人:' + friend_name;
+  };
+  
+  db.exec('update friend set fri_name=?,fri_moblie=?,fri_qq=?,fri_birthday=?,fri_from=?,fri_tag=?,fri_join=?,fri_note=? where fri_guid=?',
+          [fri_name,fri_moblie,fri_qq,fri_birthday,fri_from,fri_tag,
+           fri_join,fri_note,fri_guid],function(err){
+    res.msgBox(!err?'修改成功':'修改失败',true);
+  });        
+});
 
 
 

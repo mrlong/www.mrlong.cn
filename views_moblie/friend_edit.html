@@ -1,0 +1,81 @@
+<% include header.html %>
+  
+  <script>
+    $(document).ready(function(){
+      
+    
+    });
+  
+  </script>
+  
+  <body>
+    <form action="/friend/edit" method="post" autocomplete="yes"> 
+    <div data-role="page" id="pageone" data-theme="b">
+      <div data-role="content">  
+        <input type="hidden" name="fri_guid" id="fri_guid" value="<%=data.fri_guid%>">
+        <div class="ui-grid-a" >
+          <div class="ui-block-a"> 
+            <label for="fri_name">姓名:</label>
+            <input type="text" name="fri_name" id="fri_name" value="<%=data.fri_name%>">
+          </div>
+          <div class="ui-block-b"> 
+            <label for="fri_moblie">电话:</label>
+            <input type="text" name="fri_moblie" id="fri_moblie" value="<%=data.fri_moblie%>">
+          </div>
+        </div>
+        
+        <div class="ui-grid-a" >
+          <div class="ui-block-a">            
+            <label for="fri_birthday">生日:</label>
+            <input type=datetime name="fri_birthday" id="fri_birthday" value="<%=data.fri_birthday?data.fri_birthday:''%>">
+          </div>
+          <div class="ui-block-b">
+            <label for="fri_qq">QQ:</label>
+            <input type="number" name="fri_qq" id="fri_qq" value="<%=data.fri_qq%>">
+          </div>
+        </div>  
+        <div data-role="controlgroup" data-type="horizontal">
+          <legend>标签：</legend>
+          <label for="1">亲人</label>
+          <input type="radio" name="fri_tag"  id="1" value="亲人" required="required" <%=data.fri_tag=='亲人'?'checked':''%> >
+          <label for="2">同学</label>
+          <input type="radio" name="fri_tag"  id="2" value="同学" <%=data.fri_tag=='同学'?'checked':''%>>
+          <label for="3">社会朋友</label>
+          <input type="radio" name="fri_tag" id="3" value="社会朋友" <%=data.fri_tag=='社会朋友'?'checked':''%>>
+          <label for="4">客户</label>
+          <input type="radio" name="fri_tag" id="4" value="客户" <%=data.fri_tag=='客户'?'checked':''%>>    
+          <label for="5">其他</label>
+          <input type="radio" name="fri_tag" id="5" value="其他" <%=data.fri_tag=='其他'?'checked':''%>> 
+      
+        </div>
+        
+        <label for="fri_from">来源:</label>
+        <input type="text" name="fri_from" id="fri_from" value="<%=data.fri_from?data.fri_from:''%>">
+        <label for="fri_join">介绍人:</label>
+        <div class="ui-grid-a" id="fri_join">
+          <div class="ui-block-a">
+            <input type="hidden" name="fri_join" id="fri_join" value="<%=data.fri_join%>">
+            <input type="text" name="friend_name" id="friend_name" value="<%=data.fri_join%>">
+          </div>
+          <div class="ui-block-b">
+            <a href="#firend_selected" data-role="button" data-mini="true" data-icon="arrow-r" data-iconpos="right">选择</a>
+          </div>
+        </div>
+        <label for="fri_note">备注:</label>
+        <input type="text" name="fri_note" id="fri_note">
+        
+        <input type="submit" value="   提  交  " data-inline="false" data-role="button" data-icon="check"  data-inline="true" />  
+    </div>
+  </div>
+  
+  <!--  这地方的有一个值怎么处理，有问题，采用friend_name与原来的比较，如一样则不再写值了    -->
+  <% include friend_selected.html %>
+  
+  </form>
+  </body>
+
+<script>
+  SetTitle('编辑我的人脉');
+</script>
+  
+<% include footer.html %>
