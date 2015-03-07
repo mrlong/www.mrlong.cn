@@ -11,14 +11,20 @@
   <body>
     <form action="/friend/add" method="post" autocomplete="yes"> 
     <div data-role="page" id="pageone" data-theme="b">
-      <div data-role="content">            
-        <label for="fri_name">姓名:</label>
-        <input type="text" name="fri_name" id="fri_name" value="<%=txt%>">
-        <label for="fri_moblie">电话:</label>
-        <input type="text" name="fri_moblie" id="fri_moblie">
+      <div data-role="content">  
         <div class="ui-grid-a" >
-          <div class="ui-block-a">
-            
+          <div class="ui-block-a"> 
+            <label for="fri_name">姓名:</label>
+            <input type="text" name="fri_name" id="fri_name" value="<%=txt%>">
+          </div>
+          <div class="ui-block-b"> 
+            <label for="fri_moblie">电话:</label>
+            <input type="text" name="fri_moblie" id="fri_moblie">
+          </div>
+        </div>
+        
+        <div class="ui-grid-a" >
+          <div class="ui-block-a">            
             <label for="fri_birthday">生日:</label>
             <input type=datetime name="fri_birthday" id="fri_birthday">
           </div>

@@ -28,7 +28,7 @@ module.exports = function(message, req, res, next){
   });
   
   content.push({
-    title: '3.增加人脉',
+    title: '3、增加人脉',
     url: config.domain + '/friend/add?txt=' + input
   });
   

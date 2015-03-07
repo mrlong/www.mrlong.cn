@@ -17,7 +17,7 @@ router.get('/selected',function(req,res,next){
   var searchtxt = req.query.searchtxt;
   
   if (searchtxt){
-    db.query('select fri_guid,fri_name from friend where fri_name like ?  order by fri_usetime desc',['%' + searchtxt + '%'],function(err,rows){
+    db.query('select fri_guid,fri_name,fri_moblie from friend where fri_name like ?  order by fri_usetime desc',['%' + searchtxt + '%'],function(err,rows){
       if(!err){
         res.json({success:true,msg:'',data:rows});
       }
@@ -28,7 +28,7 @@ router.get('/selected',function(req,res,next){
   }
   else{
     //取出前最新的10条
-    db.query('select fri_guid,fri_name from friend  order by fri_usetime desc limit 0,10',function(err,rows){
+    db.query('select fri_guid,fri_name,fri_moblie from friend  order by fri_usetime desc limit 0,10',function(err,rows){
       if(!err){
         res.json({success:true,msg:'',data:rows}); 
       }

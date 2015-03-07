@@ -30,7 +30,7 @@
             for(var i=0;i<res.data.length;i++){
               var htmlLi = $('<li><a data-role="button" data-mini="true" onclick="doadd(this)" guid="' +
                              res.data[i].fri_guid +  '">' +
-                             res.data[i].fri_name +'</a></li>');
+                             res.data[i].fri_name +' ' + res.data[i].fri_moblie + '</a></li>');
               $("#friends").append(htmlLi);
             };
             $("#friends").listview("refresh");
@@ -49,7 +49,7 @@
     <label for="search">查找:</label>
     <div class="ui-grid-a" id="search">    
       <div class="ui-block-a"> 
-        <input type="text" name="searchtxt" id="searchtxt" >
+          <input type="text" name="searchtxt" id="searchtxt" >
       </div>
       <div class="ui-block-b">
         <a data-role="button" data-icon="search" data-mini="true" id="dosearch">搜索</a>
@@ -57,9 +57,9 @@
     </div>
     
     <div data-data-role="fieldcontain">
-    <ul data-role="listview" id="friends">
+      <ul data-role="listview" id="friends" data-inset="true">
       
-    </ul>
+      </ul>
     </div>
     
     <a href="#pageone" data-role="button" data-icon="arrow-l" data-iconpos="left">返回</a>
