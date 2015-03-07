@@ -78,6 +78,23 @@ router.post('/add',function(req,res,next){
   
 });
 
+//
+// 查找人
+//
+//
+router.get('/search',function(req,res,next){
+  var txt = req.query.txt;
+  db.query('select fri_guid,fri_name,fri_moblie from friend where fri_name like ? order by fri_usetime desc limit 0,20',
+           ['%'+txt+'%'],function(err,rows){
+    if(!err){
+      res.loadview('friend_search.html',{rows:rows,txt:txt},true);
+    }
+    else{
+      res.msgBox('查找出错'+err,true); 
+    }
+  });
+});
+
 
 
 

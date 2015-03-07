@@ -32,6 +32,11 @@ module.exports = function(message, req, res, next){
     url: config.domain + '/friend/add?txt=' + input
   });
   
+  content.push({
+    title: '4、我要找人',
+    url: config.domain + '/friend/search?txt=' + input
+  });
+  
   
   res.reply(content);
   
