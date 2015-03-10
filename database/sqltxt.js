@@ -115,7 +115,7 @@ module.exports = {
                 "cos_images varchar(200)," +
                 "foer_guid char(36)," +
                 "loc_guid char(36)" + 
-                ")"},
+                ")"}
     //end
         
     
