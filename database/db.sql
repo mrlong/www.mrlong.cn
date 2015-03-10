@@ -5,7 +5,7 @@
 
 /*
  *  版本信息：
- *    ver=23
+ *    ver=24
  *
  */
 
@@ -36,7 +36,7 @@ create table sysparams(
 /*地点位置信息列表 ver=3*/
 create table location(
   loc_guid char(36) primary key,            /*这个是主键*/
-  loc_style integer not null default 0,     /*0=表示没有关联上的， 内容类型 1=书法的拍照位置 2=读书笔记位置 3=我的足迹*/
+  loc_style integer not null default 0,     /*0=表示没有关联上的， 内容类型 1=书法的拍照位置 2=读书笔记位置 3=我的足迹 4=我的花销*/
   loc_content char(50),                     /*关联内容的信息，如是书法，则这个是书法的zguid*/
   loc_latitude integer,                     /* 纬度，浮点数，范围为90 ~ -90*/
   loc_longitude integer,                    /* 经度，浮点数，范围为180 ~ -180。*/
@@ -45,6 +45,7 @@ create table location(
   loc_scale integer,                        /* 地图缩放级别,整形值,范围从1~28。默认为最大 */
   loc_infourl varchar(250),                 /* 在查看位置界面底部显示的超链接,可点击跳转 */
   loc_precision integer                     /* 位置精度 ver=7*/
+  /*loc_time datetime default (datetime('now','localtime')) /* ver=25 * 原因是无法增加。放到后面了/
 );
 
 
@@ -116,9 +117,9 @@ create table footer(
 create table image(
   img_guid char(36) primary key,         /*, */
   img_filename varchar(100),             /*文件的原名称 保存在图定的位置，暂定在database/images 下面,与guid进行命名*/
-  img_style integer not null default 0,  /*类型 1=我的足迹的图片 2=书法图片 3=读书笔记的图片*/
+  img_style integer not null default 0,  /*类型 1=我的足迹的图片 2=书法图片 3=读书笔记的图片 4=我的花销*/
   img_content char(50),                  /*关联内容的信息，如是我的足迹，则这个是我的足迹的guid*/
-  img_time default (datetime('now','localtime')),
+  img_time datetime default (datetime('now','localtime')),
   img_info varchar(200),                 /*图片说明内容 ver=15 */
   img_who varchar(100)                   /*与friend.fir_guid关联 内有多人时，可以采用,号分开 var=21*/
 );
@@ -130,7 +131,7 @@ create table video(
   vid_filenmae_thumb varchar(100),       /*视频消息缩略图,保存在固定的位置，/database/videos 下面*/
   vid_style integer not null default 0,  /*类型 1=我的足迹的频视*/
   vid_content char(50),                  /*关联内容的信息，如是我的足迹，则这个是我的足迹的guid*/
-  vid_time default (datetime('now','localtime')),
+  vid_time datetime default (datetime('now','localtime')),
   vid_info varchar(200)                  /*内容说明内容 ver=15 */ 
 );
 
@@ -144,7 +145,7 @@ create table voice(
   voi_info varchar(200)                  /*内容说明内容 ver=15 */  
 );
 
-/*人脉交际 var=20*/
+/*人脉交际 ver=20*/
 create table friend(
   fri_guid char(36) primary key,
   fri_name char(20) not null ,         /*姓名*/
@@ -157,6 +158,18 @@ create table friend(
   fri_join char(36),                   /*什么人介绍*/
   fri_note varchar(50),                /*备注*/
   fri_usetime datetime                 /*最后使用时间，用于排序选择之用*/
+);
+
+/*我的花销 ver=24*/
+create table cost(
+  cos_guid char(36) primary key,
+  cos_name varchar(100),              /*名称说明*/
+  cos_price float default 0,          /*费用*/
+  cos_time datetime default (datetime('now','localtime')), /*创建时间*/
+  cos_tag varchar(20),                /*标签*/
+  cos_images varchar(200),            /*相关图片 image.style=4*/
+  foer_guid char(36),                 /*哪个活动的开支*/
+  loc_guid char(36)                   /*地图信息内容，如有说明花费的位置*/
 );
 
 

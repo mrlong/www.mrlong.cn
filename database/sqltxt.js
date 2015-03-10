@@ -5,7 +5,7 @@
 //
 
 module.exports = {
-  verstion : 23,
+  verstion : 24,
   sql:[
     {ver:1,txt:"CREATE TABLE shfimg(zguid CHAR(36) Primary Key," +
               "ct  datetime default (datetime('now','localtime'))," +
@@ -103,8 +103,21 @@ module.exports = {
                 ")"},
     {ver:21,txt:"ALTER TABLE image ADD COLUMN img_who varchar(100)"},
     {ver:22,txt:"ALTER TABLE footer ADD COLUMN foer_who varchar(200)"},
-    {ver:23,txt:"ALTER TABLE footer ADD COLUMN foer_whoname varchar(200)"}
+    {ver:23,txt:"ALTER TABLE footer ADD COLUMN foer_whoname varchar(200)"},
     
+    //2015-3-10
+    {ver:24,txt:"create table cost(" +
+                "cos_guid char(36) primary key," +
+                "cos_name varchar(100)," +
+                "cos_price float default 0," +
+                "cos_time datetime default (datetime('now','localtime'))," +
+                "cos_tag varchar(20),  " +
+                "cos_images varchar(200)," +
+                "foer_guid char(36)," +
+                "loc_guid char(36)" + 
+                ")"},
+    //end
+        
     
     
     
@@ -113,6 +126,9 @@ module.exports = {
 
   ]  
 };
+
+
+
 
 
 // module.exports 不同点就这样显示出来。

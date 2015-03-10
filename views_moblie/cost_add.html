@@ -1,0 +1,87 @@
+<!--增加我的花销-->
+<% include header.html %>
+  
+  <script>
+    $(document).ready(function(){ 
+    $('#switch').change(function(){
+      var myvalue = $(this).children('option:selected').val(); 
+      if(myvalue=='on'){
+        
+        wx.getLocation({
+          success: function (res) {
+            var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+            var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+            var speed = res.speed; // 速度，以米/每秒计
+            var accuracy = res.accuracy; // 位置精度
+            $("#loc_guid").val(latitude + "," +longitude);
+          }
+        });  
+      }
+      else{
+        $("#loc_guid").val('');
+      }
+    });
+  });
+  
+  </script>
+      
+  <body>
+  <form action="/cost/add" method="post" autocomplete="yes">  
+  <div data-role="page" id="pageone" data-theme="b">
+    <div data-role="content">
+              
+      <label for="cos_name">费用说明：</label>  
+      <textarea rows="6" cols="30"   name="cos_name" id="cos_name" autofocus></textarea> 
+      
+      <label for="sw2">费用：</label>
+      <div class="ui-grid-a" id="sw2">
+        <div class="ui-block-a">
+        <select name="price_style" id="price_style" data-role="slider" >
+          <option value="on">收入</option>
+          <option value="off" selected="selected">支出</option>
+        </select></div>
+        <div class="ui-block-b"><input type="number" name="cos_price" id="cos_price" value="<%=txt%>"></div>
+      </div>
+      
+      <div data-role="controlgroup" data-type="horizontal">
+        <legend>标签：</legend>
+        <label for="1">生活购物</label>
+        <input type="radio" name="cos_tag"  id="1" value="生活购物" checked >  
+        <label for="2">吃喝玩乐</label>
+        <input type="radio" name="cos_tag"  id="2" value="吃喝玩乐" >
+        <label for="3">老少家用</label>
+        <input type="radio" name="cos_tag"  id="3" value="老少家用" >
+        <label for="4">工作餐</label>
+        <input type="radio" name="cos_tag"  id="4" value="工作餐" >
+        <label for="5">其他</label>
+        <input type="radio" name="cos_tag"  id="5" value="其他" > 
+      </div>
+      
+      <div data-data-role="fieldcontain">
+        <label for="sw2">记下位置：</label>
+        <div class="ui-grid-a" id="sw2">
+          <div class="ui-block-a">
+          <select name="switch" id="switch" data-role="slider" >
+            <option value="on">开</option>
+            <option value="off" selected="selected">关</option>
+            </select></div>
+          <div class="ui-block-b"><input type="text" name="loc_guid" id="loc_guid"></div>
+        </div>
+      </div>
+      
+                
+      <input type="submit" value="   提  交  " data-inline="false" data-role="button" data-icon="check"  data-inline="true" />  
+      
+        
+      
+    </div>
+  </div>
+  </form>  
+    
+  </body>
+
+<script>
+  SetTitle('增加我的收入或花销');
+</script>
+  
+<% include footer.html %>

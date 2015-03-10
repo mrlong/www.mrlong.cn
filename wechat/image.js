@@ -49,7 +49,12 @@ module.exports = function(image, req, res, next){
           });
           
           content.push({
-            title:'5、上传错了，现在删除掉。',
+            title:'5、增加到我的花销',
+            url: config.domain + '/cost/addimage?img_guid=' + img_guid
+          });
+          
+          content.push({
+            title:'6、上传错了，现在删除掉。',
             url: config.domain + '/images/del/' + img_guid
           });
           
