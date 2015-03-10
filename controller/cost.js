@@ -10,6 +10,8 @@ var wxconfig = require('../wxconfig');
 
 var router = express.Router();
 
+
+
 router.get('/add',wxconfig.wx,function(req,res,next){
   var txt = req.query.txt;
   res.loadview('cost_add.html',{txt:txt},true);
@@ -71,8 +73,37 @@ router.post('/addimage',function(req,res,next){
   cos_images = cos_images==''?img_guid:cos_images+',' + img_guid;
   
   db.exec('update cost set cos_images=? where cos_guid=?',[cos_images,cos_guid],function(err){
-    res.msgBox(!err?'增加图片成功':'增加图片失败'+err,true);
+    if(!err){        
+      db.exec('update image set img_style=4,img_content=? where img_guid=?',[cos_guid,img_guid],function(err){
+        res.msgBox(!err?'保存图片到我的花销了':'回写到图片库信息出错，但花销关联还在。'+err,true);
+      });
+    }
+    else{
+      res.msgBox('花销关联图片出错',true);  
+    };    
   });
+});
+
+router.get('/',function(req,res,next){
+  var curpage = req.query.page || 1;
+  var startpage = (curpage-1)*20;
+  
+  db.query('select cos_name,cos_price,cos_time,cos_tag,cos_images,foer_guid, ' + 
+           'loc_guid from cost order by cos_time desc limit ?,20',
+           [startpage],function(err,rows,db){
+    if(!err){
+      db.get('select count(*) as rowcount,sum(cos_price) as totle from cost',function(err,row){
+        res.loadview('showcost.html', {rows:rows,
+                                        curpage:curpage,
+                                        rowcount:row.rowcount,
+                                        totle:parseInt(row.totle)});
+      
+      });
+        
+    }
+    else
+      res.loadview('showcost.html', {rows:[],curpage:1,rowcount:0,totle:0});
+  });   
 });
 
 

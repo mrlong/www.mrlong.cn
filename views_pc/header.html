@@ -109,6 +109,10 @@
         <li name='我的读书' ><a href="/books">我的读书</a></li>
         <li name='读书笔记'><a href="/books/notes">读书笔记</a></li>
         <li name='我的足迹'><a href="/footer">我的足迹</a></li>
+        
+        <% if(locals.adminlogin) { %>
+          <li name='我的花销'><a href="/cost">我的花销</a></li>
+        <%}%>
       </ul>
     </td>
     

@@ -1,0 +1,117 @@
+<% include header.html %>
+<script type="application/javascript"  src="/js/jquery.form.js"></script>
+<script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&key=RTUBZ-3DUWW-WCERE-R5XFN-5B5WT-6ZFRU"></script>
+ 
+<style>
+  
+  #cost_table{
+      margin:auto;
+      width: 90%;
+  }  
+  .single{width:200px;margin: 2px}
+  
+  .container {
+    margin: 4px;
+    width:150px; 
+    height:150px;
+  };
+  
+
+</style>  
+  
+<script type="text/javascript">
+  $(document).ready(function(){
+      $('button[map="1"]').click(function(){
+        var myurl = "/location/" + $(this).attr('guid');
+        var id = $(this).attr('cid');
+        $.get(myurl,function(obj){
+          if (obj.success==true){
+            var center = new qq.maps.LatLng(obj.lat,obj.lng); // 地图的中心地理坐标。
+            var map = new qq.maps.Map(document.getElementById("map"+id), {
+              center: center,
+              zoom: obj.scale || 13,
+              zoomControl: false,
+              panControl:false,
+              mapTypeControl:false
+            });
+            var marker = new qq.maps.Marker({
+              position: center,
+              map: map
+            });
+            
+            $('#map'+id).show();
+          }
+          else{
+            $('#map'+id).html(obj.msg);  
+          }
+        });
+        $(this).hide();
+      });    
+    });
+   
+
+</script>
+  
+  
+<h3 style="text-align: center">我的花销共<%=rowcount%>笔,合计费用: <%=totle%></h3>
+  
+  <table id="cost_table" border="0" >    
+      
+    <% for(var i=0;i<rows.length;i++){%>
+      <% if (i === rows.length-1){ %>
+        <tr id="book<%=rows[i].cos_guid%>" >    <!-- 最后一本时下线不要画了 -->
+      <%} else {%>
+        <tr id="book<%=rows[i].cos_guid%>" style="border-bottom: 1px solid #EEE;">
+      <%}%>
+        <td width="5%">
+          <%=(curpage-1)*20 + i+1%>
+        </td>
+        <td width="40%">
+          <%=rows[i].cos_name%><br>
+          <small>标签:<%=rows[i].cos_tag%></small>
+        </td>
+        <td width="10%">
+          <%=rows[i].cos_price%>
+        </td>
+
+        <td width="30%">
+          <% if(rows[i].loc_guid){ %>
+            <button type="button" map="1"  guid=<%=rows[i].loc_guid %> cid="<%=i%>" >地图显示</button>          
+            <div class="container" id="<%='map'+i %>" style="display:none;"></div>
+          <%}%>
+        </td>
+        <td width="10%">
+          <% var myimages = (rows[i].cos_images || '').split(',');  %>
+          <% var c=0%>
+          <% for (var k=0;k<myimages.length;k++) if(myimages[k] !='') { c=c+1  %>
+          
+            <a href="/images/<%=myimages[k]%>" target="_blank">图片<%=c %></a>
+          <%}%>
+        </td>
+              
+
+        <td><button type="button" class="del" isbn="<%=rows[i].cos_guid%>" >删除</button></td>
+
+        
+      </tr>
+
+
+    <% } %>
+  </table>
+  
+  <div style="margin-left: 200px;">
+  <% var totalpage = rowcount%20>0?1:0;totalpage = totalpage + parseInt(rowcount/20);  %>
+  <% if (curpage >1) { %>
+    <a href="/cost?page=<%=Number(curpage)-1%>"> <button style="width: 100px;height: 31px;">上一页</button></a>      
+  <%}%>
+
+  <% if (curpage < totalpage){  %>
+    <a href="/cost?page=<%=Number(curpage)+1%>" ><button style="width:100px;height: 31px;">下一页</button></a>
+  <%}%> 第<%=curpage%>页,共<%=totalpage%>页 总共<%=rowcount%>本书。 
+  </div>
+    
+<script>
+  SetActionNav('我的花销');    
+</script>     
+  
+<% include footer.html %>
