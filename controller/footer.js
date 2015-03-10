@@ -49,17 +49,23 @@ router.post('/add',function(req,res,next){
   var price = req.body.price;
   var fri_guid = req.body.friend_guid;  
   var fri_name = req.body.friend_name;
+  var addtocost = req.body.addtocost; //=1增加 0=不增加
 
   
   var zguid = db.newGuid();
   if(time==''){
     db.exec('insert into footer(foer_guid,foer_txt,foer_time,loc_guid,foer_viewstyle,foer_tag,foer_price,foer_who,foer_whoname) '+
             'values(?,?,datetime("now","localtime"),?,?,?,?,?,?)',
-          [zguid,txt,loc_guid,style,tag,price,fri_guid,fri_name],function(err,db){
+          [zguid,txt,loc_guid,style,tag,price,fri_guid,fri_name],function(err,indb){
     
     if(!err && loc_guid != ''){
-      db.run('update location set loc_style=3,loc_content=? where loc_guid=?',[zguid,loc_guid]);
+      indb.run('update location set loc_style=3,loc_content=? where loc_guid=?',[zguid,loc_guid]);      
     };
+    
+    if (!err && addtocost=='1'){
+      indb.run('insert into cost(cos_guid,cos_name,cos_price,cos_tag,loc_guid,foer_guid) values(?,?,?,?,?,?)',
+        [db.newGuid(),txt,price * -1,'来自足迹',loc_guid,zguid]);
+    }
     
     res.msgBox(!err?'保存成功':'保存出错'+err,true);
     
@@ -68,11 +74,16 @@ router.post('/add',function(req,res,next){
   else {
     db.exec('insert into footer(foer_guid,foer_txt,foer_time,loc_guid,foer_viewstyle,foer_tag,foer_price,foer_who,foer_whoname) ' + 
             ' values(?,?,?,?,?,?,?,?,?)',
-          [zguid,txt,time,loc_guid,style,tag,price,fri_guid,fri_name],function(err,db){
+          [zguid,txt,time,loc_guid,style,tag,price,fri_guid,fri_name],function(err,indb){
     
     if(!err && loc_guid != ''){
-      db.run('update location set loc_style=3,loc_content=? where loc_guid=?',[zguid,loc_guid]);
+      indb.run('update location set loc_style=3,loc_content=? where loc_guid=?',[zguid,loc_guid]);      
     };
+      
+    if(!err && addtocost=='1'){
+      indb.run('insert into cost(cos_guid,cos_name,cos_price,cos_tag,loc_guid,foer_guid) values(?,?,?,?,?,?)',
+        [db.newGuid(),txt,price * -1,'来自足迹',loc_guid,zguid]);
+      }
     
     res.msgBox(!err?'保存成功':'保存出错'+err,true);
     

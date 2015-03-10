@@ -169,7 +169,7 @@ create table cost(
   cos_tag varchar(20),                /*标签*/
   cos_images varchar(200),            /*相关图片 image.style=4*/
   foer_guid char(36),                 /*哪个活动的开支*/
-  loc_guid char(36)                   /*地图信息内容，如有说明花费的位置*/
+  loc_guid char(36)                   /*地图信息内容，如有说明花费的位置,如来自足迹则这个是我的足迹的值*/
 );
 
 
