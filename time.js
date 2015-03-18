@@ -2,6 +2,7 @@
 // 龙仕云 2015-3-18
 // 定时器
 //
+
 var schedule = require("node-schedule");  //定时器
 var db = require('./db');
 var util = require('./util');
@@ -10,7 +11,7 @@ var util = require('./util');
 //1.检查提醒
 var doremind=function(){
   db.query("select rem_txt,rem_guid from remind  where  (rem_issend='false') and " +
-          "(strftime('%s',rem_time)-strftime('%s',datetime('now','localtime')))<100 and " +
+          "(strftime('%s',rem_time)-strftime('%s',datetime('now','localtime')))<120 and " +
           "(strftime('%s',rem_time)-strftime('%s',datetime('now','localtime'))) > 0 ",function(err,rows){
     
     if(!err && rows.length>0){
@@ -35,7 +36,7 @@ exports.do=function(){
   //}
   rule.second = times;
   var j = schedule.scheduleJob(rule, function(){
-    console.log('sss');
+    //console.log('sss');
     doremind();
   });
 };
