@@ -123,7 +123,7 @@ app.post('*',function(req,res,next){
 app.use('/wechat', wechat(config.weixin.token, function (req, res, next){
   var message = req.weixin;
   //只有自己才能发信息
-  if(message.FromUserName=='o1w5ut5DoTM6zmw29kUmSyV9xZyE' && 
+  if(message.FromUserName=='o5Lr2t1c6b0JV0xidlxbClJa56s4' && 
      message.ToUserName=='gh_8be223f635d1'){
     next();
   }
