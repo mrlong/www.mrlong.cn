@@ -10,6 +10,7 @@
 var config=require('./config');
 var fs=require('fs');
 var crypto = require('crypto');
+var nodemailer = require("nodemailer");  //发邮件
 
 //生成随机码
 // size 长度，如不写是6
@@ -124,4 +125,24 @@ exports.getParentPath=function (path){
       }
   };
   return ppath;
-}
+};
+
+//
+//发邮件
+//fn(err)
+//opt:{
+//      from : "11111111@qq.com",
+//      to : "22222222@qq.com",
+//      subject: "邮件主题",
+//      generateTextFromHTML : true,
+//      html : "<p>这是封测试邮件</p>"  \\text:
+// }
+exports.sendmail=function(opt,fn){
+  var transport = nodemailer.createTransport(config.smtp);
+  transport.sendMail(opt, function(err, response){
+    if(fn)fn(err); //response.message
+    transport.close();
+  });
+};
+
+

@@ -13,7 +13,9 @@
     "body-parser":"*",
     "urllib": "2.0.2" ,
     "cookie-parser":"*",
-    "express-session":"*"
+    "express-session":"*",
+    "node-schedule":"*",
+    "nodemailer":"*"
   }
 }
 

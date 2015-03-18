@@ -1,0 +1,25 @@
+<% include header.html %>
+  
+  
+  <body>
+  <div data-role="page" id="pageone" data-theme="b">
+    <div data-role="content">
+      <form action="/remind/add" method="post" autocomplete="yes"> 
+        <label for="txt">提醒内容:</label> 
+        <textarea rows="10" cols="30"   name="txt" id="txt" autofocus required><%=txt%></textarea>
+
+        
+        <label for="rem_time">提醒时间:</label> 
+        <input type="datetime-local" name="rem_time" id="rem_time" required>
+        
+        <input type="submit" value="   提  交  " data-inline="false" data-role="button" data-icon="check"  data-inline="true" />  
+      </form>              
+    </div>
+  </div>
+  </body>
+
+<script>
+  SetTitle('增加提醒');
+</script>
+  
+<% include footer.html %>

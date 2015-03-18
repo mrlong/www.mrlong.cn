@@ -5,7 +5,7 @@
 //
 
 module.exports = {
-  verstion : 24,
+  verstion : 25,
   sql:[
     {ver:1,txt:"CREATE TABLE shfimg(zguid CHAR(36) Primary Key," +
               "ct  datetime default (datetime('now','localtime'))," +
@@ -115,7 +115,18 @@ module.exports = {
                 "cos_images varchar(200)," +
                 "foer_guid char(36)," +
                 "loc_guid char(36)" + 
-                ")"}
+                ")"},
+    //end
+    
+    //201503018
+    {ver:25,txt:"create table remind("+
+                "rem_guid char(36) primary key," +
+                "rem_txt varchar(255)," +
+                "rem_time datetime not null," +
+                "rem_issend bool default false" +
+                ")"
+    
+    }
     //end
         
     
@@ -126,8 +137,6 @@ module.exports = {
 
   ]  
 };
-
-
 
 
 

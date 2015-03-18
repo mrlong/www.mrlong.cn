@@ -5,7 +5,7 @@
 
 /*
  *  版本信息：
- *    ver=24
+ *    ver=25
  *
  */
 
@@ -170,6 +170,14 @@ create table cost(
   cos_images varchar(200),            /*相关图片 image.style=4*/
   foer_guid char(36),                 /*哪个活动的开支*/
   loc_guid char(36)                   /*地图信息内容，如有说明花费的位置,如来自足迹则这个是我的足迹的值*/
+);
+  
+/*提醒 ver=25*/
+create table remind(
+  rem_guid char(36) primary key,
+  rem_txt varchar(255),
+  rem_time datetime not null,
+  rem_issend bool default false     /*=ture 表示已发出邮件*/
 );
 
 

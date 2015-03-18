@@ -30,6 +30,7 @@ var books = require('./controller/books');
 var footer = require('./controller/footer');
 var friend = require('./controller/friend');
 var cost = require('./controller/cost');     //费用花销
+var remind = require('./controller/remind');
 
 var app = express();
 module.exports = app;
@@ -154,9 +155,14 @@ app.use('/footer',footer);
 app.use('/friend',friend);
 //我的费用花销
 app.use('/cost',cost);
-
+//提醒
+app.use('/remind',remind);
 
 app.use('/test_index',test.index);
+
+//定时器
+require('./time').do();
+
 
 app.listen(3002);
 console.log('mrlong.cn stated on port 3002');
