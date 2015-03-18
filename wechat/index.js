@@ -12,7 +12,7 @@ var config = require('../config');
 //appsecret
 //var api = new API(config.weixin.appid, 'eace164dedd242dfc74b9a79b9bbd0c7');
 
-
+/*
 var mywechat = wechat(config.weixin.token, 
   wechat.text(text)      //文本
     .image(image)        //图片
@@ -28,3 +28,18 @@ var mywechat = wechat(config.weixin.token,
 
 
 exports.mywechat = mywechat;
+*/
+
+
+module.exports = function(req,res,next){
+  var message = req.weixin;
+  //'text', 'image', 'voice', 'video', 'location', 'link', 'event'
+  if (message.MsgType=='text') {text(message,req,res,next)};
+  if (message.MsgType=='event'){event(message,req,res,next)};
+  if (message.MsgType=='image'){image(message,req,res,next)};
+  if (message.MsgType=='voice'){voice(message,req,res,next)};
+  if (message.MsgType=='video'){video(message,req,res,next)};
+  if (message.MsgType=='location'){location(message,req,res,next)};
+  if (message.MsgType=='link'){link(message,req,res,next)};
+  
+};

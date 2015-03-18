@@ -10,6 +10,7 @@
 
 var fs = require('fs');
 var ejs = require('ejs');
+var wechat = require('wechat');
 var path = require('path');
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -119,7 +120,18 @@ app.post('*',function(req,res,next){
 });
 
 //微信
-app.use('/wechat', require('./wechat').mywechat);
+app.use('/wechat', wechat(config.weixin.token, function (req, res, next){
+  var message = req.weixin;
+  //只有自己才能发信息
+  if(message.FromUserName=='o1w5ut5DoTM6zmw29kUmSyV9xZyE' && 
+     message.ToUserName=='gh_8be223f635d1'){
+    next();
+  }
+  else{
+    res.reply('这个是个人应用你不能关注，请退出。');
+  }   
+}),require('./wechat'));
+
 
 // app.use(function(req,res,next){
 // 	var name = req.query.name;
