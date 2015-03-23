@@ -219,7 +219,7 @@ router.get('/notes',function(req,res,next){
   if(isbn){
     db.query('select a.*,b.boo_name from books_notes as a left join books as b on a.boo_isbn=b.boo_isbn where a.boo_isbn=? order by a.bno_time desc  ',[isbn],function(err,rows){
       if(!err){
-        res.loadview('showbooksnote.html',{rowcount:rows.length,rows:rows});
+        res.loadview('showbooksnote.html',{rowcount:rows.length,rows:rows,curpage:page});
       }
       else{
         res.msgBox('读取笔记失败','/books'); 
@@ -232,7 +232,7 @@ router.get('/notes',function(req,res,next){
     db.query('select a.*,b.boo_name from books_notes as a left join books as b on a.boo_isbn=b.boo_isbn order by a.bno_time desc limit ?,20 ',[startpage],function(err,rows,db){
       if(!err){
         db.get('select count(*) as mycount from books_notes',function(err,row){
-          res.loadview('showbooksnote.html',{rowcount:row.mycount,rows:rows});
+          res.loadview('showbooksnote.html',{rowcount:row.mycount,rows:rows,curpage:page});
         });
       
       }

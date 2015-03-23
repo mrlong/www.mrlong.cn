@@ -71,7 +71,7 @@
       <td><%=rows[i].bno_time%></td>
       <td><%=rows[i].bno_txt%></td>
       <td><a href="/books/info/<%=rows[i].boo_isbn%>"><%=rows[i].boo_name?rows[i].boo_name:''%></td>
-      <td><%=rows[i].bno_title%><%=rows[i].bno_title!=''?',':''%><%=rows[i].bno_page%></td>
+      <td><%=rows[i].bno_title%><%=rows[i].bno_page?'P':''%><%=rows[i].bno_page%></td>
       <%if(rows[i].loc_guid) {%>
         <td>
           <button type="button" map="1"  guid=<%=rows[i].loc_guid %> cid="<%=i%>" >地图显示</button>
@@ -95,6 +95,18 @@
   
   
 </table>  
+          
+  <div style="margin-left: 200px;">
+  <% var totalpage = rowcount%20>0?1:0;totalpage = totalpage + parseInt(rowcount/20);  %>
+  <% if (curpage >1) { %>
+    <a href="/books/notes?page=<%=Number(curpage)-1%>"> <button style="width: 100px;height: 31px;">上一页</button></a>      
+  <%}%>
+
+  <% if (curpage < totalpage){  %>
+    <a href="/books/notes?page=<%=Number(curpage)+1%>" ><button style="width:100px;height: 31px;">下一页</button></a>
+  <%}%> 第<%=curpage%>页,共<%=totalpage%>页 总共<%=rowcount%>本书。 
+  </div>
+    
   
   
 <script>
