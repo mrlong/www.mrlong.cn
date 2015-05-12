@@ -30,6 +30,7 @@ var books = require('./controller/books');
 var footer = require('./controller/footer');
 var friend = require('./controller/friend');
 var cost = require('./controller/cost');     //费用花销
+var blog = require('./controller/blog');
 var remind = require('./controller/remind');
 
 var app = express();
@@ -157,6 +158,8 @@ app.use('/friend',friend);
 app.use('/cost',cost);
 //提醒
 app.use('/remind',remind);
+//我的博客
+app.use('/blog',blog);
 
 app.use('/test_index',test.index);
 

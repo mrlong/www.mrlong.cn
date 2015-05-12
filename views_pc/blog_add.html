@@ -1,0 +1,52 @@
+<% include header.html %>
+  
+<style>
+ #postform{
+    margin: 10px; 
+ }
+  
+</style>
+  
+<script>
+  
+    
+  $(document).ready(function(){
+   
+    
+  });
+  
+</script>
+  
+
+<form id="postform" method="post" action="/blog/add">
+  
+  标题：<input type="text" name="title" /><br/>
+  
+  分类：
+  <select name="tag">
+    <option value ="管理">管理</option>
+    <option value ="技术">技术</option>
+    <option value="生活情感">生活情感</option>
+    <option value="其他">其他</option>
+  </select>
+  <br />
+  
+ 
+  正文：<br />
+  <textarea name="post" rows="20" cols="100"></textarea><br />
+  
+  <input type="checkbox" value="1" name="viewstyle" >隐私内容
+  <input type="submit" value="发表" />
+  
+  
+</form>
+  
+
+    
+    
+<script>
+  SetActionNav('我的博客');    
+</script>     
+  
+<% include footer.html %>
+  

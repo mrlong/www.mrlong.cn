@@ -180,5 +180,15 @@ create table remind(
   rem_issend bool default false     /*=ture 表示已发出邮件*/
 );
 
+/* blog */
+create table blog(
+    blo_guid char(36) primary key ,
+    blo_createtime datetime default (datetime('now','localtime')), /*创建时间*/
+    blo_tag varchar(50),  /*分类*/
+    blo_title varchar(250), /*标题*/
+    blo_text blob ,   /*内容*/
+    blo_html blob,    /*html之后的内容*/
+    blo_viewstyle integer default 0   /* 0=公开  1=私有*/
+);
 
 

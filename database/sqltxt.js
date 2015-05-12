@@ -5,7 +5,7 @@
 //
 
 module.exports = {
-  verstion : 25,
+  verstion : 26,
   sql:[
     {ver:1,txt:"CREATE TABLE shfimg(zguid CHAR(36) Primary Key," +
               "ct  datetime default (datetime('now','localtime'))," +
@@ -126,10 +126,22 @@ module.exports = {
                 "rem_issend bool default false" +
                 ")"
     
-    }
+    },
     //end
-        
     
+    //201505012
+    {ver:26,txt:"create table blog(" +
+                "blo_guid char(36) primary key , " +
+                "blo_createtime datetime default (datetime('now','localtime')), " +
+                "blo_tag varchar(50), " +
+                "blo_title varchar(250)," +
+                "blo_text blob , " +
+                "blo_html blob, " +
+                "blo_viewstyle integer default 0 " +
+                ")"
+    }
+        
+    //end 
     
     
      

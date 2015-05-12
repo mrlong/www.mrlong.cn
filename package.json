@@ -15,7 +15,8 @@
     "cookie-parser":"*",
     "express-session":"*",
     "node-schedule":"*",
-    "nodemailer":"*"
+    "nodemailer":"*",
+    "markdown ":"*"
   }
 }
 

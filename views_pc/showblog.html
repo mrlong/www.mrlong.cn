@@ -1,0 +1,50 @@
+<% include header.html %>
+ 
+<style>
+  
+  #toptool{
+    text-align:right;
+    margin: 0 auto;
+  }
+  
+</style>
+  
+<script>
+  
+    
+  $(document).ready(function(){
+   
+    
+  });
+  
+</script>
+  
+<% if(locals.adminlogin){ %>
+  <div id='toptool'>
+    <a href="/blog/add">==增加新文章==</a>
+  </div>
+<%}%>
+  
+<% rows.forEach(function (row, index) { %>
+  <h2><%=row.title%></h2>
+  
+<% }) %>
+
+  
+<div style="margin-left: 200px;">
+  <% var totalpage = rowcount%10>0?1:0;totalpage = totalpage + parseInt(rowcount/10);  %>
+  <% if (curpage >1) { %>
+    <a href="/blog?page=<%=Number(curpage)-1%>"> <button style="width: 100px;height: 31px;">上一页</button></a>      
+  <%}%>
+
+  <% if (curpage < totalpage){  %>
+    <a href="/blog?page=<%=Number(curpage)+1%>" ><button style="width:100px;height: 31px;">下一页</button></a>
+  <%}%> 第<%=curpage%>页,共<%=totalpage%>页 。 
+</div>
+    
+    
+<script>
+  SetActionNav('我的博客');    
+</script>     
+  
+<% include footer.html %>
