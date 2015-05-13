@@ -6,6 +6,9 @@
 var express = require('express');
 var db = require('../db');
 var markdown = require('markdown').markdown;
+var path = require('path');
+var config = require('../config');
+var fs = require('fs');
 
 
 var router = express.Router();
