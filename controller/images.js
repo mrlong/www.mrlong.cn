@@ -32,6 +32,28 @@ router.get('/',function(req,res,next){
 });
 
 
+//上传图片
+router.post('/upload',function(req,res,next){
+  
+  var filename = req.files.thumbnail.name;
+  var guid = filename.split('.')[0];
+  //写入库内
+  db.exec('insert into image(img_guid,img_filename,img_style,img_time) values(?,?,99,datetime("now","localtime"))',
+          [guid,filename],function(err){
+    if(!err){
+      res.redirect('/images');    
+    }
+    else{
+      res.msgBox('上传出错'); 
+    }
+  });
+  //console.log(req.files);
+});
+
+
+
+
+
 //删除图片
 router.get('/del/:guid',function(req,res,next){
   var img_guid = req.params.guid;

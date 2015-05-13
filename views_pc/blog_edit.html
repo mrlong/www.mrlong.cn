@@ -19,7 +19,7 @@
 
 <form id="postform" method="post" action="/blog/edit">
   <input type="hidden" name="blo_guid" value="<%=row.blo_guid%>"/>
-  标题：<input type="text" name="title" value="<%=row.blo_title%>" /><a href="/images"  target="_blank" >图片管理</a>
+  标题：<input type="text" name="title" value="<%=row.blo_title%>" style="width:400px;" /><a href="/images"  target="_blank" >图片管理</a>
   <br/>
   
   分类：
@@ -33,7 +33,7 @@
   
  
   正文：<br />
-  <textarea name="post" rows="20" cols="100"><%=row.blo_text%></textarea><br />
+  <textarea name="post" rows="20" cols="100" style="font-size:15px"><%=row.blo_text%></textarea><br />
   <% if(row.blo_viewstyle==1) { %>
     <input type="checkbox" value="1" name="viewstyle" checked >隐私内容
   <%} else {%>

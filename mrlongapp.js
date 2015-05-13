@@ -16,6 +16,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
+var multer  = require('multer');  //上传组件
 
 var config = require('./config');
 
@@ -89,6 +90,14 @@ app.response.msgBox=function(msg,url,ismoble){
 app.use(bodyParser());
 app.use(express.static(__dirname + '/public',{ maxAge: 86400000 }));
 app.use(express.static(__dirname + '/uploads'));
+
+app.use(multer({
+  dest: './database/images',
+  rename: function (fieldname, filename) {
+    return db.newGuid();
+  }
+}));
+
 
 
 app.set('views', path.join(__dirname, './'));

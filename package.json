@@ -16,7 +16,8 @@
     "express-session":"*",
     "node-schedule":"*",
     "nodemailer":"*",
-    "markdown ":"*"
+    "markdown":"*",
+    "multer":"*"
   }
 }
 

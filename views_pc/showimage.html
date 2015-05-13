@@ -42,7 +42,10 @@
   
 <% if(locals.adminlogin){ %>
   <div id='toptool'>
-    <a href="/images/add">==上传图片==</a>
+    <form method="post" enctype="multipart/form-data" action="/images/upload">
+      <input type="file" name="thumbnail" name="files">
+      <input type="submit">
+    </form>
   </div>
 <%}%>
   
@@ -52,11 +55,11 @@
   <img src="/images/<%=row.img_guid%>"/>
   <div>
       <%=row.img_time%><br/>
-      <%=row.img_info%>
+      <%=row.img_info?row.img_info:""%>
       <%=row.img_style==1?'我的足迹的图片':''%><%=row.img_style==2?'书法图片':''%><%=row.img_style==3?'读书笔记的图片':''%>
       <%=row.img_style==4?'我的花销的图片':''%><%=row.img_style==99?'我手工上传图片':''%>
       <br/>
-      内部引用: ![upload](/images/<%=row.img_guid%> "<%=row.img_info%>") 
+      内部引用: ![upload](/images/<%=row.img_guid%> "<%=row.img_info?row.img_info:""%>") 
   </div>
   
   <div class="line"></div>
@@ -84,3 +87,6 @@
 <script>
   SetActionNav('');    
 </script>  
+  
+<% include footer.html %>
+    
