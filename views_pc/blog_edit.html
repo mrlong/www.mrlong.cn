@@ -1,0 +1,55 @@
+<% include header.html %>
+  
+<style>
+  #postform{
+    margin: 10px; 
+  }
+  
+</style>
+  
+<script>
+  
+    
+  $(document).ready(function(){
+    
+  });
+  
+</script>
+  
+
+<form id="postform" method="post" action="/blog/edit">
+  <input type="hidden" name="blo_guid" value="<%=row.blo_guid%>"/>
+  标题：<input type="text" name="title" value="<%=row.blo_title%>" /><a href="/images"  target="_blank" >图片管理</a>
+  <br/>
+  
+  分类：
+  <select name="tag">
+    <option value ="管理" <%=row.blo_tag=="管理"?"selected":"" %>>管理</option>
+    <option value ="技术" <%=row.blo_tag=="技术"?"selected":"" %>  >技术</option>
+    <option value="生活情感" <%=row.blo_tag=="生活情感"?"selected":"" %>>生活情感</option>
+    <option value="其他" <%=row.blo_tag=="其他"?"selected":"" %> >其他</option>
+  </select>
+  <br />
+  
+ 
+  正文：<br />
+  <textarea name="post" rows="20" cols="100"><%=row.blo_text%></textarea><br />
+  <% if(row.blo_viewstyle==1) { %>
+    <input type="checkbox" value="1" name="viewstyle" checked >隐私内容
+  <%} else {%>
+    <input type="checkbox" value="1" name="viewstyle"  >隐私内容 
+  <%}%>
+    
+  <input type="submit" value="保存修改内容" />
+  
+  
+</form>
+  
+
+    
+    
+<script>
+  SetActionNav('我的文章');    
+</script>     
+  
+<% include footer.html %>

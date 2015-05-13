@@ -13,6 +13,11 @@
   .notes{
     background-color:  #EEE; 
   }
+  
+  #footpage{
+    text-align: center; 
+  }
+  
 </style>  
   
 <script>
@@ -126,7 +131,7 @@
     <% } %>
   </table>
   
-  <div style="margin-left: 200px;">
+  <div id="footpage">
   <% var totalpage = rowcount%20>0?1:0;totalpage = totalpage + parseInt(rowcount/20);  %>
   <% if (curpage >1) { %>
     <a href="/books?page=<%=Number(curpage)-1%>"> <button style="width: 100px;height: 31px;">上一页</button></a>      

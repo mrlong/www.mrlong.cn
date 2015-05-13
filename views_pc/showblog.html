@@ -7,6 +7,38 @@
     margin: 0 auto;
   }
   
+  #bloglist{
+    margin-left: 10px;
+    font-size:14px;
+  
+  }
+  
+  #blogloist p {
+    line-height:24px;margin:1em 0;
+  }
+  
+  .blogtag{
+    margin-left: 10px;   
+  }
+  .blogtag p{
+    margin-top:  -10px; 
+    line-height: 1px;
+  }
+  
+  .bloghtml{
+    margin-left: 10px; 
+  }
+  
+  #footpage{
+    text-align: center; 
+  }
+  
+  .line{
+    border-top: 1px dashed #DDDDDD; 
+    height:10px;
+    margin-top: 10px;
+  }
+  
 </style>
   
 <script>
@@ -25,13 +57,22 @@
   </div>
 <%}%>
   
+<div id="bloglist">
 <% rows.forEach(function (row, index) { %>
-  <h2><%=row.title%></h2>
+  <h3><a href="/blog/view/<%=row.blo_guid%>"><%=row.blo_title%></a></h3>
+  <div class="blogtag">
+    <p>日期:<%=row.blo_createtime%></p><br/>
+    <p>标签:<%=row.blo_tag%></p>
+  </div>
+  <div class="bloghtml">
+    <%-row.subhtml%>...<a href="/blog/view/<%=row.blo_guid%>">阅读全文</a>
+  </div>
+  <div class="line"></div>
   
 <% }) %>
-
+</div>
   
-<div style="margin-left: 200px;">
+<div id="footpage">
   <% var totalpage = rowcount%10>0?1:0;totalpage = totalpage + parseInt(rowcount/10);  %>
   <% if (curpage >1) { %>
     <a href="/blog?page=<%=Number(curpage)-1%>"> <button style="width: 100px;height: 31px;">上一页</button></a>      
@@ -39,12 +80,12 @@
 
   <% if (curpage < totalpage){  %>
     <a href="/blog?page=<%=Number(curpage)+1%>" ><button style="width:100px;height: 31px;">下一页</button></a>
-  <%}%> 第<%=curpage%>页,共<%=totalpage%>页 。 
+  <%}%> 第<%=curpage%>页,共<%=totalpage+1%>页 。 
 </div>
     
     
 <script>
-  SetActionNav('我的博客');    
+  SetActionNav('我的文章');    
 </script>     
   
 <% include footer.html %>

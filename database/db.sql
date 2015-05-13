@@ -117,7 +117,7 @@ create table footer(
 create table image(
   img_guid char(36) primary key,         /*, */
   img_filename varchar(100),             /*文件的原名称 保存在图定的位置，暂定在database/images 下面,与guid进行命名*/
-  img_style integer not null default 0,  /*类型 1=我的足迹的图片 2=书法图片 3=读书笔记的图片 4=我的花销*/
+  img_style integer not null default 0,  /*类型 1=我的足迹的图片 2=书法图片 3=读书笔记的图片 4=我的花销 99=手动上传*/
   img_content char(50),                  /*关联内容的信息，如是我的足迹，则这个是我的足迹的guid*/
   img_time datetime default (datetime('now','localtime')),
   img_info varchar(200),                 /*图片说明内容 ver=15 */

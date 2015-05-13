@@ -31,6 +31,7 @@ var footer = require('./controller/footer');
 var friend = require('./controller/friend');
 var cost = require('./controller/cost');     //费用花销
 var blog = require('./controller/blog');
+var images = require('./controller/images'); //图片服务
 var remind = require('./controller/remind');
 
 var app = express();
@@ -160,6 +161,8 @@ app.use('/cost',cost);
 app.use('/remind',remind);
 //我的博客
 app.use('/blog',blog);
+//图片
+app.use('/images',images);
 
 app.use('/test_index',test.index);
 

@@ -1,0 +1,53 @@
+<% include header.html %>
+  
+<style>
+ #blogview{
+    margin: 10px; 
+ }
+#blogview h3{
+  text-align: center; 
+}
+  
+#toptool{
+  text-align: right; 
+}
+  
+img[alt=upload] {
+  width: 50%;
+  margin-left: 20px;
+}
+  
+</style>
+  
+<script>
+  
+    
+  $(document).ready(function(){
+   
+    
+  });
+  
+</script>
+  
+<% if(locals.adminlogin){ %>
+  <div id='toptool'>
+    <a href="/blog/edit/<%=row.blo_guid%>">==编辑文章==</a>
+  </div>
+<%}%>
+
+<div id="blogview" >
+
+  <h3><%=row.blo_title%></h3>
+  <h5>日期:<%=row.blo_createtime%></h5>
+  <h5>标签:<%=row.blo_tag%></h5>
+  <%-row.blo_html%>
+</div>
+  
+
+    
+    
+<script>
+  SetActionNav('我的文章');    
+</script>     
+  
+<% include footer.html %>

@@ -1,0 +1,86 @@
+<% include header.html %>
+ 
+<style>
+  
+  #toptool{
+    text-align:right;
+    margin: 0 auto;
+  }
+  
+  #footpage{
+    text-align: center; 
+  }
+  
+  #imagelist{
+    margin-left: 20px;
+    margin-top: 10px;
+    margin-right: 20px;
+  }
+  
+  #imagelist img{
+    width: 50%;
+    height: 10%;
+  }
+  
+  .line{
+    border-top: 1px dashed #DDDDDD; 
+    height:10px;
+    margin-top: 10px;
+  }
+  
+</style>
+  
+<script>
+  
+    
+  $(document).ready(function(){
+   
+    
+  });
+  
+</script>
+  
+<% if(locals.adminlogin){ %>
+  <div id='toptool'>
+    <a href="/images/add">==上传图片==</a>
+  </div>
+<%}%>
+  
+<div id="imagelist">
+<% rows.forEach(function (row) { %>
+  
+  <img src="/images/<%=row.img_guid%>"/>
+  <div>
+      <%=row.img_time%><br/>
+      <%=row.img_info%>
+      <%=row.img_style==1?'我的足迹的图片':''%><%=row.img_style==2?'书法图片':''%><%=row.img_style==3?'读书笔记的图片':''%>
+      <%=row.img_style==4?'我的花销的图片':''%><%=row.img_style==99?'我手工上传图片':''%>
+      <br/>
+      内部引用: ![Alt text](/images/<%=row.img_guid%> "<%=row.img_info%>") 
+  </div>
+  
+  <div class="line"></div>
+  
+<% }) %>
+</div>
+    
+    
+
+
+
+  
+<div id="footpage">
+  <% var totalpage = rowcount%10>0?1:0;totalpage = totalpage + parseInt(rowcount/10);  %>
+  <% if (curpage >1) { %>
+    <a href="/images?page=<%=Number(curpage)-1%>"> <button style="width: 100px;height: 31px;">上一页</button></a>      
+  <%}%>
+
+  <% if (curpage < totalpage){  %>
+    <a href="/images?page=<%=Number(curpage)+1%>" ><button style="width:100px;height: 31px;">下一页</button></a>
+  <%}%> 第<%=curpage%>页,共<%=totalpage+1%>页 。 
+</div>
+    
+    
+<script>
+  SetActionNav('');    
+</script>  
