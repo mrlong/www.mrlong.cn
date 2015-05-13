@@ -25,7 +25,7 @@ router.get('/',function(req,res,next){
   db.query('select * from blog where '+ mywhere +' order by blo_createtime desc limit ?,10',[startpage],function(err,rows,db){
     
     if(!err){
-      db.get('select count(*) as rowcount from blog where ?',mywhere,function(err,row){
+      db.get('select count(*) as rowcount from blog where ' + mywhere,function(err,row){
         
         //简要的说明
         rows.forEach(function(row){
