@@ -1,6 +1,9 @@
 /*
  * 作者：龙仕云  2015-5-12
  *  blog。
+ * 
+ *  评论采用的是第三方组件：http://www.uyan.cc/sites  
+ *   账号: mrlong@mrlong.cn  密码：7895123
  *
  */
 var express = require('express');

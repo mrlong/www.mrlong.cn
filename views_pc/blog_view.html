@@ -1,4 +1,15 @@
 <% include header.html %>
+
+<script type="text/javascript">
+var uyan_config = {
+             'title':'<%=row.blo_title%>', 
+              'url':'www.mrlong.cn/blog/view/<%=row.blo_guid%>',     
+             'du':'www.mrlong.cn', 
+             'su':'blogview' + '<%=row.blo_guid%>'
+};
+</script>
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2031584"></script>
+  
   
 <style>
  #blogview{
@@ -48,6 +59,10 @@ img[alt=upload] {
     
 <script>
   SetActionNav('我的文章');    
-</script>     
+</script>  
+    
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<!-- UY END -->
   
 <% include footer.html %>
