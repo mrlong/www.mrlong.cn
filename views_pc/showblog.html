@@ -59,7 +59,11 @@
   
 <div id="bloglist">
 <% rows.forEach(function (row, index) { %>
-  <h3><a href="/blog/view/<%=row.blo_guid%>"><%=row.blo_title%></a></h3>
+  <% if(row.blo_viewstyle==1) { %>  
+    <h3><a href="/blog/view/<%=row.blo_guid%>"  style="color:#be8a8a"><%=row.blo_title%></a></h3>
+  <%} else {%>
+    <h3><a href="/blog/view/<%=row.blo_guid%>" ><%=row.blo_title%></a></h3>
+  <%}%>
   <div class="blogtag">
     <p>日期:<%=row.blo_createtime%></p><br/>
     <p>标签:<%=row.blo_tag%></p>
