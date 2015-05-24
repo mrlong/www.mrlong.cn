@@ -14,6 +14,13 @@ var fs = require('fs');
 var router = express.Router();
 
 router.get('/',function(req,res,next){
+  
+  //权限，有没有登录。
+  if(!req.session.adminlogin){
+    res.msgBox('请登录之后才能显示');
+    return;
+  };
+  
   var page = req.query['page']||1;
   var startpage = (page-1)*10;
     
