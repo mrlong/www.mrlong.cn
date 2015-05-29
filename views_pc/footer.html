@@ -22,8 +22,7 @@ footer {
       $.post('/login',{"password":value},function(data){
         if(data.success==true){
           alert(data.msg);
-          $("#adminpassword").hide(); 
-          $("button[class=admin]").hide();
+          location.reload();
         }
         else{
           alert(data.msg);
@@ -34,7 +33,7 @@ footer {
     $("button[class=admin_logout]").click(function(){
       $.post('/logout',function(data){
         if(data.success==true){
-          $("button[class=admin_logout]").hide(); 
+          location.reload();
         };
         alert(data.msg);
       });

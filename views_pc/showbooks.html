@@ -12,6 +12,7 @@
   
   .notes{
     background-color:  #EEE; 
+    
   }
   
   #footpage{
@@ -28,7 +29,7 @@
     
   $(document).ready(function(){
     $(".summary").hide();   
-       
+    $('#addbookform').hide();   
     
     //增加书
     var options = {
@@ -60,6 +61,10 @@
     });
     //end
     
+    $('#showaddbook').on('click',function(){
+      $('#addbookform').toggle(); 
+    });
+    
     
   });
   
@@ -68,7 +73,10 @@
   
   <table id="books_table" border="0" >
     <% if(locals.adminlogin) { %>
-      <tr  style="border-bottom: 1px solid #EEE;">
+      
+      <button style="float: right" id='showaddbook'>+我刚买了新书要增加。</button>
+      
+      <tr  style="border-bottom: 1px solid #EEE;" id='addbookform'>
         <form  id="addbook" method="post" action="/books/addbook">
         <td>*</td>
         <td>
