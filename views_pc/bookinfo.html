@@ -116,7 +116,7 @@
       <td><%=notes[i].bno_title%><%=notes[i].bno_page?'P':''%><%=notes[i].bno_page%></td>
       <%if(notes[i].loc_guid) {%>
         <td>
-          <button type="button" map="1"  guid=<%=rows[i].loc_guid %> cid="<%=i%>" >地图显示</button>
+          <button type="button" map="1"  guid=<%=notes[i].loc_guid %> cid="<%=i%>" >地图显示</button>
           <div class="mapview" id="<%='map'+i %>" style="display:none;"></div>
         </td>
       <%} else { %>
