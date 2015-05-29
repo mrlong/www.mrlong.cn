@@ -115,7 +115,7 @@
         </td>
 
         <td width="50%">
-          <%=rows[i].boo_state===0?"在读中...":"读完"%><br>
+          <%=rows[i].boo_state===0?"读完":"在读中..."%><br>
           <a href="/books/notes?isbn=<%=rows[i].boo_isbn%>"> <button type="button" class="bj" >读书笔记</button></a>
         </td>
         <% if(locals.adminlogin) { %>

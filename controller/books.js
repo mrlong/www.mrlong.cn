@@ -221,7 +221,7 @@ router.get('/info/:isbn',function(req,res,next){
 //
 router.post('/state/:isbn/:value',function(req,res,next){
   var isbn = req.params.isbn;
-  var value = req.params.value || 0;
+  var value = req.params.value || 1;  //=0读完  1=读中。。。
   value = value==0?1:0;
   
   //权限，有没有登录。
