@@ -194,9 +194,20 @@ router.post('/delbook',function(req,res,next){
 //
 router.get('/info/:isbn',function(req,res,next){
   var isbn = req.params.isbn;
-  db.query('select boo_isbn,boo_doubandata from books where boo_isbn=?',[isbn],function(err,rows){
+  db.query('select boo_isbn,boo_doubandata,boo_state from books where boo_isbn=?',[isbn],function(err,rows,indb){
     if(!err && rows.length>0){
-      res.render('./views_pc/bookinfo.html',{isbn:isbn,book:JSON.parse(rows[0].boo_doubandata)});  
+      
+      //取出读书的笔记
+      var mywhere = req.session.adminlogin?'(1=1)':'(bno_viewstyle=0)';
+      indb.all('select * from books_notes where ' + mywhere + ' and boo_isbn=? order by bno_time desc',[isbn],function(err,notes){
+        var mynotes = err||notes.length==0?[]:notes;
+        res.render('./views_pc/bookinfo.html',{isbn:isbn,
+                                               state:rows[0].boo_state,
+                                               book:JSON.parse(rows[0].boo_doubandata),
+                                               notes:mynotes});  
+      });
+      
+      
     }
     else{
       res.end(util.errBox('打不到这本书','/books'));
@@ -205,6 +216,26 @@ router.get('/info/:isbn',function(req,res,next){
 
 });
 
+//
+// 设置书已读完
+//
+router.post('/state/:isbn/:value',function(req,res,next){
+  var isbn = req.params.isbn;
+  var value = req.params.value || 0;
+  value = value==0?1:0;
+  
+  //权限，有没有登录。
+  if(!req.session.adminlogin){
+    res.json({success:false,msg:'请登录才能修改'});
+    return;
+  };
+  
+  
+  db.exec("update books set boo_state=? where boo_isbn=?",[value,isbn],function(err){
+    res.json({success:!err,msg:!err?"设置成功":err});
+  });
+  
+});
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -262,7 +293,6 @@ router.post('/notes/add',function(req,res,next){
   var lat_lng   = req.body.lat_lng || '';  //地图信息
   var bno_viewstyle = req.body.style || 0;
   
-  var bno_state = req.body.bookstate || '';
   
         var myloc_guid = null;
         var myguid = db.newGuid();
@@ -291,18 +321,9 @@ router.post('/notes/add',function(req,res,next){
           });                                      
         } //end else
         
-      
-      //修改书中的状态
-      if(bno_state=='1' && bno_isbn !=''){
-        db.exec('update books set boo_state=1 where boo_isbn=?',[bno_isbn]);
-      };
-      
-      if(bno_state=='0' && bno_isbn !=''){
-        db.exec('update books set boo_state=0 where boo_isbn=?',[bno_isbn]);
-      }
-        
-      
-          
+
+  
+       
 });
 
 

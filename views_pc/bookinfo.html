@@ -1,14 +1,79 @@
 <% include header.html %>
+  <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&key=RTUBZ-3DUWW-WCERE-R5XFN-5B5WT-6ZFRU"></script>
  
   <style>
-    .bookinfo{
-      margin: 10px; 
-      
+    .bookinfo {
+      margin: 10px;
     }
     
     .bookinfo h3{ text-align: center};
+    
+    #myline{
+      border-top: 1px dashed #DDDDDD; 
+      height:10px;
+      margin-top: 10px;
+    }
+    
+    #booknote_table{
+      margin:auto;
+      width: 90%;
+    }  
   
   </style>
+  
+  <script>
+    $(document).ready(function(){
+      $('#catalog').hide();
+      
+      $('#offcatalog').on('click',function(){
+        $('#catalog').toggle(); 
+      });
+    
+      
+      $(" #booknote_table tr:odd").css('background-color','#d0cece');
+    
+      $('button[map="1"]').click(function(){
+        var myurl = "/location/" + $(this).attr('guid');
+        var id = $(this).attr('cid');
+        $.get(myurl,function(obj){
+          if (obj.success==true){
+            var center = new qq.maps.LatLng(obj.lat,obj.lng); // 地图的中心地理坐标。
+            var map = new qq.maps.Map(document.getElementById("map"+id), {
+              center: center,
+              zoom: obj.scale || 13,
+              zoomControl: false,
+              panControl:false,
+              mapTypeControl:false
+            });
+            var marker = new qq.maps.Marker({
+              position: center,
+              map: map
+            });
+            
+            $('#map'+id).show();
+          }
+          else{
+            $('#map'+id).html(obj.msg);  
+          }
+        });
+        $(this).hide();
+      }); 
+      
+      ///////
+      $('#readend').on('click',function(){
+        if(!confirm('确定读完本书，将标志设为读完')){
+          return false; 
+        };
+        
+        $.post('/books/state/<%=isbn%>/<%=state%>',function(data,err){
+          alert(data.msg);
+        });
+        
+      });
+    });
+  
+  
+  </script>
   
   <div class="bookinfo">
   <h3><%=book.title%></h3>
@@ -20,17 +85,75 @@
     <b>pages</b>:<%=book.pages%><br>
     <b>publisher</b>:<%=book.publisher%>(<%=book.pubdate%>)<br>
     <b>price</b>:<%=book.price%><br>
-    
-      <b>catalog</b>:<br><small><%=book.catalog%></small> <br>
-    
       <b>summary</b>:<br><small><%=book.summary%></small>
+      <br>
+      <b>catalog</b>: <button id='offcatalog'>显示(或关闭)目录</button> <br> <small id='catalog'><%=book.catalog%></small> <br>
+      
+  </div>
     
+  <div id="myline"></div>
     
-    </div>
+    <h3>读书笔记：</h3>
+  <table id="booknote_table">
+  <tr>
+    <% if(notes.length > 0) {%>
+    <td>序号</td>
+    <td>发生日期</td>
+    <td>笔记内容</td>
+    <td>书的位置</td>
+    <td>地理位置</td>
+    <td>相关图片</td>
+    <%} else {%>
+      <h4>无记录</h4>  
+    <%}%>
+    
+  </tr>
+  <% for(var i=0;i<notes.length;i++) { %>
+    <tr guid="<%=notes[i].bno_guid%>">
+      <td><%=(i+1)%></td>
+      <td><%=notes[i].bno_time%></td>
+      <td><%=notes[i].bno_txt%></td>
+      <td><%=notes[i].bno_title%><%=notes[i].bno_page?'P':''%><%=notes[i].bno_page%></td>
+      <%if(notes[i].loc_guid) {%>
+        <td>
+          <button type="button" map="1"  guid=<%=rows[i].loc_guid %> cid="<%=i%>" >地图显示</button>
+          <div class="mapview" id="<%='map'+i %>" style="display:none;"></div>
+        </td>
+      <%} else { %>
+        <td></td>
+      <%}%>
+        
+      <!-- 相关图片       -->
+      <td>
+        <% var myimages = (notes[i].bno_images || '').split(',');  %>
+        <% var c=0%>
+        <% for (var k=0;k<myimages.length;k++) if(myimages[k] !='') { c=c+1  %>
+          
+          <a href="/images/<%=myimages[k]%>" target="_blank">图片<%=c %></a>
+        <%}%>
+      </td>
+    </tr>
+  <% } %>
   
+  <tfoot>
+    <tr>
+    <td>
+      <a href="/books/notes">更多笔记...</a>
+    </td>
+    </tr>
+  </tfoot>
+</table>
+
+          
+<br>
+<% if(locals.adminlogin){ %>
+  <button id="readend" style="margin-left: 100px;margin-bottom: 20px">我读完本书了</button>       
+<%}%>
+    
 <script>
   SetActionNav('');
-</script>      
+</script> 
+  
 <% include footer.html %>
   
   

@@ -85,8 +85,8 @@
           </select>  
         </td>  
         <td>
-          <input type="radio" name="boo_state" value="0" />读过 
-          <input type="radio" name="boo_state" value="1" />在读中  
+          <input type="radio" name="boo_state" value="0" />读完
+          <input type="radio" name="boo_state" value="1" />在读中 
         </td>
         <td><input type="submit" value="提  交"/></td>
         </form>
@@ -115,7 +115,7 @@
         </td>
 
         <td width="50%">
-          <%=rows[i].boo_state===0?"读过":"在读中..."%><br>
+          <%=rows[i].boo_state===0?"在读中...":"读完"%><br>
           <a href="/books/notes?isbn=<%=rows[i].boo_isbn%>"> <button type="button" class="bj" >读书笔记</button></a>
         </td>
         <% if(locals.adminlogin) { %>
