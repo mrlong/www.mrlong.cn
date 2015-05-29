@@ -46,7 +46,21 @@
           }
         });
         $(this).hide();
-      });    
+      });
+    
+    
+    $('.delnote').on('click',function(){
+      if(!confirm('确定是否删除')){return false};
+      var that = this;
+      var guid= $(that).attr('guid');
+      $.post('/books/notes/del/'+guid,function(data){
+        if(data.success==true){
+         $(that).parent().parent().remove();
+        }
+        else
+          alert(data.msg);
+      });
+    });
   
   });
 </script>
@@ -90,6 +104,13 @@
           <a href="/images/<%=myimages[k]%>" target="_blank">图片<%=c %></a>
         <%}%>
       </td>
+            
+      <!-- 删除            -->
+      <% if(locals.adminlogin){ %>
+        <td>
+        <button class='delnote' guid='<%=rows[i].bno_guid%>'>删除</button>
+        </td>  
+      <%}%>
     </tr>
   <% } %>
   

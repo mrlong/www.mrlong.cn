@@ -378,5 +378,25 @@ router.get('/notes/:isbn',function(req,res,next){
   });
 });
 
+//
+//删除读书笔记 
+//
+router.post('/notes/del/:guid',function(req,res,next){
+  var guid = req.params.guid;
+  
+  //权限，有没有登录。
+  if(!req.session.adminlogin){
+    res.json({success:false,msg:'请登录才能修改'});
+    return;
+  };
+  
+  db.query('delete from books_notes where bno_guid=?',guid,function(err){
+    res.json({success:!err,msg:err?'删除出错':'删除成功'});
+    return; 
+  });
+  
+  
+});
+
 
 module.exports = router;
