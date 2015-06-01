@@ -9,7 +9,6 @@
   <link rel="stylesheet" href="/css/markdown.css">
 <!--  <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>-->
   <script type="application/javascript" src="/js/jquery-1.11.0.min.js"></script>
-  <script type="text/javascript" src="js/isbrowser.js"></script>
 
   <!-- weibo 挂件  -->
 <!--  <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>  -->
@@ -76,18 +75,7 @@
       if(data.success==true)
         $("#motto").html(data.txt);
         $("#movemotto").show();
-    });
-    
-    //是移动浏览器时
-    if(browser.versions.mobile||browser.versions.ios||browser.versions.android||
-           browser.versions.iPhone){
-      
-      $('.navs').hide();
-      $('.navs').css('width','0%');
-      $('.nameimg').css('width','100%');
-
-    };
-     
+    });        
   });  
  
 </script>
