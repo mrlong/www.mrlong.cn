@@ -54,6 +54,10 @@
     float:left; width:150px;
     
   }
+  .mnavs ul li{
+    background-color: #716c6c;
+    color: #e5edeb;
+  }
   
   #motto{
     color: #eb6767;
@@ -61,6 +65,11 @@
   #movemotto{
     color: #d8d3d3; 
     font-size: 10px;
+  }
+  
+  #showmnav{
+    margin-top: 10px;
+    font-size: 20px;
   }
   
 </style>  
@@ -80,7 +89,11 @@
       if(data.success==true)
         $("#motto").html(data.txt);
         $("#movemotto").show();
-    });        
+    });
+    
+    $('#showmnav').on('click',function(){
+      $('.mnavs').toggle();  
+    });
   });  
  
 </script>
@@ -89,27 +102,51 @@
     <div>
       <table width="100%">
       <tr><td width=<%=locals.ismob?'100%':'60%'%> >
-      <table>
-        <tr><td>
+      <table border="0">
+        <tr><td rowspan="2">
         <img src="/img/selfwechat.png" style="width: 100px;" alt="扫一扫，微信关注我。"></img>
         </td>
-        <td>
-        <h1 style="margin-top: 20px;margin-bottom: 0px;">关于<a href="/">龙仕云</a>
-        <div style="margin-left: 50px;margin-top: 5px;"><wb:follow-button uid="2991975565" type="red_1" width="67" height="24" ></wb:follow-button></div>
-        </h1>
-        </td>
+        
+        <% if(locals.ismob && locals.ismob==true ){ %>
+        <td align="right" ><a href="#" id='showmnav'>#菜单#</a></td>
+        <%}%>
+        </tr>
+        <tr>
+
+          <td>
+            <h1 style="margin-top: 0px;margin-bottom: 0px;">关于<a href="/">龙仕云</a>  
+            <div style="margin-left: 50px;margin-top: 5px;"><wb:follow-button uid="2991975565" type="red_1" width="67" height="24" ></wb:follow-button></div>
+            </h1>
+          </td>
         </tr>
         </table>
       </div>
       
       <div style="margin-top: 4px;margin-left: 4px;margin-bottom: 4px;">
         <strong id="motto"></strong><a href="/motto/show" id='movemotto' style="display:none;">(更多...)</a>
-      </div>  
+      </div> 
+      
     </td>
   
-    
-    <% if(locals.ismob && locals.ismob==true){  %>
+<!--    -->
+    <% if(locals.ismob && locals.ismob==true){  %>   
       <!--  移动界面      -->
+      <tr><td>  
+      <div class="navs mnavs" style="display: none;" >
+        <ul>
+          <li  name='关于我'><a href="/">关于我</a></li>
+          <li name='书法绘画' ><a href="/shf/pic" >书法绘画</a></li>
+          <li name='我的读书' ><a href="/books">我的读书</a></li>
+          <li name='读书笔记'><a href="/books/notes">读书笔记</a></li>
+          <li name='我的足迹'><a href="/footer">我的足迹</a></li>
+          <li name='我的文章'><a href="/blog">我的文章</a></li>
+        
+          <% if(locals.adminlogin) { %>
+            <li name='我的花销'><a href="/cost">我的花销</a></li>
+          <%}%>  
+        <ul>  
+      </div>
+      </td></tr>
     <%} else {%>  
     <td width='40%' class="navs">
       <!--    导航-->
