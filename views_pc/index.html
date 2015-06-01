@@ -156,7 +156,8 @@
     <section>
       <h3>书法绘画:</h3>
       <blockquote>
-      <div class="pikachoose pc">
+      
+        <div class="pikachoose pc">
         <ul id="pikame" class="jcarousel-skin-pika">
           <% for(var i=0; i<imgs.length; i++) {%>
            <li> <a href="/shf/pictrueone?picname=<%= imgs[i] %>"  target="_blank">
@@ -166,7 +167,21 @@
             
           <% } %>
         </ul>
-      </div>
+        </div>
+          
+        <div class="m-booklist mob">
+        <ul>
+          <% for(var i=0; i<imgs.length; i++) if(i>=4){break;}; {%>
+           <li>                           
+            <a href="/shf/pictrueone?picname=<%= imgs[i] %>"  target="_blank">
+              <img class="shfimg" src="/images/<%= imgs[i] %>"  width="100px" height="135px"> 
+            </a>              
+            </li>
+          <% } %>
+        </ul>
+        </div>
+        
+        
       <a target="_blank" href="/shf/pic">更多书法绘画...</a>
       </blockquote>
     </section>
