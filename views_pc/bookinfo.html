@@ -83,7 +83,9 @@
   
   <div class="bookinfo">
   <h3><%=book.title%></h3>
-  <img src="<%=book.images.large%>" style=" margin-left: 100px;" >
+  <% if (!locals.ismob || locals.ismob==false ) {  %>
+    <img src="<%=book.images.large%>" style=" margin-left: 100px;" >
+  <%}%>
   <img src="/books/bookimg/<%=isbn%>">
   <br>
   
@@ -93,8 +95,9 @@
     <b>price</b>:<%=book.price%><br>
       <b>summary</b>:<br><small><%=book.summary%></small>
       <br>
-      <b>catalog</b>: <button id='offcatalog'>显示(或关闭)目录</button> <br> <small id='catalog'><%=book.catalog%></small> <br>
-      
+      <% if (!locals.ismob || locals.ismob==false ) {  %>
+        <b>catalog</b>: <button id='offcatalog'>显示(或关闭)目录</button> <br> <small id='catalog'><%=book.catalog%></small> <br>
+      <%}%>
   </div>
     
   <div id="myline"></div>
@@ -102,7 +105,7 @@
     <h3>读书笔记：</h3>
   <table id="booknote_table">
   <tr>
-    <% if(notes.length > 0) {%>
+    <% if(notes.length > 0 && (!locals.ismob || locals.ismob==false ) ) {%>
     <td>序号</td>
     <td>发生日期</td>
     <td>笔记内容</td>
