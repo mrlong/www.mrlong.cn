@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="/css/markdown.css">
 <!--  <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>-->
   <script type="application/javascript" src="/js/jquery-1.11.0.min.js"></script>
+  <script type="text/javascript" src="js/isbrowser.js"></script>
 
   <!-- weibo 挂件  -->
 <!--  <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>  -->
@@ -77,6 +78,17 @@
         $("#motto").html(data.txt);
         $("#movemotto").show();
     });
+    
+    //是移动浏览器时
+    if(browser.versions.mobile||browser.versions.ios||browser.versions.android||
+           browser.versions.iPhone){
+      
+      $('.navs').hide();
+      $('.navs').css('width','0%');
+      $('.nameimg').css('width','100%');
+
+    };
+     
   });  
  
 </script>
@@ -84,7 +96,7 @@
   <header>
     <div>
       <table width="100%">
-      <tr><td width='60%'>
+      <tr><td width='60%' class="nameimg">
       <table>
         <tr><td>
         <img src="/img/selfwechat.png" style="width: 100px;" alt="扫一扫，微信关注我。"></img>
