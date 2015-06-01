@@ -80,7 +80,6 @@
         //如是移动浏览器时
         if(browser.versions.mobile||browser.versions.ios||browser.versions.android||
            browser.versions.iPhone){
-          $('#weibo').hide();
           $('.right').css('width','0%');
           $('.left').css('width','99%');
 
@@ -91,7 +90,13 @@
 
           $('.t').next().text('点击进入');
           
-        };
+          $('.pc').hide();
+          $('.mob').show();
+        }
+        else{
+          $('.pc').show();
+          $('.mob').hide();  
+        }
 
           
           
@@ -115,9 +120,21 @@
     <section>
       <h3>读书:</h3>
 
-          <div class="booklist"> 
+          <div class="booklist pc"> 
             <ul>
             <% for(var i=0; i<books.length;i++){%>
+              <li>
+                <a href="/books/info/<%=books[i].isbn%>">
+                <img class="bookimg"  src="/books/bookimg/<%=books[i].isbn%>" width="100px" height="135px">
+                </a>
+              </li>    
+            <% } %>
+            </ul> 
+          </div>
+            
+          <div class="booklist mob"> 
+            <ul>
+            <% for(var i=0; i<books.length-4;i++){%>
               <li>
                 <a href="/books/info/<%=books[i].isbn%>">
                 <img class="bookimg" src="/books/bookimg/<%=books[i].isbn%>" width="100px" height="135px">
@@ -125,7 +142,7 @@
               </li>    
             <% } %>
             </ul> 
-            </div>
+          </div>  
  
         <a href="/books" style="margin-left: 20px;">我读过的更多书籍...</a> 
 
@@ -135,7 +152,7 @@
     <section>
       <h3>书法绘画:</h3>
       <blockquote>
-      <div class="pikachoose">
+      <div class="pikachoose pc">
         <ul id="pikame" class="jcarousel-skin-pika">
           <% for(var i=0; i<imgs.length; i++) {%>
            <li> <a href="/shf/pictrueone?picname=<%= imgs[i] %>"  target="_blank">
@@ -175,7 +192,7 @@
 
   </div>
 
-  <div class="right" id="weibo">
+  <div class="right pc" >
     <!-- 微博内容   -->
     <iframe width="100%" height="800" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=1200&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=1&isFans=0&uid=1805167840&verifier=b65df5a4&dpc=1">
     </iframe>
