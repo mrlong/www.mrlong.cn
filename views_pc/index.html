@@ -66,7 +66,7 @@
       
     .m-booklist { margin-left: 10px; width:354px; height:320px; float:left;}    
     .m-booklist ul{ width:350px;}    
-    .m-booklist li{ width:145px; height: 155px; float:left; display:block;margin-top: 4px } 
+    .m-booklist li{ width:145px; height: 170px; float:left; display:block;margin-top: 4px } 
 
 	</style>
 
@@ -144,7 +144,7 @@
             <% for(var i=0; i<books.length-4;i++){%>
               <li>
                 <a href="/books/info/<%=books[i].isbn%>">
-                <img class="bookimg" src="/books/bookimg/<%=books[i].isbn%>" width="140px" height="150px">
+                <img class="bookimg" src="/books/bookimg/<%=books[i].isbn%>" width="140px" height="165px">
                 </a>
               </li>    
             <% } %>
@@ -177,7 +177,7 @@
           <% for(var i=0; i<imgs.length; i++) {%>
            <li>                           
             <a href="/shf/pictrueone?picname=<%= imgs[i] %>"  target="_blank">
-              <img class="bookimg" src="/images/<%= imgs[i] %>"  width="140px" height="150px"> 
+              <img class="bookimg" src="/images/<%= imgs[i] %>"  width="140px" height="165px"> 
             </a>              
             </li>
           <% } %>
