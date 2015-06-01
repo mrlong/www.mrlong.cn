@@ -58,8 +58,7 @@
     #works strong{
       color:red;
     }
-
-    #doubanfm { margin-left: 100px;}           
+        
          
     .booklist{ margin-left: 10px; width:608px; height:320px; float:left;}    
     .booklist ul{ width:580px;}    
@@ -145,7 +144,7 @@
             <% for(var i=0; i<books.length-4;i++){%>
               <li>
                 <a href="/books/info/<%=books[i].isbn%>">
-                <img class="bookimg" src="/books/bookimg/<%=books[i].isbn%>" width="145px" height="135px">
+                <img class="bookimg" src="/books/bookimg/<%=books[i].isbn%>" width="140px" height="135px">
                 </a>
               </li>    
             <% } %>
@@ -173,12 +172,12 @@
         </ul>
         </div>
           
-        <div class="m-booklist mob">
+        <div class="m-booklist mob" style="margin-left:1px">
         <ul>
           <% for(var i=0; i<imgs.length; i++) {%>
            <li>                           
             <a href="/shf/pictrueone?picname=<%= imgs[i] %>"  target="_blank">
-              <img class="bookimg" src="/images/<%= imgs[i] %>"  width="145px" height="135px"> 
+              <img class="bookimg" src="/images/<%= imgs[i] %>"  width="140px" height="135px"> 
             </a>              
             </li>
           <% } %>
