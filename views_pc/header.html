@@ -83,7 +83,7 @@
   <header>
     <div>
       <table width="100%">
-      <tr><td width='60%' class="nameimg">
+      <tr><td width=<%=locals.ismob?'100%':'60%'%> class="nameimg">
       <table>
         <tr><td>
         <img src="/img/selfwechat.png" style="width: 100px;" alt="扫一扫，微信关注我。"></img>
@@ -101,6 +101,11 @@
         <strong id="motto"></strong><a href="/motto/show" id='movemotto' style="display:none;">(更多...)</a>
       </div>  
     </td>
+  
+    
+    <% if(locals.ismob && locals.ismob==true){  %>
+      <!--  移动界面      -->
+    <%} else {%>  
     <td width='40%' class="navs">
       <!--    导航-->
       <ul>
@@ -114,9 +119,9 @@
         <% if(locals.adminlogin) { %>
           <li name='我的花销'><a href="/cost">我的花销</a></li>
         <%}%>
-      </ul>
+      </ul>          
     </td>
-    
+    <%}%>
   
     </tr>
    </table>

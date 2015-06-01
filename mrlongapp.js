@@ -22,6 +22,7 @@ var config = require('./config');
 
 var test = require('./test');
 var db = require('./db');
+var Util = require('./util');
 
 //控制器
 var shf = require('./controller/shf');
@@ -120,7 +121,9 @@ app.use(session({
 //app.use(connect.static(__dirname + '/public', { maxAge: 86400000 }));
 
 app.use(function(req,res,next){
+  var isMob = Util.isMobileBrowser(req);
   res.locals.appdir  = __dirname;
+  res.locals.ismob = isMob;
   res.locals.adminlogin = req.session.adminlogin;  //是否管理员账号登录过
   next();
 });
