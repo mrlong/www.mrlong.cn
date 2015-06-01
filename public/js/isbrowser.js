@@ -1,7 +1,8 @@
 
 (function($) {
   
-  /*var* 如写了var 则外部html无法调用，不知为什么*/   browser={
+  /*var* 如写了var 则外部html无法调用，不知为什么*/  
+  browser={
     versions:function(){ 
            var u = navigator.userAgent, app = navigator.appVersion; 
            return {//移动终端浏览器版本信息 
@@ -17,7 +18,7 @@
                 webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
             };
          }(),
-         language:(navigator.browserLanguage || navigator.language).toLowerCase()
+    language:(navigator.browserLanguage || navigator.language).toLowerCase()
      
-   }
+  }
 })(jQuery);
