@@ -279,7 +279,7 @@ router.get('/notes',function(req,res,next){
 //增加笔记
 router.get('/notes/add',wxconfig.wx,function(req,res,next){
   var txt = req.query.txt;
-  db.query('select boo_name,boo_isbn from books where boo_state=0 order by boo_state desc, boo_buytime desc limit  0,10',function(err,rows){
+  db.query('select boo_name,boo_isbn from books where boo_state=1 order by boo_state desc, boo_buytime desc limit  0,10',function(err,rows){
           res.loadview('books_notes_add.html', {'txt':txt,books:rows,'msg':''},true);  
   });
 });
