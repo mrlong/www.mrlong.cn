@@ -75,7 +75,7 @@ create table books(
   boo_tag varchar(20),                   /*书的标签*/
   boo_buytime datetime,                  /*购买时间*/
   boo_pubdate char(10),                  /*出版年*/
-  boo_state integer default 0,           /* =0 表示读过,1=在读 */
+  boo_state integer default 0,           /* =1 表示读过,0=在读 */
   boo_url varchar(50),                   /* 外部页面*/
   boo_summary blob,                      /* 书的说明*/
   boo_catalog blob,                      /* 书的章节*/
