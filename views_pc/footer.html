@@ -93,8 +93,9 @@ footer {
   </div>
 </footer>
       
-      
-<a id="scrollUp" href="#top" style="position: fixed; z-index: 2147483647" ></a>
+<% if(!locals.ismob || locals.ismob==false){  %>      
+  <a id="scrollUp" href="#top" style="position: fixed; z-index: 2147483647" ></a>
+<%}%>
       
 </body>
 </html>
