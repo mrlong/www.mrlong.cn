@@ -7,6 +7,28 @@ footer {
   text-align: right;
   border-top: 1px solid #EEE;
 }
+  
+#scrollUp {
+
+  background: url("/img/top.png") no-repeat 0 0;
+  color: #EEE;
+  font-size: 20px;
+  line-height: 1;
+  text-align: center;
+  text-decoration: none;
+  bottom: 20px;
+  right: 20px;
+  overflow: hidden;
+  width: 54px;
+  height: 54px;
+  border: none;
+  opacity: .8;
+}
+  
+#scrollUp:hover{
+  background-position: 0 -54px;
+}
+  
 
 </style>
 
@@ -17,6 +39,8 @@ footer {
   });
   
   $(document).ready(function(){
+    $("#scrollUp").hide();
+    $(window).scroll(function(){$(window).scrollTop()>400?$('#scrollUp').show():$('#scrollUp').hide();});
     $("button[class=admin]").click(function(){
       var value = $('#adminpassword').val();
       $.post('/login',{"password":value},function(data){
@@ -68,5 +92,9 @@ footer {
     <% } %>
   </div>
 </footer>
+      
+      
+<a id="scrollUp" href="#top" style="position: fixed; z-index: 2147483647" ></a>
+      
 </body>
 </html>
