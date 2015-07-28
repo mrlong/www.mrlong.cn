@@ -4,7 +4,7 @@ footer {
   padding-top: 20px;
   font-size: 12px;
   color: #666;
-  text-align: right;
+
   border-top: 1px solid #EEE;
 }
   
@@ -28,7 +28,20 @@ footer {
 #scrollUp:hover{
   background-position: 0 -54px;
 }
+ 
+
+#footer-left{
+  float: left  !important;;
+  position: relative;
+  text-align: center;
+  z-index: 21474837;
+  margin-top: 20px;
+  margin-left: 9%;
+}
   
+#footer-right{ 
+  text-align: center;
+}
 
 </style>
 
@@ -68,7 +81,11 @@ footer {
 </script>
 
 <footer >
-  <div style="text-align: center;">
+  <% if(!locals.ismob || locals.ismob==false){  %>
+    <div id="footer-left">
+  <%} else {%>
+    <div  style="text-align: center;">  
+  <%}%>
     
     <% if(!locals.ismob || locals.ismob==false){  %>
       <div class="pc">
@@ -91,6 +108,14 @@ footer {
       <a href="/images"  target="_blank" >图片管理</a>
     <% } %>
   </div>
+      
+  <% if(!locals.ismob || locals.ismob==false){  %>
+    <div id="footer-right">
+      <div class="text">移动端访问扫一扫</div>
+      <img src="/img/qrcode-mrlong.cn.png" style="width:100px;height=100px;"/>   
+    </div>
+  <%}%>
+      
 </footer>
       
 <% if(!locals.ismob || locals.ismob==false){  %>      
