@@ -42,6 +42,11 @@ footer {
 #footer-right{ 
   text-align: center;
 }
+  
+#busuanzi_value_site_pv{
+  color: #d15e5e; 
+  font-size: 18px;
+}
 
 </style>
 
@@ -90,6 +95,12 @@ footer {
     <% if(!locals.ismob || locals.ismob==false){  %>
       <div class="pc">
         <a href="http://www.miibeian.gov.cn/">浙ICP备13037124号</a> 2014-11-2~<span class='syva_update'></span>(最后更新时间)
+        <div>
+          <script async src="/js/busuanzi.pure.mini.js"></script>
+          <span id="busuanzi_container_site_pv">
+            本站总访问量<span id="busuanzi_value_site_pv"></span>次
+          </span>
+        </div>
       </div>
     <%} else {%>  
       <div class="mob" >
