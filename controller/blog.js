@@ -34,7 +34,9 @@ router.get('/',function(req,res,next){
         rows.forEach(function(row){
           row.subhtml=row.blo_html.substring(0,200).replace(/<([^>]*)>/g,'')
             .replace(/<\\s*img\\s+([^>]*)\\s*>/g,'')
-            .replace(/src=\"([^\"]+)\"/g,'');
+            .replace(/src=\"([^\"]+)\"/g,'')
+            .replace(/|/g,'')
+            .replace(/-/g,'');
           //<([^>]*)>
 
         });
