@@ -1,5 +1,8 @@
 <% include header.html %>
   
+<link rel="stylesheet" href="/js/editor.md/css/editormd.min.css">  
+<script src="/js/editor.md/editormd.min.js"></script>  
+  
 <style>
   #postform{
     margin: 10px; 
@@ -11,6 +14,11 @@
   
     
   $(document).ready(function(){
+    var editor = editormd("editormd",{
+      height: "500px",
+      watch:false,
+      path : "/js/editor.md/lib/" 
+    });
     
   });
   
@@ -33,7 +41,11 @@
   
  
   正文：<br />
-  <textarea name="post" rows="20" cols="100" style="font-size:15px"><%=row.blo_text%></textarea><br />
+
+  <div id="editormd">
+    <textarea name="post" style="display:none;"><%=row.blo_text%></textarea>
+  </div><br />
+    
   <% if(row.blo_viewstyle==1) { %>
     <input type="checkbox" value="1" name="viewstyle" checked >隐私内容
   <%} else {%>

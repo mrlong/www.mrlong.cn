@@ -1,22 +1,30 @@
 <% include header.html %>
 
+ <link rel="stylesheet" href="/js/editor.md/css/editormd.preview.css" />
+
+  
 <script type="text/javascript">
-var uyan_config = {
+  var uyan_config = {
              'title':'<%=row.blo_title%>', 
               'url':'www.mrlong.cn/blog/view/<%=row.blo_guid%>',     
              'du':'www.mrlong.cn', 
              'su':'blogview' + '<%=row.blo_guid%>'
-};
+  };
 </script>
 <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2031584"></script>
-  
+<script src="/js/editor.md/editormd.js"></script> 
+<script src="/js/editor.md/lib/marked.min.js" type="application/javascript"></script>
+<script src="/js/editor.md/lib/prettify.min.js" type="application/javascript"></script>
+
   
 <style>
  #blogview{
     margin: 10px; 
  }
-#blogview h3{
-  text-align: center; 
+  
+#blogview h2{
+  text-align: center;
+  font-size: 25px;
 }
   
 #toptool{
@@ -28,6 +36,26 @@ img[alt=upload] {
   margin-left: 20px;
 }
   
+#editormd-view {
+  width: 90%;
+  margin: 0 auto;
+}
+  
+.subtile{
+  text-align: center;
+}
+  
+.subtile .date{
+  margin-left: 20px; 
+  color: #999;
+}
+  
+.subtile .tag{
+  margin-left: 20px;
+   color: #999;
+}
+
+  
 </style>
   
 <script>
@@ -35,7 +63,14 @@ img[alt=upload] {
     
   $(document).ready(function(){
    
-    
+     editormd.markdownToHTML("editormd-view", {
+        htmlDecode      : "style,script,iframe",  
+        emoji           : true,
+        taskList        : true,
+        tex             : false,  // 默认不解析
+        flowChart       : false,  // 默认不解析
+        sequenceDiagram : false,  // 默认不解析
+      });
   });
   
 </script>
@@ -48,10 +83,17 @@ img[alt=upload] {
 
 <div id="blogview" >
 
-  <h3><%=row.blo_title%></h3>
-  <h5>日期:<%=row.blo_createtime%></h5>
-  <h5>标签:<%=row.blo_tag%></h5>
-  <%-row.blo_html%>
+  <h2><%=row.blo_title%></h2>
+  <div class="subtile">
+    <span class="date">日期:<%=row.blo_createtime%></span> 
+    <span class="tag">标签:<%=row.blo_tag%></span>
+  </div>
+    
+    
+  <div id="editormd-view">
+      <textarea style="display:none;" name="editormd-markdown-doc"><%=row?row.blo_text:"###查找无文档内容。"%></textarea>               
+  </div>
+        
 </div>
   
 

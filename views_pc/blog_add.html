@@ -1,9 +1,13 @@
 <% include header.html %>
+
+<link rel="stylesheet" href="/js/editor.md/css/editormd.min.css">  
+<script src="/js/editor.md/editormd.min.js"></script>  
   
 <style>
  #postform{
     margin: 10px; 
  }
+  
   
 </style>
   
@@ -11,7 +15,11 @@
   
     
   $(document).ready(function(){
-   
+    var editor = editormd("editormd",{
+      height: "500px",
+      watch:false,
+      path : "/js/editor.md/lib/" 
+    }); 
     
   });
   
@@ -32,11 +40,14 @@
   <br />
   
  
-  正文：<br />
-  <textarea name="post" rows="20" cols="100" style="font-size:15px"></textarea><br />
+  正文：<br/>
+    
+  <div id="editormd">
+    <textarea name="post" style="display:none;"></textarea>
+  </div>
   
   <input type="checkbox" value="1" name="viewstyle" >隐私内容
-  <input type="submit" value="发表" />
+  <input type="submit" value="发表" style="width:100px;" />
   
   
 </form>
