@@ -67,7 +67,7 @@
       
       ///////
       $('#readend').on('click',function(){
-        if(!confirm('确定读完本书，将标志设为读完')){
+        if(!confirm('确定修改本书的状态?')){
           return false; 
         };
         
@@ -156,7 +156,9 @@
           
 <br>
 <% if(locals.adminlogin){ %>
-  <button id="readend" style="margin-left: 100px;margin-bottom: 20px">我读完本书了</button>       
+  <button id="readend" style="margin-left: 100px;margin-bottom: 20px">
+    <%=state%>=本书【<%=state==0?"读完":"读书中..."%>】，点击设为【<%=state==0?"读书中...":"读完"%>】。
+  </button>       
 <%}%>
     
 <script>
