@@ -5,7 +5,7 @@
 //
 
 module.exports = {
-  verstion : 26,
+  verstion : 27,
   sql:[
     {ver:1,txt:"CREATE TABLE shfimg(zguid CHAR(36) Primary Key," +
               "ct  datetime default (datetime('now','localtime'))," +
@@ -139,9 +139,13 @@ module.exports = {
                 "blo_html blob, " +
                 "blo_viewstyle integer default 0 " +
                 ")"
-    }
+    },
         
     //end 
+    
+    //2015-11-11 双 11
+    {ver:27,txt:"ALTER TABLE books ADD COLUMN boo_readendtime datetime default null"}
+    //end
     
     
      

@@ -5,7 +5,7 @@
 
 /*
  *  版本信息：
- *    ver=25
+ *    ver=27
  *
  */
 
@@ -80,7 +80,8 @@ create table books(
   boo_summary blob,                      /* 书的说明*/
   boo_catalog blob,                      /* 书的章节*/
   boo_publisher char(30),                /* 书的出版社*/ 
-  boo_doubandata blob                    /* douban的数据源*/ 
+  boo_doubandata blob,                   /* douban的数据源*/ 
+  boo_readendtime datetime               /* 读完时间 ver=27*/
   
 );
 
@@ -180,7 +181,7 @@ create table remind(
   rem_issend bool default false     /*=ture 表示已发出邮件*/
 );
 
-/* blog */
+/* blog ver=26 */
 create table blog(
     blo_guid char(36) primary key ,
     blo_createtime datetime default (datetime('now','localtime')), /*创建时间*/

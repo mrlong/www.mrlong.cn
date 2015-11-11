@@ -128,8 +128,30 @@ router.post('/addimage',function(req,res,next){
   }
 });
 
+//
+//删除内容
+//
+router.post('/del/:guid',function(req,res,next){
+  
+  var guid = req.params.guid;
+  
+  //权限，有没有登录。
+  if(!req.session.adminlogin){
+    res.json({success:false,msg:'请登录才能修改'});
+    return;
+  };
+  
+  //关联的资源就不删除了，删除都是由于增加错的 2015-11-11
+  db.query('delete from footer where foer_guid=?',guid,function(err){
+    res.json({success:!err,msg:err?'删除出错':'删除成功'});
+    return; 
+  });
+  
+});
+
 
 module.exports = router;
+
 
 
 

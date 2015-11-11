@@ -27,7 +27,7 @@ router.get('/',function(req,res,next){
   var page = req.query['page']||1;
   var startpage = (page-1)*20;
   db.query('select boo_isbn,boo_name,boo_pubdate,boo_buytime,boo_publisher,boo_summary, ' + 
-           'boo_buytime,boo_tag,boo_price,boo_state from books order by boo_buytime desc limit ?,20',
+           'boo_buytime,boo_tag,boo_price,boo_state,boo_readendtime from books order by boo_buytime desc limit ?,20',
            [startpage],function(err,rows,db){
     if(!err){
       db.get('select count(*) as rowcount,sum(boo_price) as totle from books',function(err,row){
@@ -231,7 +231,7 @@ router.post('/state/:isbn/:value',function(req,res,next){
   };
   
   
-  db.exec("update books set boo_state=? where boo_isbn=?",[value,isbn],function(err){
+  db.exec("update books set boo_state=?,boo_readendtime=date() where boo_isbn=?",[value,isbn],function(err){
     res.json({success:!err,msg:!err?"设置成功":err});
   });
   

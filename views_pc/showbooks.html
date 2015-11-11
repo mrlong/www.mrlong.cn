@@ -19,6 +19,16 @@
     text-align: center; 
   }
   
+  .bookimg{
+    color: #555;
+    padding: 2px;
+    border: 1px solid #fff;  
+  }
+      
+  .bookimg:hover{
+    border: 1px solid #eb6767;  
+  }
+  
 </style>  
   
 <script>
@@ -78,7 +88,7 @@
       
       <tr  style="border-bottom: 1px solid #EEE;" id='addbookform'>
         <form  id="addbook" method="post" action="/books/addbook">
-        <td>*</td>
+        <td></td>
         <td>
           ISBN*：      <input class="single" type="text" name="boo_isbn" required><br>
           书名：        <input class="single" type="text" name="boo_name"> <br>
@@ -94,7 +104,7 @@
         </td>  
         <td>
           <input type="radio" name="boo_state" value="0" />读完
-          <input type="radio" name="boo_state" value="1" />在读中 
+          <input type="radio" name="boo_state" value="1" checked />在读中 
         </td>
         <td><input type="submit" value="提  交"/></td>
         </form>
@@ -111,7 +121,7 @@
         <td><%=(curpage-1)*20 + i+1%></td>
         <td width="40%">
           <a href="/books/info/<%=rows[i].boo_isbn%>">
-            <img src="books/bookimg/<%=rows[i].boo_isbn%>"/ style="margin:4px;float:left">
+            <img class="bookimg" src="books/bookimg/<%=rows[i].boo_isbn%>"/ style="margin:4px;float:left">
           </a>
           <div style="margin-top:20px">
           <a href="javascript:void(0)" onclick="showSummary(<%=rows[i].boo_isbn%>)"><%=rows[i].boo_name%><br></a>
@@ -123,7 +133,11 @@
         </td>
 
         <td width="50%">
-          <%=rows[i].boo_state===0?"读完":"在读中..."%><br>
+          <% if(rows[i].boo_state===0){ %>
+            读完<%=rows[i].boo_readendtime!=null?'('+rows[i].boo_readendtime+')':''%>
+          <%} else {%>
+            在读中...  
+          <%}%><br>
           <a href="/books/notes?isbn=<%=rows[i].boo_isbn%>"> <button type="button" class="bj" >读书笔记</button></a>
         </td>
         <% if(locals.adminlogin) { %>
