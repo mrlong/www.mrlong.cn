@@ -6,7 +6,7 @@ color:#444;
 font-family:Helvetica, sans-serif;
 font-size:12px;
 line-height:1.5em;
-padding:1em;
+/*padding:1em;*/
 margin:auto;
 max-width:42em;
 background:#fefefe;
@@ -90,6 +90,7 @@ ul {
       list-style-type: none;
       padding-left: 1em;
 }
+
 li {
   list-style-type: none;
   padding: 0px 12px;

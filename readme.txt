@@ -9,3 +9,5 @@
   1.wechat  用于上传书法的图片，用于平时与微信的相结合处理。
   2.sqlite3  用于保存数据，是自己运动的数据，数据是从 misfit shone 内取出来。
   
+风格模仿：http://academia.stackexchange.com/tags
+  

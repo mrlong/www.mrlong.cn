@@ -11,12 +11,12 @@
   <%}%>
   <title>成功就是抢先一步的创新</title>
   <link rel="stylesheet" href="/css/markdown.css">
-<!--  <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>-->
+  <!--  <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>-->
   <script type="application/javascript" src="/js/jquery-1.11.0.min.js"></script>
   
 
   <!-- weibo 挂件  -->
-<!--  <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>  -->
+  <!--  <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>  -->
     
   <!--[if lt IE 9]>
     <div  style="margin: 0;margin: 100px;">
@@ -33,32 +33,46 @@
   
   body {
     font-family: "microsoft yahei","微软雅黑";
-    border: 1px solid #EEE;
-    box-shadow: 8px 8px 12px #EEE;
-    <% if (!locals.ismob || locals.ismob==false ) {  %>
-      padding-left: 40px;
-      padding-right: 20px;
-    <%} else {%>
-      padding-left: 5px;
-      padding-right: 5px;  
-    <%}%>
+/*    border: 1px solid #EEE;*/
+/*    box-shadow: 8px 8px 12px #EEE;*/
     max-width: 980px;
     font-size: 14px;
     line-height: 1.6;
   }
   
   header{
-   border-bottom: 1px solid #EEE; 
+/*   border-bottom: 1px solid #EEE; */
+   background-image: url("img/header@2.png");
+   background-size: 1030px 140px;
+   height: 150px;
+   padding: 12px 0 0 0;
+   margin: 0 auto;
+   background-repeat: no-repeat;
+   background-position: bottom center;
+   background-color: #fbf8f3;
+  }
+  
+  header li {
+    list-style-type: none;
+    padding: 0px 12px;
+    border: 1px solid #fbf8f3;
   }
   
   .navs{
     line-height:20px; 
   }
   .navs .action{
-    background-color:rgba(188, 193, 190, 0.17);
-    color: rgb(255, 255, 255);
+    background-color: #fbf8f3 /*rgba(188, 193, 190, 0.17)*/;
+    color: #57c4d7 /*rgb(255, 255, 255)*/;
     border-bottom: 1px solid #ed0e0e; 
+    border-radius: 4px;
   }
+  .navs  a{color: #999}
+  .navs  a:hover{color: #57c4d7}
+  .navs .action a{
+    color: #57c4d7 ;  
+  }
+  
   .navs ul{
     list-style:none; 
     width:380px;
@@ -77,13 +91,24 @@
     color: #eb6767;
   }
   #movemotto{
-    color: #d8d3d3; 
+    margin-left: 10px;
+    color: #57c4d7; 
     font-size: 10px;
   }
   
   #showmnav{
     margin-top: 10px;
     font-size: 20px;
+  }
+  
+  .body-container{
+     <% if (!locals.ismob || locals.ismob==false ) {  %>
+      padding-left: 40px;
+      padding-right: 40px;
+    <%} else {%>
+      padding-left: 5px;
+      padding-right: 5px;  
+    <%}%>
   }
   
 </style>  
@@ -113,8 +138,8 @@
 </script>
 <body>
   <header>
-    <div>
-      <table width="100%">
+    <div class="body-container">
+      <table width="100%" border="0">
       <tr><td width=<%=locals.ismob?'100%':'60%'%> >
       <table border="0">
         <tr><td rowspan="2">
@@ -162,7 +187,7 @@
       </div>
       </td></tr>
     <%} else {%>  
-    <td width='40%' class="navs">
+    <td width='40%' class="navs" valign="top">
       <!--    导航-->
       <ul>
         <li name='关于我'><a href="/">关于我</a></li>
@@ -182,3 +207,7 @@
     </tr>
    </table>
   </header>
+  <div class="body-container">
+  <!-- 以上是具体内容 -->
+          
+  

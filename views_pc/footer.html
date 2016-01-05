@@ -1,11 +1,12 @@
+</div> <!-- end class="body-container" -->
 <style>
 /*页脚*/
 footer {
   padding-top: 20px;
   font-size: 12px;
   color: #666;
-
   border-top: 1px solid #EEE;
+  background-color: #fbf8f3;
 }
   
 #scrollUp {
@@ -47,6 +48,15 @@ footer {
   color: #d15e5e; 
   font-size: 18px;
 }
+  
+.footer-img{
+    background-repeat: no-repeat;
+    background-position: bottom center;
+    margin: 0;
+    padding: 0 0 80px 0;
+    background-image: url("img/footer@2.png");
+    background-size: 470px 63px;
+}
 
 </style>
 
@@ -85,7 +95,7 @@ footer {
   });
 </script>
 
-<footer >
+<footer>
   <% if(!locals.ismob || locals.ismob==false){  %>
     <div id="footer-left">
   <%} else {%>
@@ -126,6 +136,8 @@ footer {
       <img src="/img/qrcode-mrlong.cn.png" style="width:100px;height=100px;"/>   
     </div>
   <%}%>
+    
+  <div class="footer-img"></div>
       
 </footer>
       
