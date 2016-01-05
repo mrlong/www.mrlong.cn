@@ -104,7 +104,7 @@ app.use(multer({
 app.set('views', path.join(__dirname, './'));
 app.set('view engine', 'html');
 app.engine('html', ejs.renderFile);
-app.set('view cache', false);
+app.set('view cache', config.viewcache||false);
 
 app.use(cookieParser());
 app.use(session({
