@@ -1,17 +1,6 @@
 <% include header.html %>
 
- <link rel="stylesheet" href="/js/editor.md/css/editormd.preview.css" />
-
-  
-<script type="text/javascript">
-  var uyan_config = {
-             'title':'<%=row.blo_title%>', 
-              'url':'www.mrlong.cn/blog/view/<%=row.blo_guid%>',     
-             'du':'www.mrlong.cn', 
-             'su':'blogview' + '<%=row.blo_guid%>'
-  };
-</script>
-<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2031584"></script>
+<link rel="stylesheet" href="/js/editor.md/css/editormd.preview.css" />
 <script src="/js/editor.md/editormd.js"></script> 
 <script src="/js/editor.md/lib/marked.min.js" type="application/javascript"></script>
 <script src="/js/editor.md/lib/prettify.min.js" type="application/javascript"></script>
@@ -28,6 +17,7 @@
 }
   
 #toptool{
+  padding-top: 10px;
   text-align: right; 
 }
   
@@ -93,9 +83,10 @@ img[alt=upload] {
   <div id="editormd-view">
       <textarea style="display:none;" name="editormd-markdown-doc"><%=row?row.blo_text:"###查找无文档内容。"%></textarea>               
   </div>
-        
+    
+ 
 </div>
-  
+ <a href="/blog">←返回文章</a>  
 
     
     
@@ -103,8 +94,5 @@ img[alt=upload] {
   SetActionNav('我的文章');    
 </script>  
     
-<!-- UY BEGIN -->
-<div id="uyan_frame"></div>
-<!-- UY END -->
   
 <% include footer.html %>
