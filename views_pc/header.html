@@ -23,7 +23,6 @@
       <h1>360 安全卫士提醒您：</b>您的 IE 浏览器太低不被支持。试试其他的：<a href="http://se.360.cn">360 浏览器</a>、<a href="http://firefox.com.cn/">火狐浏览器</a>、<a href="http://mb.qq.com/">QQ浏览器。</a></h1>
     </div>
   <![endif]-->
-  
 </head>
   
 <style>
@@ -41,7 +40,7 @@
   }
   
   header{
-/*   border-bottom: 1px solid #EEE; */
+/* border-bottom: 1px solid #EEE; */
    background-image: url("/img/header@2.png");
    background-size: 1030px 140px;
    height: 150px;
@@ -143,18 +142,16 @@
       <table width="100%" border="0">
       <tr><td width=<%=locals.ismob?'100%':'60%'%> >
       <table border="0">
-        <tr><td rowspan="2">
-        <img src="/img/selfwechat.png" style="width: 100px;" alt="扫一扫，微信关注我。"></img>
-        </td>
+        <tr>
         
         <% if(locals.ismob && locals.ismob==true ){ %>
-        <td align="right" ><a href="#" id='showmnav'>#菜单#</a></td>
+          <td align="right" ><a href="#" id='showmnav'>#菜单#</a></td>
         <%}%>
         </tr>
         <tr>
 
           <td>
-            <h1 style="margin-top: 0px;margin-bottom: 0px;">关于<a href="/">龙仕云</a>  
+            <h1 style="margin-top: 0px;margin-bottom: 0px;"><span style="color: #999;">关于</span><a href="/">龙仕云</a>  
             <div style="margin-left: 50px;margin-top: 5px;"><wb:follow-button uid="2991975565" type="red_1" width="67" height="24" ></wb:follow-button></div>
             </h1>
           </td>
@@ -168,7 +165,6 @@
       
     </td>
   
-<!--    -->
     <% if(locals.ismob && locals.ismob==true){  %>   
       <!--  移动界面      -->
       <tr><td>  
