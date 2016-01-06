@@ -59,6 +59,9 @@
   
   .navs{
     line-height:20px; 
+    <% if (locals.ismob && locals.ismob==true) { %>
+      z-index: 10000;
+    <% } %>
   }
   .navs .action{
     background-color: #fbf8f3 /*rgba(188, 193, 190, 0.17)*/;
@@ -69,7 +72,8 @@
   .navs  a{color: #999}
   .navs  a:hover{color: #57c4d7}
   .navs .action a{
-    color: #57c4d7 ;  
+    color: #57c4d7 ;
+    font-weight:bold;
   }
   
   .navs ul{
@@ -98,6 +102,10 @@
   #showmnav{
     margin-top: 10px;
     font-size: 20px;
+    float: right;
+    position: absolute;
+    top: 10px;
+    right: 10px;
   }
   
   .body-container{
@@ -145,11 +153,10 @@
         <tr>
         
         <% if(locals.ismob && locals.ismob==true ){ %>
-          <td align="right" ><a href="#" id='showmnav'>#菜单#</a></td>
+          <a href="#" id='showmnav'>=菜单=</a>
         <%}%>
         </tr>
         <tr>
-
           <td>
             <h1 style="margin-top: 0px;margin-bottom: 0px;"><span style="color: #999;">关于</span><a href="/">龙仕云</a>  
             <div style="margin-left: 50px;margin-top: 5px;"><wb:follow-button uid="2991975565" type="red_1" width="67" height="24" ></wb:follow-button></div>
@@ -167,7 +174,7 @@
   
     <% if(locals.ismob && locals.ismob==true){  %>   
       <!--  移动界面      -->
-      <tr><td>  
+      <tr><td align="right">  
       <div class="navs mnavs" style="display: none;" >
         <ul>
           <li name='关于我'><a href="/">关于我</a></li>
