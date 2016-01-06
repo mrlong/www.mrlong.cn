@@ -57,6 +57,13 @@
     border: 1px solid #fbf8f3;
   }
   
+  <% if (locals.ismob && locals.ismob==true) { %>
+    header table tr td h1 {
+      padding-top: 10px;
+      font-size: 25px;  
+    }
+  <%}%>
+  
   .navs{
     line-height:20px; 
     <% if (locals.ismob && locals.ismob==true) { %>
@@ -64,8 +71,8 @@
     <% } %>
   }
   .navs .action{
-    background-color: #fbf8f3 /*rgba(188, 193, 190, 0.17)*/;
-    color: #57c4d7 /*rgb(255, 255, 255)*/;
+    background-color: #fbf8f3;
+    color: #57c4d7 ;
     border-bottom: 1px solid #ed0e0e; 
     border-radius: 4px;
   }
@@ -151,10 +158,9 @@
       <tr><td width=<%=locals.ismob?'100%':'60%'%> >
       <table border="0">
         <tr>
-        
-        <% if(locals.ismob && locals.ismob==true ){ %>
-          <a href="#" id='showmnav'>=菜单=</a>
-        <%}%>
+          <% if(locals.ismob && locals.ismob==true ){ %>
+            <a href="#" id='showmnav'>=菜单=</a>
+          <%}%>
         </tr>
         <tr>
           <td>
