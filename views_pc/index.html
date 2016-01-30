@@ -10,7 +10,9 @@
 
     section {
 /*    border-top: 1px solid #AAA;*/
-      border-bottom: 1px solid #EEE;
+      border-bottom: 2px solid #e8eef1 !important;
+      padding-bottom: 10px;
+      
     }
 
     .update {
@@ -132,7 +134,7 @@
             </ul> 
           </div>  
         <%}%>
-        <a href="/books" style="margin-left: 20px;">我读过的更多书籍...</a> 
+        <a href="/books" style="margin-left: 20px;color: #328396;">我读过的更多书籍...</a> 
 
     </section>
 
@@ -164,10 +166,8 @@
           <% } %>
         </ul>
         </div>
-        
         <%}%>
-        <a target="_blank" href="/shf/pic">更多书法绘画...</a>
-  
+        <a href="/shf/pic" style="margin-left: 20px;color: #328396;">我还有更多书法绘画...</a>
     </section>
   
     <div id="works">
@@ -177,7 +177,7 @@
             <strong>字典-微信公众账号</strong>
             <blockquote>
               <p>查生癖字，查字或词组拼音及祥细注解，应用尽用。 包括《新华字典》、《成语大全》、《汉语词典》、《维基百科》共百万条数据供你查询。南方人更值得必备的微信公众平台订阅号。
-              <br>地址：<a href="http://xhzd.mrlong.cn">http://xhzd.mrlong.cn</a>
+              <br>地址：<a href="http://xhzd.mrlong.cn"><%=locals.ismob?'点击进入':'http://xhzd.mrlong.cn'%></a>
               </p>
             </blockquote>
 
@@ -186,7 +186,7 @@
           <strong>devemanager</strong>
             <blockquote>
               <p>使用delphi开发的内部研发管理系统。内有bug管理模块，编译部署模块，SVN日志模块，产品池模块。已在内部使用多年。
-              <br>地址：<a href="https://github.com/mrlong/devemange">https://github.com/mrlong/devemange</a>
+              <br>地址：<a href="https://github.com/mrlong/devemange"><%=locals.ismob?'点击进入':'https://github.com/mrlong/devemange'%></a>
               
         </li>
       </ul>

@@ -10,7 +10,6 @@ footer {
 }
   
 #scrollUp {
-
   background: url("/img/top.png") no-repeat 0 0;
   color: #EEE;
   font-size: 20px;
@@ -41,7 +40,7 @@ footer {
 }
   
 #footer-right{ 
-  text-align: center;
+  text-align: right;
 }
   
 #busuanzi_value_site_uv{
@@ -50,13 +49,16 @@ footer {
 }
   
 .footer-img{
-    background-repeat: no-repeat;
-    background-position: bottom center;
-    margin: 0;
-    padding: 0 0 80px 0;
-    background-image: url("/img/footer@2.png");
-    background-size: 470px 63px;
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  margin: 0;
+  padding: 0 0 80px 0;
+  background-image: url("/img/footer@2.png");
+  background-size: 470px 63px;
 }
+footer .imgtext{text-align:right;}
+footer #footer-right img{margin-right: 10px; border:1px solid #EEE; }
+footer #footer-right .imgtext span{margin-left: 15px;margin-right: 10px;padding-right: 5px;}
 
 </style>
 
@@ -132,8 +134,9 @@ footer {
       
   <% if(!locals.ismob || locals.ismob==false){  %>
     <div id="footer-right">
-      <div class="text">移动端访问扫一扫</div>
-      <img src="/img/qrcode-mrlong.cn.png" style="width:100px;height=100px;"/>   
+      <img src="/img/qrcode-mrlong.cn.png" style="width:100px;height=100px;"/>
+      <img src="/img/selfwechat.png" style="width:100px;height=100px;"/>  
+      <div class="imgtext"><span>移动端访问扫一扫</span><span>加我微信扫一扫</span></div>
     </div>
   <%}%>
     
