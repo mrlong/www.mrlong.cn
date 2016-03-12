@@ -18,6 +18,7 @@
     "nodemailer":"*",
     "markdown":"*",
     "multer":"*",
+    "eventproxy":"*",
     "node-misfit":"*"
   }
 }

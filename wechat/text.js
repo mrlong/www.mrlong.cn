@@ -52,7 +52,7 @@ module.exports = function(message, req, res, next){
     //输入的日期格式说明可能是提取misfit内容
     if(input.length>2 && input.indexOf('-')>=0){
       var numlist = input.split('-');
-      var y = numlist.length == 3 ? numlist[0] : new Date().getYear();
+      var y = numlist.length == 3 ? numlist[0] : '' + new Date().getYear();
       var m = numlist.length == 3 ? numlist[1] : numlist[0]; 
       var d = numlist.length == 3 ? numlist[2] : numlist[1];
       var mydate = (y.length == 2 ? '20' + y : y) + '-' + ( m.length==2 ? m : '0' + m ) + '-' + (d.length == 2 ? d : '0'+ d );
