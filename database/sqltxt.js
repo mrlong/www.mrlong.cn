@@ -5,7 +5,7 @@
 //
 
 module.exports = {
-  verstion : 27,
+  verstion : 28,
   sql:[
     {ver:1,txt:"CREATE TABLE shfimg(zguid CHAR(36) Primary Key," +
               "ct  datetime default (datetime('now','localtime'))," +
@@ -144,8 +144,41 @@ module.exports = {
     //end 
     
     //2015-11-11 双 11
-    {ver:27,txt:"ALTER TABLE books ADD COLUMN boo_readendtime datetime default null"}
+    {ver:27,txt:"ALTER TABLE books ADD COLUMN boo_readendtime datetime default null"},
     //end
+    
+    //2016-3-11 增加misfit的智能设备关联
+    {ver:28,txt:"create table fit(" + 
+                 "fit_date date primary key," +
+                 "fit_points integer default 0," +
+                 "fit_targetPoints integer default 0," +
+                 "fit_steps integer default 0," +
+                 "fit_calories real," + 
+                 "fit_activityCalories real," + 
+                 "fit_distance real," +
+                 "fit_sleep_autoDetected boolean ," +
+                 "fit_sleep_startTime datetime," +
+                 "fit_sleep_duration integer default 0 " +
+     
+                ");" +
+                "create table fititems(" +
+                "fie_guid char(36) primary key," +
+                "fit_date date not null," +
+                "fie_activitytype varchar(50)," +
+                "fie_startTime datetime," +
+                "fie_duration integer, " +
+                "fie_points integer, " +
+                "fie_steps integer," +
+                "fie_calories real," +
+                "fie_distance real" +
+                ");" +
+                "create table fitsleepitem(" +
+                "fsi_guid char(36) primary key," +
+                "fit_date date not null," +
+                "fsi_datetime datetime," +
+                "fsi_value integer" +
+                ")"
+    }
     
     
      

@@ -48,9 +48,22 @@ module.exports = function(message, req, res, next){
       title: '4、事件提醒',
       url: config.domain + '/remind/add?txt=' + input
     });
-  
+    
+    //输入的日期格式说明可能是提取misfit内容
+    if(input.length>2 && input.indexOf('-')>=0){
+      var numlist = input.split('-');
+      var y = numlist.length == 3 ? numlist[0] : new Date().getYear();
+      var m = numlist.length == 3 ? numlist[1] : numlist[0]; 
+      var d = numlist.length == 3 ? numlist[2] : numlist[1];
+      var mydate = (y.length == 2 ? '20'+y : y) + '-' + ( m.length==2 ? m : '0' + m ) + '-' + (d.length == 2 ? d : '0'+ d );
+      content.push({
+        title: '5、提取misfit数据',
+        url: config.domain + '/fit/data?view=1&startdate=' + mydate + '&enddate=' + mydate 
+      });
+    }
+    
     //直接显示姓名电话会直难过点。但速度会慢
-    if (input.length ==3 || input.length ==2){
+    else if (input.length ==3 || input.length ==2){
       db.query('select fri_name,fri_guid,fri_moblie from friend where fri_name=?',[input],function(err,rows){
         if(!err && rows.length>0){
           content.push({

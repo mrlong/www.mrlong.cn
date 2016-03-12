@@ -35,7 +35,7 @@ var cost = require('./controller/cost');     //费用花销
 var blog = require('./controller/blog');
 var images = require('./controller/images'); //图片服务
 var remind = require('./controller/remind');
-var misfit = require('./controller/misfit');
+var fit = require('./controller/fit');
 
 var app = express();
 module.exports = app;
@@ -177,7 +177,7 @@ app.use('/blog',blog);
 //图片
 app.use('/images',images);
 //misfit智能设备
-app.use('/misfit',misfit);
+app.use('/fit',fit);
 
 app.use('/test_index',test.index);
 
