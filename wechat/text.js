@@ -4,6 +4,7 @@
 //
 
 var config = require('../config');
+
 var db = require('../db');
 
 module.exports = function(message, req, res, next){
@@ -56,9 +57,15 @@ module.exports = function(message, req, res, next){
       var m = numlist.length == 3 ? numlist[1] : numlist[0]; 
       var d = numlist.length == 3 ? numlist[2] : numlist[1];
       var mydate = (y.length == 2 ? '20' + y : y) + '-' + ( m.length==2 ? m : '0' + m ) + '-' + (d.length == 2 ? d : '0'+ d );
+      
+      //直接转向到
+      var redirectUri='http://www.mrlong.cn/fit/data?view=1&startdate=' +  mydate +'&enddate=' + mydate;
+      var url = 'https://api.misfitwearables.com/auth/dialog/authorize?response_type=code&client_id=pYPABsuKSXpOByXr&redirect_uri=' +
+                redirectUri + '&scope=public,birthday,email,tracking,session,sleeps';
+      
       content.push({
         title: '5、提取misfit数据',
-        url: config.domain + '/fit/data?view=1&startdate=' + mydate + '&enddate=' + mydate 
+        url: url 
       });
       res.reply(content);
     }
