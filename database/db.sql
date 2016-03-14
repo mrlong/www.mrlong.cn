@@ -199,9 +199,9 @@ create table fit(
   fit_points integer default 0,  /*实现情况*/
   fit_targetPoints integer default 0, /*目标情况*/
   fit_steps integer default 0,  /*步数*/
-  fit_calories real, /*卡路里*/
-  fit_activityCalories real, /*活动卡路里*/
-  fit_distance real, /*距离*/
+  fit_calories float, /*卡路里*/
+  fit_activityCalories float, /*活动卡路里*/
+  fit_distance float, /*距离*/
   fit_sleep_autoDetected boolean, /*自动检测*/
   fit_sleep_startTime datetime,   /*开始时间*/
   fit_sleep_duration integer default 0 /*长短*/
@@ -216,17 +216,11 @@ create table fititems(
   fie_duration integer,       /*为期*/
   fie_points integer,         /*点*/
   fie_steps integer,          /*步数*/
-  fie_calories real,          /*卡路里*/
-  fie_distance real           /*距离*/
+  fie_calories float,          /*卡路里*/
+  fie_distance float           /*距离*/
 );
   
-/*睡眠 ver=28*/
-create table fitsleepitem(
-  fsi_guid char(36) primary key,
-  fit_date date not null,
-  fsi_datetime datetime,
-  fsi_value integer
-);
+
 
   
 

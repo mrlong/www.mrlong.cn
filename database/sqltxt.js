@@ -153,9 +153,9 @@ module.exports = {
                  "fit_points integer default 0," +
                  "fit_targetPoints integer default 0," +
                  "fit_steps integer default 0," +
-                 "fit_calories real," + 
-                 "fit_activityCalories real," + 
-                 "fit_distance real," +
+                 "fit_calories float," + 
+                 "fit_activityCalories float," + 
+                 "fit_distance float," +
                  "fit_sleep_autoDetected boolean ," +
                  "fit_sleep_startTime datetime," +
                  "fit_sleep_duration integer default 0 " +
@@ -169,15 +169,10 @@ module.exports = {
                 "fie_duration integer, " +
                 "fie_points integer, " +
                 "fie_steps integer," +
-                "fie_calories real," +
-                "fie_distance real" +
-                ");" +
-                "create table fitsleepitem(" +
-                "fsi_guid char(36) primary key," +
-                "fit_date date not null," +
-                "fsi_datetime datetime," +
-                "fsi_value integer" +
-                ")"
+                "fie_calories float," +
+                "fie_distance float" +
+                ")" 
+                
     }
     
     

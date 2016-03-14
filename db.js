@@ -120,6 +120,7 @@ exports.query = function(sql,data,callback){
 /*
  * 直接执行SQL语言,最多支持三个sql并用;分开的情况,并无返回值的。
  * 
+ * 如要并在一起写，参数 [[],[],[]]
  * sql 为语言
  * data 参数
  * callback
@@ -138,14 +139,15 @@ exports.exec = function(sql,data,callback){
   else{
     mycallback = callback;
     mydata = data;
+    
   };
 
   var sql_array = sql.split(";");
-  db_exec.run(sql_array[0],data,function(err){  //1
+  db_exec.run(sql_array[0], mydata && mydata[0] && mydata[0] instanceof Array ? mydata[0] : mydata ,function(err){  //1
     if(!err && sql_array.length>1 && sql_array[1]!=''){
-      db_exec.run(sql_array[1],data,function(err){ //2
+      db_exec.run(sql_array[1],mydata && mydata[1] &&  mydata[1] instanceof Array ? mydata[1] : mydata,function(err){ //2
         if(!err && sql_array.length>2 && sql_array[2]!=''){
-          db_exec.run(sql_array[2],data,function(err){if(mycallback){mycallback(err,db_exec)}}); //3
+          db_exec.run(sql_array[2],mydata && mydata[2] &&  mydata[2] instanceof Array ? mydata[2] : mydata,function(err){if(mycallback){mycallback(err,db_exec)}}); //3
         }
         else{
           if(mycallback){mycallback(err,db_exec)}; 
