@@ -5,6 +5,122 @@
     float: right;
   }
   
+  .fitrecord{
+    padding-top: 50px;
+  }
+  
+  .fitrecord .summary{
+    text-align: center;
+    font-size: 18px;
+  }
+  
+  .fitrecord .summary .total{
+    font-size: 16px;
+    margin-top: 5px;
+  }
+  
+  .fitrecord .summary .total span.num{
+    margin-left: 10px;
+    margin-right: 10px;
+    color: red;
+  }
+  
+  
+  .fitrecord .fititem {
+    height: 150px;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .fitrecord .fit-txt{
+    padding-top: 20px;
+    padding-left: 100px;  
+  };
+  
+  .fitrecord .fititem .fit-date{
+    color: #999;
+    font-size: 18px;
+/*    margin-right: 20px;*/
+    margin-bottom: 10px;
+  }
+  
+  .fitrecord .fititem label{
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+  
+  .fitrecord .fititem span.num{
+    color: #3040bc;
+  }
+  
+  .fititem .active{
+    margin-bottom: 10px;
+  }
+  
+  .fititem .sleep label.title ,.fititem .active label.title{
+    margin-left: 10px;
+    font-weight: bold;
+  }
+  
+  #footpage{
+    padding: 10px;
+    text-align: center; 
+  }
+  
+  /*圆形进度条*/
+  .fit-circle{
+    position: absolute;
+  }
+  .circle {
+			width: 100px;
+			height: 100px;
+			position: absolute;
+			border-radius: 50%;
+			background: #0cc;
+		}
+		.pie_left, .pie_right {
+			width:100px; 
+			height:100px;
+			position: absolute;
+			top: 0;left: 0;
+		}
+		.left, .right {
+			width:100px; 
+			height:100px;
+			background:#00aacc;
+			border-radius: 50%;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+		.pie_right, .right {
+		  clip:rect(0,auto,auto,50px);
+		}
+		.pie_left, .left {
+		  clip:rect(0,50px,auto,0);
+		}
+  
+		.mask {
+			width: 80px;
+			height: 80px;
+			border-radius: 50%;
+			left: 10px;
+			top: 10px;
+			background: #FFF;
+			position: absolute;
+			text-align: center;
+			line-height: 80px;
+			font-size: 20px;
+			font-weight: bold;
+			color: #00aacc;
+		}
+  
+        small.num{
+          color: #333;
+          font-size: 10px;
+        }
+  
+  
 </style>
 
   
@@ -24,11 +140,86 @@
   </div>
 <%}%>
   
-<h1>sss</h1>
+
+  
+  <div class="fitrecord">
+    <div class="summary">
+      数据来源于 <a href="http://www.misfit.com" target="_blank">misfit</a> 智能手环设备, 共有<%=rowcount%>天记录。
+      <div class="total">
+        <lable>总行走步数</lable><span class="num"><%=total_steps%></span> 共 <span class="num"><%=(total_fit_distance*1.6).toFixed(0)%></span>公里
+        <label>睡觉时长</label><span class="num"><%=(total_sleeplong/3600).toFixed(2)%> </span><lable>hour</lable>
+      </div>
+    </div>
+      
+    <% for(var i=0; i<rows.length ; i++) {%>
+      
+      <div class="fititem">
+        <% var myd=new Date(rows[i].fit_date).getDay() %>
+        <div style="margin-bottom: 10px;"><span class="fit-date"><%=rows[i].fit_date%></span> 周<%=myd==0?'日':myd%></div>
+        <div class="fit-circle">
+          <div class="circle" style="left:0">
+          <div class="pie_left"><div class="left"></div></div>
+          <div class="pie_right"><div class="right"></div></div>
+          <div class="mask">
+            <span><%=(rows[i].fit_points/rows[i].fit_targetPoints * 100).toFixed(0)%></span>%
+          </div>
+          </div>
+        </div>
+        <div class="fit-txt">  
+          <div class="active">
+          <label class="title">运动情况</label>
+          <label>完成量:</label><span class="num"><%=rows[i].fit_points%></span>
+          <label>目标量:</label><span class="num"><%=rows[i].fit_targetPoints%></span>
+          <label>步数:</label><span class="num"><%=rows[i].fit_steps%></span>
+          <label>卡路里:</label><span class="num"><%=rows[i].fit_calories.toFixed(0)%></span>
+          <label>活动卡路里:</label><span class="num"><%=rows[i].fit_activityCalories.toFixed(0)%></span>
+          <label>距离:</label><span class="num"><%=(rows[i].fit_distance*1.6).toFixed(2)%>公里</span>
+          </div>
+          <div class="sleep">
+            <label class="title">睡眠情况</label>
+            <label>睡觉时间</label><span class="num"><%=new Date(rows[i].fit_sleep_startTime).toLocaleTimeString()%></span>
+            <label>睡觉时长</label><span class="num"><%=(rows[i].fit_sleep_duration/3600).toFixed(2)%> hour</span>
+          </div>
+        </div>
+      </div>
+      
+    <%}%>
+  </div>   
+          
+   <div id="footpage">
+  <% var totalpage = rowcount%20>0?1:0;totalpage = totalpage + parseInt(rowcount/20);  %>
+  <% if (curpage >1) { %>
+    <a href="/fit?page=<%=Number(curpage)-1%>"> <button style="width: 100px;height: 31px;">上一页</button></a>      
+  <%}%>
+
+  <% if (curpage < totalpage){  %>
+    <a href="/fit?page=<%=Number(curpage)+1%>" ><button style="width:100px;height: 31px;">下一页</button></a>
+  <%}%> 第<%=curpage%>页,共<%=totalpage%>页 总共<%=rowcount%>天记录。 
+  </div>
     
+          
+
     
 <script>
-  SetActionNav('运动故事');    
+    
+  
+   $(document).ready(function (){
+    SetActionNav('健身故事');
+     
+    $('.circle').each(function(index, el) {
+          var v = parseInt($(this).find('span').text());  
+          var num = (v > 100 ? 100 : v) * 3.6;
+          if (num<=180) {
+              $(this).find('.right').css('transform', "rotate(" + num + "deg)");
+          } else {
+              $(this).find('.right').css('transform', "rotate(180deg)");
+              $(this).find('.left').css('transform', "rotate(" + (num - 180) + "deg)");
+          };
+		});
+    
+    
+  });
+  
 </script>     
   
 <% include footer.html %>

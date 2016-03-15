@@ -98,8 +98,13 @@ footer #footer-right .imgtext span{margin-left: 15px;margin-right: 10px;padding-
 </script>
 
 <footer>
-
+  <% if(!locals.ismob || locals.ismob==false){  %>
     <div id="footer-left">
+  <%} else {%>
+    <div  style="text-align: center;">  
+  <%}%>
+    
+    <% if(!locals.ismob || locals.ismob==false){  %>
       <div class="pc">
         <a href="http://www.miibeian.gov.cn/">浙ICP备13037124号</a> 2014-11-2~<span class='syva_update'></span>(最后更新时间)
         <div>
@@ -109,24 +114,31 @@ footer #footer-right .imgtext span{margin-left: 15px;margin-right: 10px;padding-
           </span>
         </div>
       </div>
-
-
-      <a href="mailto:mrlong.com@gmail.com"><img src="/img/selfmail.png" style="width:200px;height=50px"></img></a>
-      <br/>
-      <% if(!locals.adminlogin){ %>
-      <input type="password"  id="adminpassword" style="width: 86px;"/><button type="button"  class="admin" >登录</button>
-      <% } else{%>
-        <button type="button"  class="admin_logout" >注销登录</button>
-        <a href="/images"  target="_blank" >图片管理</a>
-      <% } %>
+    <%} else {%>  
+      <div class="mob" >
+        <a href="http://www.miibeian.gov.cn/">浙ICP备13037124号 </a>-移动版<br>
+        创建时间：2014-11-2<br>
+        更新时间：<span class='syva_update'></span>
+      </div>
+    <%}%>
+    
+    <a href="mailto:mrlong.com@gmail.com"><img src="/img/selfmail.png" style="width:200px;height=50px"></img></a>
+    <br/>
+    <% if(!locals.adminlogin){ %>
+    <input type="password"  id="adminpassword" style="width: 86px;"/><button type="button"  class="admin" >登录</button>
+    <% } else{%>
+      <button type="button"  class="admin_logout" >注销登录</button>
+      <a href="/images"  target="_blank" >图片管理</a>
+    <% } %>
   </div>
       
-  <div id="footer-right">
-    <img src="/img/qrcode-mrlong.cn.png" style="width:100px;height=100px;"/>
-    <img src="/img/selfwechat.png" style="width:100px;height=100px;"/>  
-    <div class="imgtext"><span>移动端访问扫一扫</span><span>加我微信扫一扫</span></div>
-  </div>
-  
+  <% if(!locals.ismob || locals.ismob==false){  %>
+    <div id="footer-right">
+      <img src="/img/qrcode-mrlong.cn.png" style="width:100px;height=100px;"/>
+      <img src="/img/selfwechat.png" style="width:100px;height=100px;"/>  
+      <div class="imgtext"><span>移动端访问扫一扫</span><span>加我微信扫一扫</span></div>
+    </div>
+  <%}%>
     
   <div class="footer-img"></div>
       

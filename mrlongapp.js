@@ -124,6 +124,7 @@ app.use(session({
 app.use(function(req,res,next){
   var isMob = Util.isMobileBrowser(req);
   res.locals.appdir  = __dirname;
+  req.ismob = isMob; //是否是移动浏览器
   res.locals.ismob = isMob;
   res.locals.adminlogin = req.session.adminlogin;  //是否管理员账号登录过
   next();

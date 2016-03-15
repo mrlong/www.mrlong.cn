@@ -17,7 +17,11 @@ var config = config.misfit;
 
 var get_fitindex = function(req,res,next){
   
+  
   var code = req.query.code;
+  var page = req.query.page||1;
+  var startpage = (page-1)*20;
+  var ep = new EventProxy();
   
   var misfitHandler = new misfit({
       clientId: config.clientId,
@@ -25,8 +29,29 @@ var get_fitindex = function(req,res,next){
       redirectUri: config.redirectUri
   });
 
-  var authorizeUrl = misfitHandler.getAuthorizeUrl();  
-  res.loadview('showfit.html',{code:code,authorizeUrl:authorizeUrl});
+  ep.all(['record','summry'],function(record,summry){
+    var authorizeUrl = misfitHandler.getAuthorizeUrl();  
+    res.loadview('showfit.html',{
+      code:code,
+      authorizeUrl:authorizeUrl,
+      curpage:page,
+      total_steps:summry ? summry.total_steps : 0,
+      rowcount:summry ? summry.rowcount : 0,
+      total_sleeplong:summry ? summry.total_sleeplong : 0,
+      total_fit_distance:summry ? summry.total_fit_distance : 0,
+      rows:record});
+  });
+  
+  
+  
+  db.query('select * from fit order by fit_date desc limit ?,20',
+           [startpage],function(err,rows,db){
+    db.get('select count(*) as rowcount,sum(fit_steps) as total_steps, sum(fit_sleep_duration) as total_sleeplong,sum(fit_distance) as total_fit_distance from fit',function(err,row){
+      ep.emit('summry', !err ? {rowcount:row.rowcount,total_steps:row.total_steps,total_sleeplong:row.total_sleeplong,total_fit_distance:row.total_fit_distance} : null);  
+    });
+    ep.emit('record',!err && rows ? rows : []);  
+  });
+    
   
 };
 
@@ -124,10 +149,10 @@ var post_fitdata = function(req,res,next){
     
     //写入库内
     
-    console.log(goals); 
-    console.log(summary);
-    console.log(sleeps);
-    console.log(sessions);
+//    console.log(goals); 
+//    console.log(summary);
+//    console.log(sleeps);
+//    console.log(sessions);
     
     var fitdata=[];
     for(var i=0; i<goals.length;i++){
@@ -146,7 +171,8 @@ var post_fitdata = function(req,res,next){
     if(fitdata.length>0){
       writetodb(fitdata,0,function(err){
         if(!err){
-          res.loadview('showfit.html',{code:null,goals:goals,summary:summary,sleeps:sleeps,authorizeUrl:authorizeUrl});
+          //res.loadview('showfit.html',{code:null,goals:goals,summary:summary,sleeps:sleeps,authorizeUrl:authorizeUrl});
+          get_fitindex(req,res,next);
         }
         else{
           res.msgBox('将msifit值写入库内出错。'+err,view=='1');

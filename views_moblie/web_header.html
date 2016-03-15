@@ -6,6 +6,9 @@
   <meta name="renderer" content="webkit">
   <meta content="Delphi，Node.js，devemanage，开发管理系统，成功就是抢先一步的创新" name="description" />
   <meta property="wb:webmaster" content="a47d244d8e26476a" />
+  <% if (locals.ismob && locals.ismob==true ) {  %>
+     <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <%}%>
   <title>成功就是抢先一步的创新</title>
   <link rel="stylesheet" href="/css/markdown.css">
   <!--  <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>-->
@@ -54,10 +57,18 @@
     border: 1px solid #fbf8f3;
   }
   
-
+  <% if (locals.ismob && locals.ismob==true) { %>
+    header table tr td h1 {
+      padding-top: 10px;
+      font-size: 25px;  
+    }
+  <%}%>
   
   .navs{
     line-height:20px; 
+    <% if (locals.ismob && locals.ismob==true) { %>
+      z-index: 10000;
+    <% } %>
   }
   .navs .action{
     background-color: #fbf8f3;
@@ -88,6 +99,9 @@
   
   #motto{
     color: #eb6767;
+    <% if (locals.ismob && locals.ismob==true) { %>
+      font-size: 10px;
+    <%}%>
   }
   #movemotto{
     margin-left: 10px;
@@ -105,11 +119,14 @@
   }
   
   .body-container{
-  
+     <% if (!locals.ismob || locals.ismob==false ) {  %>
       padding-left: 40px;
       padding-right: 40px;
       padding-bottom: 40px;
-
+    <%} else {%>
+      padding-left: 5px;
+      padding-right: 5px;  
+    <%}%>
   }
   
 </style>  
@@ -140,9 +157,14 @@
 <body>
   <header>
     <div class="body-container">
-    <table width="100%" border="0">
-      <tr><td width="60%" >
+      <table width="100%" border="0">
+      <tr><td width=<%=locals.ismob?'100%':'60%'%> >
       <table border="0">
+        <tr>
+          <% if(locals.ismob && locals.ismob==true ){ %>
+            <a href="#" id='showmnav'>=菜单=</a>
+          <%}%>
+        </tr>
         <tr>
           <td>
             <h1 style="margin-top: 0px;margin-bottom: 0px;"><span style="color: #999;">关于</span><a href="/">龙仕云</a>  
@@ -159,7 +181,25 @@
       
     </td>
   
- 
+    <% if(locals.ismob && locals.ismob==true){  %>   
+      <!--  移动界面      -->
+      <tr><td align="right">  
+      <div class="navs mnavs" style="display: none;" >
+        <ul>
+          <li name='关于我'><a href="/">关于我</a></li>
+          <li name='书法绘画' ><a href="/shf/pic" >书法绘画</a></li>
+          <li name='我的读书' ><a href="/books">我读的书</a></li>
+          <li name='读书笔记'><a href="/books/notes">读书笔记</a></li>
+          <li name='我的足迹'><a href="/footer">我的足迹</a></li>
+          <li name='我的文章'><a href="/blog">我的文章</a></li>
+        
+          <% if(locals.adminlogin) { %>
+            <li name='我的花销'><a href="/cost">我的花销</a></li>
+          <%}%>  
+        <ul>  
+      </div>
+      </td></tr>
+    <%} else {%>  
     <td width='40%' class="navs" valign="top">
       <!--    导航-->
       <ul>
@@ -169,13 +209,13 @@
         <li name='读书笔记'><a href="/books/notes">读书笔记</a></li>
         <li name='我的足迹'><a href="/footer">我的足迹</a></li>
         <li name='我的文章'><a href="/blog">我的文章</a></li>
-        <li name="健身故事"><a href="/fit">健身故事</a></li>
+        <li name="运动故事"><a href="/fit">运动故事</a></li>
         <% if(locals.adminlogin) { %>
           <li name='我的花销'><a href="/cost">我的花销</a></li>
         <%}%>
       </ul>          
     </td>
-    
+    <%}%>
   
     </tr>
    </table>

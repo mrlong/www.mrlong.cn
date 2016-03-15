@@ -14,6 +14,7 @@ var config = require('../config');
 var fs = require('fs');
 var path = require('path');
 var router = express.Router();
+var EventProxy = require('eventproxy');
 
 
 //获取二维码
@@ -27,9 +28,9 @@ router.get('/getqrcode',function(req,res,next){
     else{
       this_res.json({success:false,msg:'获取二维码申请号出错'+err})
     }
-    
   });
 });
+
 
 //
 //登录
@@ -156,31 +157,67 @@ router.get('/videos/del/:guid',function(req,res,next){
 
 
 //起始页
-router.get('/',function (req, res,next) {	
-  var data=[];
-  var books=[]; //书
+var get_indexhome = function (req, res,next) {	
+  var ep = new EventProxy();
+  
+  
+  
+  ep.all(['books','shfs','fits'],function(books,shfs,fits){
+    res.loadview( req.ismob==true ? 'web_index.html ': 'index.html', {'imgs':shfs,'books':books,fits:fits},req.ismob);   
+  });
+  
+  
+  
   db.query('select  * from shfimg order by ct desc  limit 0,4',function(err1,rows,db){
-    db.all('select boo_isbn,boo_name  from books order by boo_buytime desc limit 0,8',function(err2,rows2){
-      
-      if(!err1){
-        rows.forEach(function(row){data.push(row.imgfile)});
+    
+    if(!err1){
+      var data=[];
+      for(var i=0; i<rows.length ; i++){
+        data.push(rows[i].imgfile);
       };
-      
+      ep.emit('shfs',data); 
+    }
+    else{
+      ep.emit('shfs',[]);
+    };
+    
+    
+    db.all('select boo_isbn,boo_name from books order by boo_buytime desc limit 0,8',function(err2,rows2){  
       if(!err2){
-        rows2.forEach(function(book){books.push({isbn:book.boo_isbn,title:book.boo_name})}); 
-      };
-      
-     res.render('./views_pc/index', {'imgs':data,'books':books}); 
-      
-    });    
+        var books=[]; //书
+        for(var i=0;i<rows2.length;i++){
+          books.push({isbn:rows2[i].boo_isbn,title:rows2[i].boo_name});
+        };
+        ep.emit('books',books);
+      }
+      else {
+        ep.emit('books',[]);
+      }
+    });
+    
+    //取出fit
+    db.all('select fit_points,fit_targetPoints,fit_date from fit order by fit_date desc limit 0,4',function(err3,rows3){
+      if(!err3){
+        var fits = [];
+        for(var i=0;i<rows3.length;i++){
+          fits.push({fit_date:rows3[i].fit_date,fit_points:rows3[i].fit_points,fit_targetPoints:rows3[i].fit_targetPoints}); 
+        };
+        ep.emit('fits',fits);
+      }
+      else{
+        ep.emit('fits',[]);
+      }
+    });
+    
+    
     //res.writeHead(200);
     //console.log(data);
     //var tpl = ejs.compile(fs.readFileSync(path.join(__dirname, 'views/index.html'),'utf-8'));
     //res.end(tpl({'imgs':data}));    
-  });
-  
-});
+  });  
+};
 
 
+router.get('/',get_indexhome);
 module.exports = router;
  

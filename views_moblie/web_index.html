@@ -1,4 +1,4 @@
-<% include header.html %>
+<% include web_header.html %>
 
   <link type="text/css" href="js/PikaChoose/bottom.css" rel="stylesheet" />
   <script type="text/javascript" src="js/PikaChoose/lib/jquery.jcarousel.min.js"></script>
@@ -10,14 +10,10 @@
 
     section {
 /*    border-top: 1px solid #AAA;*/
-      border-bottom: 1px solid #e8eef1 !important;
+      border-bottom: 2px solid #e8eef1 !important;
       padding-bottom: 10px;
       
     }
-  
-  section h3{
-    color: #999;
-  }
 
     .update {
       padding-top: 40px;
@@ -81,118 +77,37 @@
     .m-booklist ul{ width:350px;}    
     .m-booklist li{ width:145px; height: 170px; float:left; display:block;margin-top: 4px } 
     #weibowin{margin-top: 17px;}
-  
-  /*圆形进度条*/
- section.fits{
-    height: 200px;
-  }
-  
-  section.fits .fits-div{
-    margin-left: 50px;
-    position: absolute;  
-  }
-  
- section.fits .circle {
-    width: 100px;
-    height: 100px;
-    position: absolute;
-    border-radius: 50%;
-    background: #0cc;
-  }
-  section.fits .pie_left, section.fits .pie_right {
-      width:100px; 
-      height:100px;
-      position: absolute;
-      top: 0;
-      left: 0;
-  }
-  section.fits .subleft, section.fits .subright {
-      width:100px; 
-      height:100px;
-      background:#00aacc;
-      border-radius: 50%;
-      position: absolute;
-      top: 0;
-      left: 0;
-  }
-  section.fits .pie_right, section.fits .subright {
-    clip:rect(0,auto,auto,50px);
-  }
-  section.fits .pie_left, section.fits .subleft {
-    clip:rect(0,50px,auto,0);
-  }
+	</style>
 
-  section.fits .mask {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      left: 10px;
-      top: 10px;
-      background: #FFF;
-      position: absolute;
-      text-align: center;
-      line-height: 20px;
-      font-size: 20px;
-      font-weight: bold;
-      color: #00aacc;
-  }
+  <script language="javascript">
+      $(document).ready(function (){
+          $("#pikame").PikaChoose({
+            hoverPause:true,
+            text: {previous: "上一个", next: "下一个" },
+            carousel:true,
+            carouselOptions:{wrap:'circular'}
 
-  section.fits small.num{
-    color: #333;
-    font-size: 13px;
-    color: #999;
-  }
-  section.fits .fit-date{
-    position: absolute;
-    bottom: -30px;
-    left: 10px;
-  }
-  
-  
-  
-</style>
+          });
+     
+      });
+  </script>
 
-
-<div class="homecentent">
-  
-<div class="left">
+  <div>
+	<div class="left">
     <section>
-      <h3>链接</h3>
+      <h3>链接：</h3>
       <ul>
         <li><span class="t">微博</span> <a href="http://weibo.com/u/1805167840" title="龙仕云的微博" target="_blank"><%=locals.ismob?'点击进入':'http://weibo.com/u/1805167840'%></a></li>
         <li><span class="t">管理博客</span> <a href="http://blog.sina.com.cn/u/1903671524" title="龙仕云的管理博客" target="_blank"><%=locals.ismob?'点击进入':'http://blog.sina.com.cn/u/1903671524'%></a></li>
-        <li><span class="t">技术博客</span> <a href="/blog" title="龙仕云的技术博客">http://www.mrlong.cn/blog</a></li>
+<!--        <li><span class="t">技术博客</span> <a href="http://hi.baidu.com/mrlong2000" title="龙仕云的技术博客">http://hi.baidu.com/mrlong2000</a></li>-->
         <li><span class="t">github</span> <a href="https://github.com/mrlong" title="龙仕云的github" target="_blank"><%=locals.ismob?'点击进入':'https://github.com/mrlong'%></a></li>        
+<!--        <li><span class="t">支持/付款</span> <a href='http://me.alipay.com/mrlong1000' title="这是我的网上收款主页，你可以通过它给我付款"> <img src='https://img.alipay.com/sys/personalprod/style/mc/btn-index.png' /></a></li>-->
       </ul>
     </section>
       
-    <section class="fits">
-      <h3>健身</h3>
-      
-      <div class="fits-div">
-        <%for(var i=0;i<fits.length;i++){%>
-          <div class="circle" style="left:<%=i*120 %>px">
-		  <div class="pie_left"><div class="subleft"></div></div>
-		  <div class="pie_right"><div class="subright"></div></div>
-		  <div class="mask">
-            <br><span value="<%=fits[i].fit_points/fits[i].fit_targetPoints *100 %>">
-              <%=(fits[i].fit_points/fits[i].fit_targetPoints *100).toFixed(0) %>%
-            </span>
-            
-            <div><small class="num"><%=fits[i].fit_points.toFixed(0)%></small></div>
-          </div>
-          
-          <div class="fit-date"><%=fits[i].fit_date%></div>
-	     </div>
-        <%}%>
-      </div>    
-          
-      
-      <a href="/fit" style="margin-left: 20px;color: #328396; position: absolute; bottom: 70px;">我的更多健身...</a>
-    </section>
 
     <section>
-      <h3>读书</h3>
+      <h3>读书:</h3>
           
         <% if (!locals.ismob || locals.ismob==false ) {  %>
           <div class="booklist pc"> 
@@ -225,7 +140,7 @@
 
       
     <section>
-      <h3>书法绘画</h3>
+      <h3>书法绘画:</h3>
 
        <% if (!locals.ismob || locals.ismob==false ) {  %>
         <div class="pikachoose pc">
@@ -255,14 +170,14 @@
         <a href="/shf/pic" style="margin-left: 20px;color: #328396;">我还有更多书法绘画...</a>
     </section>
   
-    <section id="works">
-      <h3>作品</h3>
+    <div id="works">
+      <h3>作品:</h3>
       <ul>
         <li>
             <strong>字典-微信公众账号</strong>
             <blockquote>
               <p>查生癖字，查字或词组拼音及祥细注解，应用尽用。 包括《新华字典》、《成语大全》、《汉语词典》、《维基百科》共百万条数据供你查询。南方人更值得必备的微信公众平台订阅号。
-              <br>地址：<a href="http://xhzd.mrlong.cn">http://xhzd.mrlong.cn</a>
+              <br>地址：<a href="http://xhzd.mrlong.cn"><%=locals.ismob?'点击进入':'http://xhzd.mrlong.cn'%></a>
               </p>
             </blockquote>
 
@@ -271,50 +186,29 @@
           <strong>devemanager</strong>
             <blockquote>
               <p>使用delphi开发的内部研发管理系统。内有bug管理模块，编译部署模块，SVN日志模块，产品池模块。已在内部使用多年。
-              <br>地址：<a href="https://github.com/mrlong/devemange">https://github.com/mrlong/devemange</a>
+              <br>地址：<a href="https://github.com/mrlong/devemange"><%=locals.ismob?'点击进入':'https://github.com/mrlong/devemange'%></a>
+              
         </li>
       </ul>
-    </section>
-    
-</div>
+    </div>
+      
 
-<div class="right pc" >
-  <!-- 微博内容   -->
-  <iframe id="weibowin"  width="100%" height="800" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=1200&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=1&isFans=0&uid=1805167840&verifier=b65df5a4&dpc=1">
-  </iframe>
+  </div>
 
-</div>
- 
+  <% if (!locals.ismob || locals.ismob==false ) {  %>
+  <div class="right pc" >
+    <!-- 微博内容   -->
+    <iframe id="weibowin"  width="100%" height="800" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=1200&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=1&isFans=0&uid=1805167840&verifier=b65df5a4&dpc=1">
+    </iframe>
+
+  </div>
+  <%}%>
       
   <div class="clear"></div>
 </div>
       
 <script>
-     $(document).ready(function (){
-       SetActionNav('关于我'); 
-       
-      $("#pikame").PikaChoose({
-            hoverPause:true,
-            text: {previous: "上一个", next: "下一个" },
-            carousel:true,
-            carouselOptions:{wrap:'circular'}
-
-      });
-       
-       $('.circle').each(function(index, el) {
-          var v = parseInt($(this).find('span').attr('value'));  
-          var num = (v > 100 ? 100 : v) * 3.6;
-          if (num<=180) {
-              $(this).find('.subright').css('transform', "rotate(" + num + "deg)");
-          } else {
-              $(this).find('.subright').css('transform', "rotate(180deg)");
-              $(this).find('.subleft').css('transform', "rotate(" + (num - 180) + "deg)");
-          };
-		});
-     
-  });
-  
-    
+  SetActionNav('关于我');    
 </script>  
 
-<% include footer.html %>
+<% include web_footer.html %>
