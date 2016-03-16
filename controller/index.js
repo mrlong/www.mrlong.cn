@@ -163,7 +163,7 @@ var get_indexhome = function (req, res,next) {
   
   
   ep.all(['books','shfs','fits'],function(books,shfs,fits){
-    res.loadview( req.ismob==true ? 'web_index.html ': 'index.html', {'imgs':shfs,'books':books,fits:fits},req.ismob);   
+    res.loadview( req.ismob==true ? 'web_index.html': 'index.html', {'imgs':shfs,'books':books,fits:fits},req.ismob);   
   });
   
   

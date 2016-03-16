@@ -98,29 +98,17 @@ footer #footer-right .imgtext span{margin-left: 15px;margin-right: 10px;padding-
 </script>
 
 <footer>
-  <% if(!locals.ismob || locals.ismob==false){  %>
-    <div id="footer-left">
-  <%} else {%>
+
     <div  style="text-align: center;">  
-  <%}%>
+  
     
-    <% if(!locals.ismob || locals.ismob==false){  %>
-      <div class="pc">
-        <a href="http://www.miibeian.gov.cn/">浙ICP备13037124号</a> 2014-11-2~<span class='syva_update'></span>(最后更新时间)
-        <div>
-          <script async src="/js/busuanzi.pure.mini.js"></script>
-          <span id="busuanzi_container_site_uv">
-            本站访客数<span id="busuanzi_value_site_uv"></span>人次
-          </span>
-        </div>
-      </div>
-    <%} else {%>  
+    
       <div class="mob" >
         <a href="http://www.miibeian.gov.cn/">浙ICP备13037124号 </a>-移动版<br>
         创建时间：2014-11-2<br>
         更新时间：<span class='syva_update'></span>
       </div>
-    <%}%>
+    
     
     <a href="mailto:mrlong.com@gmail.com"><img src="/img/selfmail.png" style="width:200px;height=50px"></img></a>
     <br/>
@@ -132,13 +120,7 @@ footer #footer-right .imgtext span{margin-left: 15px;margin-right: 10px;padding-
     <% } %>
   </div>
       
-  <% if(!locals.ismob || locals.ismob==false){  %>
-    <div id="footer-right">
-      <img src="/img/qrcode-mrlong.cn.png" style="width:100px;height=100px;"/>
-      <img src="/img/selfwechat.png" style="width:100px;height=100px;"/>  
-      <div class="imgtext"><span>移动端访问扫一扫</span><span>加我微信扫一扫</span></div>
-    </div>
-  <%}%>
+
     
   <div class="footer-img"></div>
       
