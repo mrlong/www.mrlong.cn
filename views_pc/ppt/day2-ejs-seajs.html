@@ -1,0 +1,164 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1024" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>www.mrlong.cn</title>    
+    <meta name="description" content="impress.js is a presentation tool based on the power of CSS3 transforms and transitions in modern browsers and inspired by the idea behind prezi.com." />
+    <meta name="author" content="Bartek Szopka" />
+    <link href="/js/impress.js/css/impress-demo.css" rel="stylesheet" /> 
+</head>
+  
+  
+  
+<style>
+  body{
+    font-family: sans-serif;
+  
+  }
+  
+  .slide{
+   color: black; 
+  }
+  
+  .tc{
+    text-align: center;
+  }
+  
+  .tt{
+    text-align: center;
+    color: blue;
+  }
+  
+  .t1{
+    font-size: 60px;
+  }
+  .t2{
+    font-size: 52px;
+  }
+  
+  .t3{
+    font-size: 44px;
+  }
+  
+  .t4{
+    font-size: 36px;
+  }
+  
+  .t5{
+    font-size: 28px;
+  }
+  
+</style>
+  
+<body class="impress-not-supported">
+  
+<div id="impress">
+    
+    <div id="bored" class="step slide" data-x="0" >
+        <q> 
+          <div class="tt" id="title"><b>分享我的学习web开发过程</b></div>
+          <div class="t3 tc">龙仕云</div>
+          <div class="t4 tc"> 2016-4-8 </div>
+        </q>
+    </div>
+  
+    
+    <div id="bored1" class="step slide" data-x="-1000" data-y="-1500">
+        <q> 
+          <div class="tt"><b>回顾上一节课的内容</b></div>
+          <div class="t t3">html</div>
+          <div class="t t3">css</div>
+          <div class="t t3">js</div>
+          <div class="t t3">Bootstrap</div>
+          <div class="t t3">jquery</div>
+          <div class="t t3">前端的调试</div>
+        </q>
+    </div>
+  
+    <div class="step slide" data-x="500" data-y="-1500">
+      <q>
+        <div class="tt"><b>复用</b></div>
+        <div class="t4">1. 复用的目的是减少代码量。</div>
+        <div class="t3">2. 常规的语言从最简单的方法调用到类的继承，多态，重载 更上层就是组件。</div>
+        <div class="t3">3. 就认我们想到前端有没有象写语言哪样可以写html + css + js 。</div>
+        <div class="t5">4. 请这个提出的问题大家讨论一下。</div>
+    
+      </q>    
+    </div>
+  
+    <div class="step slide" data-x="2000" data-y="-1500">
+      <q>
+        <div class="tt"><b>模板</b></div>
+        <div class="t4">1) 举例，页面分解。找出公共部分的。<a target="_blank" href="/img/pagebband.png">图示</a> </div>
+        <div class="t3">2）例子：增加一个创建bug的页面。</div>
+        <div class="t3">3）引入 EJS (下载地址： http://www.embeddedjs.com/ )</div>        
+      </q>    
+    </div>
+  
+    <div class="step slide" data-x="3500" data-y="-1500">
+      <q>
+        <div class="tt"><b>EJS</b></div>
+        <div class="t3">1）变量</div>
+        <div class="t3">2）《%= %》 《%- %》(原码输出) </div>
+        <div class="t3">3) 练习： 将分栏分离出来。</div>
+      </q>    
+    </div>
+  
+  
+    <div class="step slide" data-x="5000" data-y="-1500">
+      <q>
+        <div class="tt"><b>组件化</b></div>
+        <div class="t3">1) 提出问题，我们经常用到的分页。</div>
+        <div class="t4">2）</div>
+    
+      </q>    
+    </div>
+  
+    <div class="step slide" data-x="6500" data-y="-1500">
+      <q>
+        <div class="tt"><b>seajs</b></div>
+        <div class="t3">1) seajs-config.js</div>
+        <div class="t3">2) 引用，方法的输出。</div>
+        <div class="t3">3) 练习:分页处理。</div>
+      </q>   
+    </div>  
+  
+  
+    <div class="step slide" data-x="8000" data-y="-1500">
+      <q>
+        <div class="tt">seajs 调试</div>
+        <div class="t3">1）seajs.cache</div>
+        <div class="t3">2）seajs.data</div>
+        
+      </q>  
+    </div>  
+  
+    <div class="step slide" data-x="9500" data-y="-1500">
+      <q>
+        <div class="tt">seajs 深入应用</div>
+        <div class="t3">1）弹窗口</div>
+        <div class="t3">2）结合ejs模板分离窗口内容</div>
+        <div class="t3">3) 练习:弹窗口。</div>
+      </q>   
+    </div> 
+  
+    
+   
+     
+        
+</div>
+  
+ 
+  
+  <script>
+  if ("ontouchstart" in document.documentElement) { 
+      document.querySelector(".hint").innerHTML = "<p>Tap on the left or right to navigate</p>";
+  }
+  </script>
+  
+</body>
+
+  
+<script src="/js/impress.js/js/impress.js"></script>
+<script>impress().init();</script>
