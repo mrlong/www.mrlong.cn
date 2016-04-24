@@ -67,7 +67,12 @@ img[alt=upload] {
   
 <% if(locals.adminlogin){ %>
   <div id='toptool'>
-    <a href="/blog/edit/<%=row.blo_guid%>">==编辑文章==</a>
+    <a href="/blog/edit/<%=row.blo_guid%>">==编辑文章==</a>|<a href="/blog/ppt/<%=row.blo_guid%>" target="_blank">==PPT==</a>
+  </div>
+    
+<%} else {%>
+  <div id='toptool'>
+    <a href="/blog/ppt/<%=row.blo_guid%>" target="_blank">==PPT==</a>
   </div>
 <%}%>
 
