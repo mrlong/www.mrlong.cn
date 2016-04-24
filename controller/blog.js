@@ -86,7 +86,7 @@ router.get('/view/:guid',function(req,res,next){
   
   db.query('select * from blog where blo_guid=?',[blo_guid],function(err,rows){
     if(!err && rows.length>0){
-      res.loadview('blog_view.html',{row:rows[0]});
+      res.loadview('blog_view.html',{row:rows[0],blog_guid:blo_guid});
     }
     else{
       res.msgBox('找不到相关的文章'); 
@@ -130,6 +130,26 @@ router.post('/edit',function(req,res,next){
   
 });
 
+
+var html_decode =function(str){
+  var s = "";   
+  if (str.length == 0) return "";  
+  s = str;
+//  s = str.replace(/&gt;/g, "&");   
+  s = s.replace(/&lt;/g, "<");   
+  s = s.replace(/&gt;/g, ">");   
+  s = s.replace(/&nbsp;/g, " ");   
+  s = s.replace(/&#39;/g, "\'");   
+  s = s.replace(/&quot;/g, "\"");   
+  s = s.replace(/<br>/g, "\n");   
+  return s;   
+}; 
+
+router.get('/ppt/:filename',function(req,res,next){
+  var filename = req.params.filename;
+  res.loadview('ppt/' + filename);
+  
+});
 
 
 
