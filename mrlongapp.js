@@ -17,6 +17,8 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var multer  = require('multer');  //上传组件
+var https = require('https');
+//var http = require('http');
 
 var config = require('./config');
 
@@ -37,7 +39,10 @@ var images = require('./controller/images'); //图片服务
 var remind = require('./controller/remind');
 var fit = require('./controller/fit');
 
+
+
 var app = express();
+
 module.exports = app;
 
 //参数
@@ -186,5 +191,18 @@ app.use('/test_index',test.index);
 require('./time').do();
 
 
-app.listen(3002);
-console.log('mrlong.cn stated on port 3002');
+
+//证书处理
+if(config.cert){
+  var privateKey = fs.readFileSync(config.cert.key);
+  var certificate = fs.readFileSync(config.cert.crt);
+  var credentials = {key: privateKey, cert: certificate};
+  var httpsServer = https.createServer(credentials, app);
+  httpsServer.listen(3002);
+  console.log('mrlong.cn stated on port 3002 by ssl');
+}
+else{
+  app.listen(3002);
+  console.log('mrlong.cn stated on port 3002');
+};
+
