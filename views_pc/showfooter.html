@@ -63,6 +63,25 @@
         });
         
       });
+      
+      //编辑
+      $("a.edit").on('click',function(){
+        var foer_guid = $(this).attr('guid');
+        var foer_txt = $(this).attr('foer_txt');
+        var str=prompt("事件简述",foer_txt);
+        var that = this;
+        if(str){
+          //回写到数据库内 
+          $.post('/footer/edit/'+foer_guid,{txt:str},function(data,status){
+            if(status=='success' && data.success==true){
+              $(that).parents('tr').find("b.txt").text(str);    
+            }
+            else{ 
+              alert(status!='success'?'编辑不成功':data.msg);  
+            } 
+          });
+        };
+      });
     });
    
 
@@ -92,7 +111,7 @@
         
       <td><%=(curpage-1)*20+i+1%></td>  
       <td><%=rows[i].foer_time%></td>
-      <td><%=rows[i].foer_txt%><br><small>标签：<%=rows[i].foer_tag%></small></td>
+      <td><b class="txt"><%=rows[i].foer_txt%></b><br><small>标签：<%=rows[i].foer_tag%></small></td>
       <td><%=rows[i].foer_price?rows[i].foer_price:''%></td>  
       <% if(rows[i].loc_guid) {%>
         <td>
@@ -113,7 +132,8 @@
       </td>
             
       <% if(locals.adminlogin) { %>
-          <td><button type="button" class="del" guid="<%=rows[i].foer_guid%>" >删除</button></td>
+          <td><a href="javascript:;" class="del" guid="<%=rows[i].foer_guid%>" >删除</a></td>
+          <td><a href="javascript:;" class="edit" foer_txt="<%=rows[i].foer_txt%>" guid="<%=rows[i].foer_guid%>" >编辑</a></td>
       <% } %>
           
     </tr>  

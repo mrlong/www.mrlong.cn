@@ -150,6 +150,26 @@ router.post('/del/:guid',function(req,res,next){
   
 });
 
+//
+//编辑内容
+//
+router.post('/edit/:guid',function(req,res,next){
+  var guid = req.params.guid;
+  var txt = req.body.txt; //要更新的内容
+  
+  //权限，有没有登录。
+  if(!req.session.adminlogin){
+    res.json({success:false,msg:'请登录才能修改'});
+    return;
+  };
+  
+  db.exec('update footer set foer_txt=? where foer_guid=?',[txt,guid],function(err){
+      res.json({success:!err,msg:err?'编辑出错':'编辑成功'});
+      return;    
+  });
+
+});
+
 
 module.exports = router;
 
