@@ -15,7 +15,7 @@ var  getFileName = function(filename){
   
   var filename = myDate.getFullYear()+month.toString()+day.toString()+"_"+hour.toString()+minute.toString()+ seconds.toString()+'.jpg';
   */
-  return  '/var/mrlong.cn/database/images/'+filename+'.jpg';
+  return  '/var/www/mrlong.cn/database/images/'+filename+'.jpg';
 }
 
 var downloadfile = function(url,callabck){
