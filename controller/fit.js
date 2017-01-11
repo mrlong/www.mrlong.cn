@@ -135,10 +135,10 @@ var post_fitdata = function(req,res,next){
     redirectUri: config.redirectUri
   });
   
-  ep.all(['goals','summary','sleeps','sessions'],function(goals,summary,sleeps,sessions){
+  ep.all(['goals','summary','sleeps','sessions','err'],function(goals,summary,sleeps,sessions,err){
     
     if(!goals || !summary || !sleeps || !sessions){
-      res.msgBox('读取misfit的token出错。',view=='1');
+      res.msgBox('读取misfit的token出错。'+err.toString(),view=='1');
       return false;  
     };
     
@@ -189,24 +189,66 @@ var post_fitdata = function(req,res,next){
       
       //1.取出目标
       misfitHandler.getGoals(token,startdate,enddate,function(err,goals){
-        ep.emit('goals',!err && goals ? goals.goals : null );  
-      });
-
-     //2.取出结果
-      misfitHandler.getSummary(token,startdate,enddate,{detail: true}, function(err, summary){
         
-        ep.emit('summary',!err && summary ? summary.summary : null);
+        if(!err){
+          ep.emit('goals',!err && goals ? goals.goals : null );
+          //2.取出结果
+          misfitHandler.getSummary(token,startdate,enddate,{detail: true}, function(err, summary){
+            if(!err){
+              ep.emit('summary',!err && summary ? summary.summary : null);
+              
+              //3.取出睡眠信息
+              misfitHandler.getSleeps(token,startdate,enddate, function(err, sleeps){
+                if(!err){
+                  ep.emit('sleeps',!err && sleeps ? sleeps.sleeps : null );
+                  
+                  //4.取出明细
+                  misfitHandler.getSessions(token, startdate, enddate, function(err, sessions){
+                    if(!err){
+                      ep.emit('sessions',!err && sessions ? sessions.sessions : null ); 
+                    }
+                    else{
+                      ep.emit('sessions',null);
+                      ep.emit('err',err);   
+                    }
+                  });
+                  
+                }
+                else{
+                  ep.emit('sleeps',null); 
+                  ep.emit('sessions',null);
+                  ep.emit('err',err);   
+                }
+              });
+              
+            }
+            else{
+              ep.emit('summary',null);
+              ep.emit('sleeps',null); 
+              ep.emit('sessions',null);
+              ep.emit('err',err); 
+            }
+          });
+          
+        }
+        else{
+          ep.emit('goals',null);
+          ep.emit('summary',null);
+          ep.emit('sleeps',null); 
+          ep.emit('sessions',null);
+          ep.emit('err',err);  
+        }
+        
+        
       });
 
-      //3.取出睡眠信息
-      misfitHandler.getSleeps(token,startdate,enddate, function(err, sleeps){
-        ep.emit('sleeps',!err && sleeps ? sleeps.sleeps : null );
-      });
+     
+
       
-      //4.取出明细
-      misfitHandler.getSessions(token, startdate, enddate, function(err, sessions){
-        ep.emit('sessions',!err && sessions ? sessions.sessions : null );  
-      });
+      
+      
+      
+      
       
                           
     }
@@ -215,6 +257,7 @@ var post_fitdata = function(req,res,next){
       ep.emit('summary',null);
       ep.emit('sleeps',null); 
       ep.emit('sessions',null);
+      ep.emit('err',err);
     };
   });
 };
