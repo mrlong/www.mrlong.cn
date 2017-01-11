@@ -138,11 +138,11 @@ var post_fitdata = function(req,res,next){
   ep.all(['goals','summary','sleeps','sessions','err'],function(goals,summary,sleeps,sessions,err){
     
     if(!goals || !summary || !sleeps || !sessions){
-      res.msgBox('读取misfit的token出错。'+err.toString() + ' ' + 
-                  goals   ? goals.toString() :'' +
-                  summary ? summary.toString():'' +
-                  sleeps  ? sleeps.toString():'' +
-                  sessions ? sessions.toString():''  
+      res.msgBox('读取misfit的token出错。'+err.toString() + '==内容==\r\n' + 
+                  (goals   ? goals.toString() :'') +
+                  (summary ? summary.toString():'') +
+                  (sleeps  ? sleeps.toString():'') +
+                  (sessions ? sessions.toString():'')  
                  ,view=='1');
       return false;  
     };
