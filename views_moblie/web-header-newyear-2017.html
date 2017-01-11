@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"> 
+  <meta content="龙仕云、新华字典、活用字典" name="keywords" />
+  <meta name="renderer" content="webkit">
+  <meta content="Delphi，Node.js，devemanage，开发管理系统，成功就是抢先一步的创新" name="description" />
+  <meta property="wb:webmaster" content="a47d244d8e26476a" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>成功就是抢先一步的创新</title>
+  <link rel="stylesheet" href="/css/markdown.css">
+  <!--  <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>-->
+  <script type="application/javascript" src="/js/jquery-1.11.0.min.js"></script>
+  
+
+  <!-- weibo 挂件  -->
+  <!--  <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>  -->
+    
+  <!--[if lt IE 9]>
+    <div  style="margin: 0;margin: 100px;">
+      <h1>360 安全卫士提醒您：</b>您的 IE 浏览器太低不被支持。试试其他的：<a href="http://se.360.cn">360 浏览器</a>、<a href="http://firefox.com.cn/">火狐浏览器</a>、<a href="http://mb.qq.com/">QQ浏览器。</a></h1>
+    </div>
+  <![endif]-->
+</head>
+  
+<style>
+  html {
+    background-color: #fbf8f3;
+  }
+  
+  body {
+    font-family: "microsoft yahei","微软雅黑";
+/*    border: 1px solid #EEE;*/
+/*    box-shadow: 8px 8px 12px #EEE;*/
+    max-width: 980px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  
+  header{
+/* border-bottom: 1px solid #EEE; */
+   background-image: url("/img/header@2.png");
+   background-size: 1030px 140px;
+   height: 150px;
+   padding: 12px 0 0 0;
+   margin: 0 auto;
+   background-repeat: no-repeat;
+   background-position: bottom center;
+   background-color: #fbf8f3;
+  }
+  
+  header li {
+    list-style-type: none;
+    padding: 0px 12px;
+    border: 1px solid #fbf8f3;
+  }
+  
+  
+  header table tr td h1 {
+    padding-top: 10px;
+    font-size: 25px;  
+  }
+
+  .navs{
+    line-height:20px; 
+    z-index: 10000;
+  }
+  .navs .action{
+    background-color: #fbf8f3;
+    color: #57c4d7 ;
+    border-bottom: 1px solid #ed0e0e; 
+    border-radius: 4px;
+  }
+  .navs  a{color: #999}
+  .navs  a:hover{color: #57c4d7}
+  .navs .action a{
+    color: #57c4d7 ;
+    font-weight:bold;
+  }
+  
+  .navs ul{
+    list-style:none; 
+    width:380px;
+  }
+  .navs ul li{
+    float:left; 
+    width: '110px'; 
+    
+  }
+  .mnavs ul li{
+    background-color: #716c6c;
+    color: #e5edeb;
+  }
+  
+  #motto{
+    color: #eb6767;
+    font-size: 10px;
+  }
+  
+  #movemotto{
+    margin-left: 10px;
+    color: #57c4d7; 
+    font-size: 10px;
+  }
+  
+  #showmnav{
+    margin-top: 10px;
+    font-size: 20px;
+    float: right;
+    /*position: absolute;*/
+    top: 10px;
+    right: 10px;
+  }
+  
+  .body-container{
+
+      padding-left: 5px;
+      padding-right: 5px;  
+    
+  }
+  
+  div.newyear {
+    background-image: url('/img/2017iphone.jpg');
+    background-size: cover;
+    background-repeat:repeat-y; 
+  }
+  
+  div.newyear h5.title{
+    text-align: center;
+    color: #fff;
+    font-size: 50px;
+    margin-top: 0px;
+    margin-bottom: 50px;
+    padding-top: 100px;
+  }
+  
+  div.newyear h5.longsay{
+     text-align: center;
+    color: #fff;
+
+    margin-top: 0px;
+  }
+  
+</style>  
+  
+<script>
+  /*给子类用的公共方法*/
+  function SetActionNav(sname){
+    //1.先去掉原来的。
+    $(".navs .action").removeClass('action');
+    //2.增加现在的
+    $(".navs li[name=" + sname + "]").addClass('action');
+  }
+  
+  //格言
+  $(document).ready(function(){
+    
+    $('div.newyear').css('height',screen.availHeight);
+    
+    $.get('/motto/getcurtxt',function(data){
+      if(data.success==true)
+        $("#motto").html(data.txt);
+        $("#movemotto").show();
+    });
+    
+    $('#showmnav').on('click',function(){
+      $('.mnavs').toggle();  
+    });
+  });  
+ 
+</script>
+<body>
+  
+  <div class="newyear">
+    <h5 class="title">吉星高照</h5>
+    <h5 class="longsay">龙仕云在2017春节向您拜年了。</h5>
+    <h5 class="longsay">祝您在新的一年里，</h5>
+    <h5 class="longsay">合家幸福,</h5>
+    <h5 class="longsay">团团圆圆,</h5>
+    <h5 class="longsay">百事可乐,</h5>    
+    <h5 class="longsay">万事如意。</h5>
+  </div>
+  
+  
+  <header>
+    <div class="body-container">
+      <table width="100%" border="0">
+      <tr><td width='100%'>
+      <table border="0">
+        <tr>
+            <a href="#" id='showmnav'>=菜单=</a>
+        </tr>
+        <tr>
+          <td>
+            <h1 style="margin-top: 0px;margin-bottom: 0px;"><span style="color: #999;">关于</span><a href="/">龙仕云</a>  
+            <div style="margin-left: 50px;margin-top: 5px;"><wb:follow-button uid="2991975565" type="red_1" width="67" height="24" ></wb:follow-button></div>
+            </h1>
+          </td>
+        </tr>
+        </table>
+      </div>
+      
+      <div style="margin-top: 4px;margin-left: 4px;margin-bottom: 4px;">
+        <strong id="motto"></strong><a href="/motto/show" id='movemotto' style="display:none;">(更多...)</a>
+      </div> 
+      
+    </td>
+  
+     
+      <!--  移动界面      -->
+      <tr><td align="right">  
+      <div class="navs mnavs" style="display: none;" >
+        <ul>
+          <li name='关于我'><a href="/">关于我</a></li>
+          <li name='书法绘画' ><a href="/shf/pic" >书法绘画</a></li>
+          <li name='我的读书' ><a href="/books">我读的书</a></li>
+          <li name='读书笔记'><a href="/books/notes">读书笔记</a></li>
+          <li name='我的足迹'><a href="/footer">我的足迹</a></li>
+          <li name='我的文章'><a href="/blog">我的文章</a></li>
+          <li name='运动健身'><a href="/fit">运动健身</a></li>
+          <% if(locals.adminlogin) { %>
+            <li name='我的花销'><a href="/cost">我的花销</a></li>
+          <%}%>  
+        <ul>  
+      </div>
+      </td></tr>
+    
+  
+    </tr>
+   </table>
+  </header>
+  <div class="body-container">
+  <!-- 以上是具体内容 -->
+          
+  
