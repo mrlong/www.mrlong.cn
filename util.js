@@ -11,6 +11,8 @@ var config=require('./config');
 var fs=require('fs');
 var crypto = require('crypto');
 var nodemailer = require("nodemailer");  //发邮件
+var http = require('http');
+var Url = require('url');
 
 //生成随机码
 // size 长度，如不写是6
@@ -165,5 +167,86 @@ exports.isMobileBrowser=function(req){
     };
   
   return data.mobile || data.ios || data.android || data.iPhone;
+};
+
+
+//
+// 请求数据功能
+// cb=function(err,html);
+// 如用data值说明是post方法，否则是get方法
+//
+exports.httpdata= function(url,data,cb){
+  
+  // get 方法
+  if(typeof data == 'function'){
+    
+    cb = data
+    
+    var myurl = Url.parse(url);
+    var options = {
+      hostname: myurl.hostname,
+      path: myurl.path,
+      method: 'GET',
+      headers: {
+        'Content-Type': 'text/plain;charset:utf-8',
+      },
+    };
+    
+    
+    var req = http.request(options,function (res) {
+      res.setEncoding('utf8');
+      var html = '';   
+      res.on('data',function (data) {
+         html += data;
+      });
+
+      res.on('end', function () {
+        if(cb) cb(null,html);
+      });
+
+    });
+
+    req.on('error', function(err) {
+      if(cb) cb(new Error('请求的http地址有问题。'));
+    });
+    req.end();
+  }
+  //post 方法
+  else{
+  
+    var myurl = Url.parse(url);
+    var data = JSON.stringify(data);
+
+    var options = {
+      hostname: myurl.hostname,
+      path: myurl.path,
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Content-Length': Buffer.byteLength(data,'utf8')
+      }
+    };
+
+    var req = http.request(options,function (res) {
+      res.setEncoding('utf8');
+      var html = '';   
+      res.on('data',function (data) {
+         html +=data;
+      });
+
+      res.on('end', function () {
+        if(cb) cb(null,html);
+      });
+
+    });
+
+    req.on('error', function(err) {
+      if(cb) cb(new Error('请求的http地址有问题。'));
+    });
+
+
+    req.write(data);
+    req.end();
+  };
 };
 
