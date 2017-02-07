@@ -26,7 +26,7 @@ var get_fitindex = function(req,res,next){
   var misfitHandler = new misfit({
       clientId: config.clientId,
       clientSecret: config.clientSecret,
-      redirectUri: config.redirectUri
+      redirectUri: config.redirectUri /*在这个地方可以直接加入时间的区间*/
   });
 
   ep.all(['record','summry'],function(record,summry){
@@ -217,7 +217,8 @@ var post_fitdata = function(req,res,next){
                     }
                     else{
                       ep.emit('sessions',null);
-                      ep.emit('err',err);   
+                      ep.emit('err',err);  
+                      console.log(err+'sssss-5');
                     }
                   });
                   
@@ -225,7 +226,8 @@ var post_fitdata = function(req,res,next){
                 else{
                   ep.emit('sleeps',null); 
                   ep.emit('sessions',null);
-                  ep.emit('err',err);   
+                  ep.emit('err',err); 
+                  console.log(err+'sssss-4');
                 }
               });
               
@@ -235,6 +237,7 @@ var post_fitdata = function(req,res,next){
               ep.emit('sleeps',null); 
               ep.emit('sessions',null);
               ep.emit('err',err); 
+              console.log(err+'sssss-3');
             }
           });
           
@@ -245,6 +248,7 @@ var post_fitdata = function(req,res,next){
           ep.emit('sleeps',null); 
           ep.emit('sessions',null);
           ep.emit('err',err);  
+          console.log(err+'sssss-2');
         }
         
         
@@ -266,6 +270,7 @@ var post_fitdata = function(req,res,next){
       ep.emit('sleeps',null); 
       ep.emit('sessions',null);
       ep.emit('err',err);
+      console.log(err+'sssss-1');
     };
   });
 };
