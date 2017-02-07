@@ -276,9 +276,16 @@ var post_fitdata = function(req,res,next){
   });
 };
 
+var endpoint = function(req,res,next){
+  
+  console.log('msn - misfit');
+  res.end();
+};
+
 
 
 router.post('/data',post_fitdata);
 router.get('/',get_fitindex);
+router.get('/endpoint',endpoint);
 
 module.exports = router;
