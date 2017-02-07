@@ -63,7 +63,7 @@ exports.do=function(){
   var j = schedule.scheduleJob(rule, function(){
     //console.log('sss');
     doremind();
-    dolongzikai();  //龙子开报名
+    //dolongzikai();  //龙子开报名
   });
 };
 

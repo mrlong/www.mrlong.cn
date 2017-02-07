@@ -114,6 +114,9 @@ var writetodb = function(fitdata,idx,cb){
   }); 
 };
 
+//
+//这个是从misfit内取出数据来
+//
 var post_fitdata = function(req,res,next){
   
   var code = req.body.code;
