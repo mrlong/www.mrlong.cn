@@ -192,6 +192,7 @@ var post_fitdata = function(req,res,next){
   
   
   //要取出token值
+  console.log('code='+code);
   misfitHandler.getAccessToken(code, function(err, token){
     if(!err && token){
       
