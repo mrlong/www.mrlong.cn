@@ -125,6 +125,7 @@ var post_fitdata = function(req,res,next){
   var authorizeUrl = req.body.authorizeUrl;
   var enddate = req.body.enddate;
   
+  console.log('startdate='+startdate);
   var ep = new EventProxy();
   
   if(!code){
