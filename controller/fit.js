@@ -283,10 +283,16 @@ var endpoint = function(req,res,next){
   res.end();
 };
 
+var post_endpoint = function(req,res,next){
+ console.log('msn - misfit-post');
+  res.end(); 
+};
+
 
 
 router.post('/data',post_fitdata);
 router.get('/',get_fitindex);
 router.get('/endpoint',endpoint);
+router.post('/endpoint',post_endpoint);
 
 module.exports = router;
