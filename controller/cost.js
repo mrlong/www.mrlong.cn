@@ -88,7 +88,7 @@ router.get('/',function(req,res,next){
   var curpage = req.query.page || 1;
   var startpage = (curpage-1)*20;
   
-  db.query('select cos_name,cos_price,cos_time,cos_tag,cos_images,foer_guid, ' + 
+  db.query('select cos_guid,cos_name,cos_price,cos_time,cos_tag,cos_images,foer_guid, ' + 
            'loc_guid from cost order by cos_time desc limit ?,20',
            [startpage],function(err,rows,db){
     if(!err){
@@ -104,6 +104,25 @@ router.get('/',function(req,res,next){
     else
       res.loadview('showcost.html', {rows:[],curpage:1,rowcount:0,totle:0});
   });   
+});
+
+//
+//删除费用
+//
+router.post('/delcost',function(req,res,next){
+  
+  var costid = req.body.costid;
+  
+  if(req.session.adminlogin){
+    db.exec("delete from cost where cos_guid=?",[costid],function(err){
+      res.json({success:!err,msg:!err?"删除成功":"无法从库同删除"});
+    });
+  }
+  else{
+   res.json({success:false,msg:"你需要登录"}); 
+  } 
+  
+  
 });
 
 

@@ -46,7 +46,25 @@
           }
         });
         $(this).hide();
-      });    
+      }); 
+    
+    //删除费用
+    $("button[class=del]").click(function(){
+      if(!confirm('确实要删除该内容吗?')){return false;}
+        
+      var costid = $(this).attr('costid');
+      $.post('/cost/delcost',{"costid":costid},function(data){
+        if(data.success==true){
+          $("#summary" + costid).hide(); 
+          $("#book"+costid).hide();
+        }
+        else{
+          alert(data.msg);
+        };
+      });      
+    });
+    //end
+    
     });
    
 
@@ -90,7 +108,7 @@
         </td>
               
 
-        <td><button type="button" class="del" isbn="<%=rows[i].cos_guid%>" >删除</button></td>
+        <td><button type="button" class="del" costid="<%=rows[i].cos_guid%>" >删除</button></td>
 
         
       </tr>
