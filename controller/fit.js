@@ -277,22 +277,19 @@ var post_fitdata = function(req,res,next){
   });
 };
 
-var endpoint = function(req,res,next){
-  
-  console.log('msn - misfit');
-  res.end();
-};
+
 
 var post_endpoint = function(req,res,next){
  console.log('msn - misfit-post');
-  res.end(); 
+ console.log(req);
+  res.status(200).end();
+
 };
 
 
 
 router.post('/data',post_fitdata);
 router.get('/',get_fitindex);
-router.get('/endpoint',endpoint);
 router.post('/endpoint',post_endpoint);
 
 module.exports = router;
