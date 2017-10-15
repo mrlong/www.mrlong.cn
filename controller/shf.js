@@ -85,8 +85,7 @@ router.get('/editshfinfo',wxconfig.wx,function(req,res,next){
 });
 
 router.post('/editshfinfo',function(req,res,next){
-  
-    
+
   var appdir = res.locals.appdir;
   
   var img_guid = req.body.img_guid;
@@ -127,5 +126,23 @@ router.post('/editshfinfo',function(req,res,next){
       //console.log(result); 
   
 });
+
+/*
+ * 删除不必要的书法内容
+ *
+ */ 
+router.get('/delimg/:zguid',function(req,res,next){
+  var zguid =  req.params.zguid;
+  //删除内容
+  if(req.session.adminlogin && req.session.adminlogin==true){
+    db.exec('delete from shfimg where zguid=?',[zguid],function(err){
+    res.msgBox(err?'保存失败':'保存成功。',false);  
+    });
+  }
+  else{
+    res.msgBox('你是什么鬼？',false);
+  };
+
+}) 
 
 module.exports = router;

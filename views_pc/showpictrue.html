@@ -75,6 +75,10 @@
             
          </div>
       <%}%>
+      <%if(locals.adminlogin){%>
+        
+        <a href="/shf/delimg/<%=imgs[i].zguid%>">删除</a>
+      <%}%>
       </td>
     </tr>
    <%}}%>
@@ -84,6 +88,7 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
+
       $('button[map="1"]').click(function(){
         var myurl = "/location/" + $(this).attr('guid');
         var id = $(this).attr('cid');
@@ -109,7 +114,11 @@
           }
         });
         $(this).hide();
-      });     
+      });
+      
+      $("button.delimg").on("click",function(){
+        alert("sss");
+      });
     
      
       //图片懒加载
