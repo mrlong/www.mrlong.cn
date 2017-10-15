@@ -44,16 +44,22 @@ router.post('/upload',function(req,res,next){
   
   var filename = req.files.thumbnail.name;
   var guid = filename.split('.')[0];
-  //写入库内
-  db.exec('insert into image(img_guid,img_filename,img_style,img_time) values(?,?,99,datetime("now","localtime"))',
-          [guid,filename],function(err){
-    if(!err){
-      res.redirect('/images');    
-    }
-    else{
-      res.msgBox('上传出错'); 
-    }
-  });
+
+  if(req.session.adminlogin && req.session.adminlogin==true){
+    //写入库内
+    db.exec('insert into image(img_guid,img_filename,img_style,img_time) values(?,?,99,datetime("now","localtime"))',
+            [guid,filename],function(err){
+      if(!err){
+        res.redirect('/images');    
+      }
+      else{
+        res.msgBox('上传出错'); 
+      }
+    });
+  }
+  else{
+    res.msgBox('你是什么鬼？');  
+  };
   //console.log(req.files);
 });
 
@@ -65,25 +71,30 @@ router.post('/upload',function(req,res,next){
 router.get('/del/:guid',function(req,res,next){
   var img_guid = req.params.guid;
   var appdir = res.locals.appdir;
-  db.query('select * from image where img_guid=? and img_style=0',[img_guid],function(err,rows,db){
-    if(!err && rows.length>0){
-      var imgefilename = path.join(appdir,config.sqlite.images) + '/' + rows[0].img_filename;
-      db.run('delete from image where img_guid=? and img_style=0',[img_guid],function(err){
-        //要删除本地的文件
-        if(!err){
-          fs.unlink(imgefilename,function(err){
-            res.msgBox(!err?'删除本地文件成功':'删除本地失败'+err,true);
-          });
-        }
-        else{
-          res.msgBox('删除失败'+err,true);
-        }
-      });
-    }
-    else{
-      res.msgBox('要删除的文件不存在'+err,true);  
-    }
-  });
+  if(req.session.adminlogin && req.session.adminlogin==true){
+    db.query('select * from image where img_guid=? and img_style=0',[img_guid],function(err,rows,db){
+      if(!err && rows.length>0){
+        var imgefilename = path.join(appdir,config.sqlite.images) + '/' + rows[0].img_filename;
+        db.run('delete from image where img_guid=? and img_style=0',[img_guid],function(err){
+          //要删除本地的文件
+          if(!err){
+            fs.unlink(imgefilename,function(err){
+              res.msgBox(!err?'删除本地文件成功':'删除本地失败'+err,true);
+            });
+          }
+          else{
+            res.msgBox('删除失败'+err,true);
+          }
+        });
+      }
+      else{
+        res.msgBox('要删除的文件不存在'+err,true);  
+      }
+    });
+  }
+  else{
+    res.msgBox('你是什么鬼？');   
+  };
   
 });
 
