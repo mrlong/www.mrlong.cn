@@ -34,6 +34,7 @@ exports.mywechat = mywechat;
 module.exports = function(req,res,next){
   var message = req.weixin;
   //'text', 'image', 'voice', 'video', 'location', 'link', 'event'
+  console.log(JSON.stringify(message));
   if (message.MsgType=='text') {text(message,req,res,next)};
   if (message.MsgType=='event'){event(message,req,res,next)};
   if (message.MsgType=='image'){image(message,req,res,next)};
