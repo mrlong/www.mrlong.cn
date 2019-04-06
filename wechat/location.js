@@ -25,8 +25,8 @@ module.exports = function(location, req, res, next){
       //  url: config.domain + '/footer/add?loc_guid=' + loc_guid
       //});
 
-      content = content + '\n\r' + '1、我的足迹' + config.domain + '/footer/add?loc_guid=' + loc_guid; 
-      content = content + '\n\r' + '2、上传错了,我要删除掉' + config.domain + '/location/del/' + loc_guid; 
+      content = content + '\n\r' + '1、我的足迹 ' + config.domain + '/footer/add?loc_guid=' + loc_guid; 
+      content = content + '\n\r' + '2、上传错了,我要删除掉 ' + config.domain + '/location/del/' + loc_guid; 
   
       res.reply(content);
     }
