@@ -14,9 +14,9 @@ module.exports = function(message, req, res, next){
 
   var content = [];
 
-  content.push({
-    title:'选择你要做什么？',
-    url:config.domain});
+  //content.push({
+  //  title:'选择你要做什么？',
+  //  url:config.domain});
   
   //是数字
   if(!isNaN(input)){
