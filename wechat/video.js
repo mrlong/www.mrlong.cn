@@ -96,21 +96,12 @@ module.exports = function(video, req, res, next){
   donwloadfile(url,url_thumb,function(err,vid_guid){
     if(!err && vid_guid){
       
-      var content = [];
-      content.push({title:'选择你要做什么？'});
-          
-      content.push({
-        title:'1、添加到我的足迹',
-        url: config.domain + '/footer/addimage?vid_guid=' + vid_guid
-      });
-
-          
-      content.push({
-        title:'2、上传错了，现在删除掉。',
-        url: config.domain + '/videos/del/' + vid_guid
-      });
-          
- 	  res.reply(!err?content:vid_guid);
+      var content = ''
+      
+      content = content + '\n\r' + '1、添加到我的足迹 \r\n http://'  +  config.domain + '/footer/addimage?vid_guid=' + vid_guid; 
+      content = content + '\n\r' + '2、上传错了现在删除掉 \r\n http://'  +  config.domain + '/videos/del/' + vid_guid; 
+    
+ 	    res.reply(!err?content:vid_guid);
       
     }
     else{
