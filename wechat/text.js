@@ -32,10 +32,10 @@ module.exports = function(message, req, res, next){
   else{
   
 
-    content = content + ' ' +  '<a href="' + config.domain + '/books/notes/add?txt=' + input +'">1、读书笔记 </a>' ;    
-    content = content + ' ' +  '2、格言 ' + config.domain + '/motto/we_add?txt=' + input;
-    content = content + ' ' +  '3、增加人脉 ' + config.domain + '/friend/add?txt=' + input;
-    content = content + ' ' +  '4、事件提醒 ' + config.domain + '/remind/add?txt=' + input;
+    content = content + '\n\r' +  '1、读书笔记 ' + config.domain + '/books/notes/add?txt=' + input ;    
+    content = content + '\n\r' +  '2、格言 ' + config.domain + '/motto/we_add?txt=' + input;
+    content = content + '\n\r' +  '3、增加人脉 ' + config.domain + '/friend/add?txt=' + input;
+    content = content + '\n\r' +  '4、事件提醒 ' + config.domain + '/remind/add?txt=' + input;
     
     
     //输入的日期格式说明可能是提取misfit内容
@@ -51,7 +51,7 @@ module.exports = function(message, req, res, next){
       var url = 'https://api.misfitwearables.com/auth/dialog/authorize?response_type=code&client_id=pYPABsuKSXpOByXr&redirect_uri=' +
                 redirectUri + '&scope=public,birthday,email,tracking,session,sleeps';
       
-      content = content + ' ' +  '5、提取misfit数据 ' + url;
+      content = content + '\n\r' +  '5、提取misfit数据 ' + url;
       res.reply(content);
     }
     
@@ -59,17 +59,17 @@ module.exports = function(message, req, res, next){
     else if (input.length ==3 || input.length ==2){
       db.query('select fri_name,fri_guid,fri_moblie from friend where fri_name=?',[input],function(err,rows){
         if(!err && rows.length>0){    
-          content = content + ' ' +  '5、我要找人 ' + rows[0].fri_name + ' ' + rows[0].fri_moblie + ' ' + config.domain + '/friend/search?txt=' + input; 
+          content = content + '\n\r' +  '5、我要找人 ' + rows[0].fri_name + ' ' + rows[0].fri_moblie + ' ' + config.domain + '/friend/search?txt=' + input; 
         }
         else{
-          content = content + ' ' +  '5、我要找人 ' +   config.domain + '/friend/search?txt=' + input; 
+          content = content + '\n\r' +  '5、我要找人 ' +   config.domain + '/friend/search?txt=' + input; 
         };
         res.reply(content);  //因为异步，所以将移到这地方
       });
     
     }
     else{
-      content = content + ' ' +  '5、我要找人 ' +   config.domain + '/friend/search?txt=' + input; 
+      content = content + '\n\r' +  '5、我要找人 ' +   config.domain + '/friend/search?txt=' + input; 
       res.reply(content);
     };
     //end
