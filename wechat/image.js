@@ -29,12 +29,12 @@ module.exports = function(image, req, res, next){
           var content = '';
           //content.push({title:'选择你要做什么？'});
           
-          content = content + '\n\r' + '1、书法绘画' + config.domain + '/shf/editshfinfo?img_guid=' + img_guid;
-          content = content + '\n\r' + '2、添加到我的足迹' + config.domain + '/footer/addimage?img_guid=' + img_guid;
-          content = content + '\n\r' + '3、添加读书笔记' + config.domain + '/books/notes/addimage?img_guid=' + img_guid;
-          content = content + '\n\r' + '4、增加图片的说明备注' + config.domain + '/images/addinfo?img_guid=' + img_guid;
-          content = content + '\n\r' + '5、增加到我的花销' + config.domain + '/cost/addimage?img_guid=' + img_guid;
-          content = content + '\n\r' + '6、上传错了，现在删除掉。' + config.domain + '/images/del/' + img_guid;
+          content = content + '\n\r' + '1、书法绘画 ' + config.domain + '/shf/editshfinfo?img_guid=' + img_guid;
+          content = content + '\n\r' + '2、添加到我的足迹 ' + config.domain + '/footer/addimage?img_guid=' + img_guid;
+          content = content + '\n\r' + '3、添加读书笔记 ' + config.domain + '/books/notes/addimage?img_guid=' + img_guid;
+          content = content + '\n\r' + '4、增加图片的说明备注 ' + config.domain + '/images/addinfo?img_guid=' + img_guid;
+          content = content + '\n\r' + '5、增加到我的花销 ' + config.domain + '/cost/addimage?img_guid=' + img_guid;
+          content = content + '\n\r' + '6、上传错了现在删除掉 ' + config.domain + '/images/del/' + img_guid;
 
                     
  	      res.reply(!err?content:img_guid);
