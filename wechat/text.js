@@ -33,9 +33,9 @@ module.exports = function(message, req, res, next){
   
 
     content = content + '\n\r' +  '1、读书笔记 ' + config.domain + '/books/notes/add?txt=' + encodeURIComponent(input) ;    
-    content = content + '\n\r' +  '2、格言 ' + config.domain + '/motto/we_add?txt=' + input;
-    content = content + '\n\r' +  '3、增加人脉 ' + config.domain + '/friend/add?txt=' + input;
-    content = content + '\n\r' +  '4、事件提醒 ' + config.domain + '/remind/add?txt=' + input;
+    content = content + '\n\r' +  '2、格言 ' + config.domain + '/motto/we_add?txt=' + encodeURIComponent(input);
+    content = content + '\n\r' +  '3、增加人脉 ' + config.domain + '/friend/add?txt=' + encodeURIComponent(input);
+    content = content + '\n\r' +  '4、事件提醒 ' + config.domain + '/remind/add?txt=' + encodeURIComponent(input);
     
     
     //输入的日期格式说明可能是提取misfit内容
@@ -59,17 +59,17 @@ module.exports = function(message, req, res, next){
     else if (input.length ==3 || input.length ==2){
       db.query('select fri_name,fri_guid,fri_moblie from friend where fri_name=?',[input],function(err,rows){
         if(!err && rows.length>0){    
-          content = content + '\n\r' +  '5、我要找人 ' + rows[0].fri_name + ' ' + rows[0].fri_moblie + ' ' + config.domain + '/friend/search?txt=' + input; 
+          content = content + '\n\r' +  '5、我要找人 ' + rows[0].fri_name + ' ' + rows[0].fri_moblie + ' ' + config.domain + '/friend/search?txt=' + encodeURIComponent(input); 
         }
         else{
-          content = content + '\n\r' +  '5、我要找人 ' +   config.domain + '/friend/search?txt=' + input; 
+          content = content + '\n\r' +  '5、我要找人 ' +   config.domain + '/friend/search?txt=' + encodeURIComponent(input); 
         };
         res.reply(content);  //因为异步，所以将移到这地方
       });
     
     }
     else{
-      content = content + '\n\r' +  '5、我要找人 ' +   config.domain + '/friend/search?txt=' + input; 
+      content = content + '\n\r' +  '5、我要找人 ' +   config.domain + '/friend/search?txt=' + encodeURIComponent(input); 
       res.reply(content);
     };
     //end
