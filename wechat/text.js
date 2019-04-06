@@ -26,6 +26,7 @@ module.exports = function(message, req, res, next){
       url: config.domain + '/cost/add?txt=' + input
     });
     
+    console.log(content);
     res.reply(content);
   }
   else{
@@ -99,11 +100,5 @@ module.exports = function(message, req, res, next){
     //end
   };
     
-  
 
-  
-  
-  
-  
-  
 };
