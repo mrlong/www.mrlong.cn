@@ -13,23 +13,21 @@ module.exports = function(location, req, res, next){
   db.exec('insert into location(loc_guid,loc_latitude,loc_longitude,loc_scale,loc_address) values(?,?,?,?,?)',
           [loc_guid,location.Location_X,location.Location_Y,location.Scale,location.Label],function(err){
     if(!err){
-      var content = [];
+      var content = '';
 
-      content.push({
-        title:'选择你要做什么?',
-        url:''});
+      //content.push({
+      //  title:'选择你要做什么?',
+      //  url:''});
   
   
-      content.push({
-        title: '1、我的足迹',
-        url: config.domain + '/footer/add?loc_guid=' + loc_guid
-      });
-  
-      content.push({
-        title: '2、上传错了,我要删除掉',
-        url: config.domain + '/location/del/' + loc_guid
-      });
+      //content.push({
+      //  title: '1、我的足迹',
+      //  url: config.domain + '/footer/add?loc_guid=' + loc_guid
+      //});
 
+      content = content + '\n\r' + '1、我的足迹' + config.domain + '/footer/add?loc_guid=' + loc_guid; 
+      content = content + '\n\r' + '2、上传错了,我要删除掉' + config.domain + '/location/del/' + loc_guid; 
+  
       res.reply(content);
     }
     else{
