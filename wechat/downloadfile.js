@@ -20,6 +20,7 @@ var  getFileName = function(filename){
 
 var downloadfile = function(url,callabck){
 
+console.log('imagedonwload=' + url);
 http.get(url,function(e) {
     var data='';
     e.setEncoding('binary');
