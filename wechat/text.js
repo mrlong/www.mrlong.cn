@@ -14,15 +14,19 @@ module.exports = function(message, req, res, next){
 
   var content = [];
 
-  //content.push({
-  //  title:'选择你要做什么？',
-  //  url:config.domain});
+  content.push({
+    title:'选择你要做什么？',
+    description: '这是女神与高富帅之间的对话',
+    picurl:'http://www.mrlong.cn/img/selfwechat.png',
+    url:config.domain});
   
   //是数字
   if(!isNaN(input)){
     
     content.push({
       title: '1、我的花销',
+      description: '这是女神与高富帅之间的对话',
+      picurl:'http://www.mrlong.cn/img/selfwechat.png',
       url: config.domain + '/cost/add?txt=' + input
     });
     
