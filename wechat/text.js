@@ -32,7 +32,7 @@ module.exports = function(message, req, res, next){
   else{
   
 
-    content = content + ' ' +  '1、读书笔记 ' + config.domain + '/books/notes/add?txt=' + input ;    
+    content = content + ' ' +  '<a href="' + config.domain + '/books/notes/add?txt=' + input +'">1、读书笔记 </a>' ;    
     content = content + ' ' +  '2、格言 ' + config.domain + '/motto/we_add?txt=' + input;
     content = content + ' ' +  '3、增加人脉 ' + config.domain + '/friend/add?txt=' + input;
     content = content + ' ' +  '4、事件提醒 ' + config.domain + '/remind/add?txt=' + input;
