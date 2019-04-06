@@ -30,12 +30,12 @@ module.exports = function(message, req, res, next){
       url: config.domain + '/cost/add?txt=' + input
     });
     
-    //res.reply({
+    res.reply('1、我的花销 ' + config.domain + '/cost/add?txt=' + input);
     //  content: 'text object',
-    //  type: '1、我的花销= ' +  config.domain + '/cost/add?txt=' + input
+    //  type:
     //});
-    console.log(content);
-    res.reply(content);
+    //console.log(content);
+    //res.reply(content);
   }
   else{
   
