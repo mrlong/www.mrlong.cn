@@ -30,8 +30,12 @@ module.exports = function(message, req, res, next){
       url: config.domain + '/cost/add?txt=' + input
     });
     
-    console.log(content);
-    res.reply(content);
+    res.reply({
+      content: 'text object',
+      type: '1、我的花销= ' +  config.domain + '/cost/add?txt=' + input
+    });
+    //console.log(content);
+    //res.reply(content);
   }
   else{
   
