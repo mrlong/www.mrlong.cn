@@ -71,7 +71,8 @@ router.post('/upload',function(req,res,next){
 router.get('/del/:guid',function(req,res,next){
   var img_guid = req.params.guid;
   var appdir = res.locals.appdir;
-  if(req.session.adminlogin && req.session.adminlogin==true){
+  //公众号内要删除，所以还是这样写先。不需要条件。
+  if( (req.session.adminlogin && req.session.adminlogin==true) || (1==1)){
     db.query('select * from image where img_guid=? and img_style=0',[img_guid],function(err,rows,db){
       if(!err && rows.length>0){
         var imgefilename = path.join(appdir,config.sqlite.images) + '/' + rows[0].img_filename;

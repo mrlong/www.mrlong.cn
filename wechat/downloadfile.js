@@ -20,7 +20,6 @@ var  getFileName = function(filename){
 
 var downloadfile = function(url,callabck){
 
-console.log('imagedonwload=' + url);
 http.get(url,function(e) {
     var data='';
     e.setEncoding('binary');
@@ -29,7 +28,7 @@ http.get(url,function(e) {
 		});
 
 		e.on('end',function(e){
-          var fileguid = db.newGuid();
+      var fileguid = db.newGuid();
 		  var filename = getFileName(fileguid);
           
 		  //console.log(filename);
