@@ -25,8 +25,10 @@ module.exports = function(location, req, res, next){
       //  url: config.domain + '/footer/add?loc_guid=' + loc_guid
       //});
 
-      content = content + '\n\r' + '1、我的足迹 \r\n http://' + config.domain + '/footer/add?loc_guid=' + loc_guid; 
-      content = content + '\n\r' + '2、上传错了,我要删除掉 \r\n http://' + config.domain + '/location/del/' + loc_guid; 
+      content = content + '\n\r' + '1、我的足迹 \r\n http://' + config.domain + '/footer/add?loc_guid=' + loc_guid;
+      content = content + '\n\r' + '2、健身房健身 \r\n http://' + config.domain + '/fit/addhouse?loc_guid=' + loc_guid; 
+      
+      content = content + '\n\r' + '3、上传错了,我要删除掉 \r\n http://' + config.domain + '/location/del/' + loc_guid; 
   
       res.reply(content);
     }

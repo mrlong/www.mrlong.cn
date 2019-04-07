@@ -257,11 +257,82 @@ var post_fitdata = function(req,res,next){
 };
 
 
+/*
+ * 健身房
+ */
+var get_addhouse = function(req,res,next){
+  var loc_guid = req.query.loc_guid;
+  res.loadview('fithouse_add.html',{loc_guid:loc_guid},true);
+};
+
+var post_addhouse = function(req,res,next){
+  var loc_guid = req.body.loc_guid;
+  var fih_style    = parseInt(req.body.fih_style || '1');
+  var fih_longtime = parseInt(req.body.fih_longtime || '0');
+
+  fih_group_type1 = parseInt(req.body.fih_group_type1 || '0');
+  fih_group_num1 = parseInt(req.body.fih_group_num1 || '1');
+  fih_group_count1 = parseInt(req.body.fih_group_count1 || '1');
+  fih_group_calories1 = parseFloat(req.body.fih_group_calories1 || '0');
+
+  fih_group_type2 = parseInt(req.body.fih_group_type2 || '0');
+  fih_group_num2 = parseInt(req.body.fih_group_num2 || '1');
+  fih_group_count2 = parseInt(req.body.fih_group_count2 || '1');
+  fih_group_calories2 = parseFloat(req.body.fih_group_calories2 || '0');
+
+  fih_group_type3 = parseInt(req.body.fih_group_type3 || '0');
+  fih_group_num3 = parseInt(req.body.fih_group_num3 || '1');
+  fih_group_count3 = parseInt(req.body.fih_group_count3 || '1');
+  fih_group_calories3 = parseFloat(req.body.fih_group_calories3 || '0');
+
+  fih_group_type4 = parseInt(req.body.fih_group_type4 || '0');
+  fih_group_num4 = parseInt(req.body.fih_group_num4 || '1');
+  fih_group_count4 = parseInt(req.body.fih_group_count4 || '1');
+  fih_group_calories4 = parseFloat(req.body.fih_group_calories4 || '0');
+
+  fih_group_type5 = parseInt(req.body.fih_group_type5 || '0');
+  fih_group_num5 = parseInt(req.body.fih_group_num5 || '1');
+  fih_group_count5 = parseInt(req.body.fih_group_count5 || '1');
+  fih_group_calories5 = parseFloat(req.body.fih_group_calories5 || '0');
+
+  fih_group_type6 = parseInt(req.body.fih_group_type6 || '0');
+  fih_group_num6 = parseInt(req.body.fih_group_num6 || '1');
+  fih_group_count6 = parseInt(req.body.fih_group_count6 || '1');
+  fih_group_calories6 = parseFloat(req.body.fih_group_calories6 || '0');
+
+  fih_group_type7 = parseInt(req.body.fih_group_type7 || '0');
+  fih_group_num7 = parseInt(req.body.fih_group_num7 || '1');
+  fih_group_count7 = parseInt(req.body.fih_group_count7 || '1');
+  fih_group_calories7 = parseFloat(req.body.fih_group_calories7 || '0');
+
+  fih_group_type8 = parseInt(req.body.fih_group_type8 || '0');
+  fih_group_num8 = parseInt(req.body.fih_group_num8 || '1');
+  fih_group_count8 = parseInt(req.body.fih_group_count8 || '1');
+  fih_group_calories8 = parseFloat(req.body.fih_group_calories8 || '0');
+  
+  fih_remark = req.body.fih_remark;
+  var zguid = db.newGuid();
+
+  db.exec('insert into fithouse(fih_guid,fih_longtime,loc_guid,fih_style,fih_group_type1,fih_group_num1,fih_group_count1,fih_group_calories1,fih_group_type2,fih_group_num2,fih_group_count2,fih_group_calories2,fih_group_type3,fih_group_num3,fih_group_count3,fih_group_calories3,fih_group_type4,fih_group_num4,fih_group_count4,fih_group_calories4,fih_group_type5,fih_group_num5,fih_group_count5,fih_group_calories5,fih_group_type6,fih_group_num6,fih_group_count6,fih_group_calories6,fih_group_type7,fih_group_num7,fih_group_count7,fih_group_calories7,fih_group_type8,fih_group_num8,fih_group_count8,fih_group_calories8,fih_remark ) '+
+            'values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+          [zguid,fih_longtime,loc_guid,fih_style,fih_group_type1,fih_group_num1,fih_group_count1,fih_group_calories1,fih_group_type2,fih_group_num2,fih_group_count2,fih_group_calories2,fih_group_type3,fih_group_num3,fih_group_count3,fih_group_calories3,fih_group_type4,fih_group_num4,fih_group_count4,fih_group_calories4,fih_group_type5,fih_group_num5,fih_group_count5,fih_group_calories5,fih_group_type6,fih_group_num6,fih_group_count6,fih_group_calories6,fih_group_type7,fih_group_num7,fih_group_count7,fih_group_calories7,fih_group_type8,fih_group_num8,fih_group_count8,fih_group_calories8,fih_remark],function(err,indb){
+    
+    if(!err && loc_guid != ''){
+      indb.run('update location set loc_style=5,loc_content=? where loc_guid=?',[zguid,loc_guid]);      
+    };
+
+    res.msgBox(!err?'保存成功':'保存出错'+err,true);
+  
+    }); 
+};
 
 
 
 
 router.post('/data',post_fitdata);
+router.get('/addhouse',get_addhouse);
+router.post('/addhouse',post_addhouse);
+
 router.get('/',get_fitindex);
 
 

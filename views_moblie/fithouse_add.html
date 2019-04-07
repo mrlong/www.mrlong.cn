@@ -1,0 +1,60 @@
+<% include ./header.html %>
+
+<body>
+    <form action="/fit/addhouse" method="post" autocomplete="yes"> 
+  <div data-role="page" id="pageone" data-theme="b">
+    <div data-role="content">    
+        
+        <label for="fih_style">方式:</label> 
+        <select name="fih_style" id="fih_style" >
+            <option value="1">自由训练</option>
+            <option value="2">私教</option>
+        </select>
+
+        <label for="fih_longtime">时长（分钟）:</label> 
+        <input type="range" name="fih_longtime" id="fih_longtime" value="20" min="0" max="200">
+
+        <%for(var i=1;i<9;i++){%>
+        <div class="ui-corner-all custom-corners">
+          <div class="ui-bar ui-bar-a">
+            <h3>第<%=i%>组</h3>
+          </div>
+            <div class="ui-body ui-body-a">
+               <label for="fih_group_type<%=i%>" class="select">训练部位</label>
+                <select name="fih_group_type<%=i%>" id="fih_group_type<%=i%>">
+                    <option value="0" selected>无</option>
+                    <option value="1">胸</option>
+                    <option value="2">背</option>
+                    <option value="3">核心</option>
+                    <option value="4">大腿</option>
+                    <option value="5">跑步</option>
+                </select>
+                <label for="fih_group_num<%=i%>">几组:</label>
+                <input type="range" name="fih_group_num<%=i%>" id="fih_group_num<%=i%>" value="3" min="1" max="10">
+                <label for="fih_group_count<%=i%>">每组次:</label>
+                <input type="range" name="fih_group_count<%=i%>" id="fih_group_count<%=i%>" value="15" min="1" max="50">
+                <label for="fih_group_calories<%=i%>">卡路里:</label>
+                <input type="number" name="fih_group_calories<%=i%>" pattern="[0-9]*" id="fih_group_calories<%=i%>" value="">
+            </div>
+        </div>
+        <%}%>
+
+        <label for="fih_remark">备注:</label> 
+        <textarea rows="6" cols="30" name="fih_remark" id="fih_remark" autofocus></textarea>
+    
+        </div>
+          
+        
+        <input type="hidden" name="loc_guid" id="loc_guid" value="<%=loc_guid%>">
+        <input type="submit" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-check" value="   提  交  " data-inline="false" data-role="button" data-icon="check"  data-inline="true" />  
+    </div>
+  </div>
+  </form>
+  </body>
+
+<script>
+  SetTitle('增加健身记录');
+</script>
+
+  
+<% include ./footer.html %>

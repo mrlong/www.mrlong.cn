@@ -36,7 +36,7 @@ create table sysparams(
 /*地点位置信息列表 ver=3*/
 create table location(
   loc_guid char(36) primary key,            /*这个是主键*/
-  loc_style integer not null default 0,     /*0=表示没有关联上的， 内容类型 1=书法的拍照位置 2=读书笔记位置 3=我的足迹 4=我的花销*/
+  loc_style integer not null default 0,     /*0=表示没有关联上的， 内容类型 1=书法的拍照位置 2=读书笔记位置 3=我的足迹 4=我的花销 5=健身房*/
   loc_content char(50),                     /*关联内容的信息，如是书法，则这个是书法的zguid*/
   loc_latitude integer,                     /* 纬度，浮点数，范围为90 ~ -90*/
   loc_longitude integer,                    /* 经度，浮点数，范围为180 ~ -180。*/
@@ -228,12 +228,12 @@ create table fithouse{
   loc_guid char(36),           /*位置*/
   fih_style integer,          /*=1 表示自由训练 2=私教*/
   
-  fih_group_type1 integer,      /*1=胸 2=背 4=核心  5=大腿 6=跑步*/
+  fih_group_type1 integer,      /*0=无，1=胸 2=背 3=核心  4=大腿 5=跑步*/
   fih_group_num1 integer,       /*几组*/
   fih_group_count1 integer,     /*每组多少个*/
   fih_group_calories1 float,    /*多少卡路里*/ 
 
-  fih_group_type2 integer,      /*1=胸 2=背 4=核心  5=大腿*/
+  fih_group_type2 integer,      /*0=无，1=胸 2=背 4=核心  5=大腿*/
   fih_group_num2 integer,       /*几组*/
   fih_group_count2 integer,     /*每组多少个*/
   fih_group_calories2 float,    /*多少卡路里*/ 
