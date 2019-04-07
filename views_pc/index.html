@@ -84,7 +84,7 @@
   
   /*圆形进度条*/
  section.fits{
-    height: 220px;
+    height: 300px;
   }
   
   section.fits .fits-div{
@@ -170,26 +170,50 @@
       <h3>健身</h3>
       
       <div class="fits-div">
-        <%for(var i=0;i<fits.length;i++){%>
-          <div class="circle" style="left:<%=i*120 %>px">
-		  <div class="pie_left"><div class="subleft"></div></div>
-		  <div class="pie_right"><div class="subright"></div></div>
-		  <div class="mask">
-            <br><span value="<%=fits[i].fit_points/fits[i].fit_targetPoints *100 %>">
-              <%=(fits[i].fit_points/fits[i].fit_targetPoints *100).toFixed(0) %>%
-            </span>
-            
-            <div><small class="num"><%=fits[i].fit_points.toFixed(0)%></small></div>
-          </div>
-          
-          <div class="fit-date"><%=fits[i].fit_date%></div>
-	     </div>
-        <%}%>
-          
+        
+
+          <%for(var i=0;i<fits.length;i++){%>
+              <div class="circle" style="left:<%=i*120 %>px">
+          <div class="pie_left"><div class="subleft"></div></div>
+          <div class="pie_right"><div class="subright"></div></div>
+          <div class="mask">
+                <br><span value="<%=fits[i].fit_points/fits[i].fit_targetPoints *100 %>">
+                  <%=(fits[i].fit_points/fits[i].fit_targetPoints *100).toFixed(0) %>%
+                </span>
+                
+                <div><small class="num"><%=fits[i].fit_points.toFixed(0)%></small></div>
+              </div>
+              
+              <div class="fit-date"><%=fits[i].fit_date%></div>
+           </div>
+            <%}%>
+
+
+        <div style="bottom: -230px;width: 500px; position: absolute">
+        <ol style="padding-left:6px;">
+            <%for(var i=0,ii=fithose.length;i<ii;i++){%>
+              <li style="padding-left:0px;color: tomato">
+                <% var mynow = new Date(fithose[i].fih_createtime)%>
+                <%=mynow.getFullYear() + '-' + (mynow.getMonth()+1) + '-' + mynow.getDate()%>
+                <%=fithose[i].fih_style==1?'自由训练':'私教'%>
+                <%=fithose[i].fih_content%>
+                ，练了<%=fithose[i].fih_longtime%>分钟。
+
+              </li>
+
+             
+    
+            <%}%>
+        </ol>
+      </div>
+  
         <a href="/fit" style="margin-left: 20px;color: #328396; position: absolute;
-          bottom: -170px;
+          bottom: -250px;
           width: 200px;">我的更多健身...</a> 
-      </div>    
+      </div>   
+      
+      
+    
           
       
     </section>

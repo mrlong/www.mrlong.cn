@@ -162,8 +162,8 @@ var get_indexhome = function (req, res,next) {
   
   
   
-  ep.all(['books','shfs','fits'],function(books,shfs,fits){
-    res.loadview( req.ismob==true ? 'web-index.html': 'index.html', {'imgs':shfs,'books':books,fits:fits},req.ismob);   
+  ep.all(['books','shfs','fits','fithose'],function(books,shfs,fits,fithose){
+    res.loadview( req.ismob==true ? 'web-index.html': 'index.html', {'imgs':shfs,'books':books,fits:fits,fithose:fithose},req.ismob);   
   });
   
   
@@ -208,6 +208,43 @@ var get_indexhome = function (req, res,next) {
         ep.emit('fits',[]);
       }
     });
+
+    //取出建身房记录
+
+    db.all('select fih_longtime,fih_style,loc_guid,fih_createtime,fih_group_type1,fih_group_type2,fih_group_type3,fih_group_type4,fih_group_type5,fih_group_type6,fih_group_type7,fih_group_type8 from fithouse order by fih_createtime desc limit 0,2',function(err4,rows4){
+      if(!err4){
+        var fithose = [];
+        for(var i=0;i<rows4.length;i++){
+          var types=[];
+          var str = '';
+          types.push(rows4[i].fih_group_type1);
+          types.push(rows4[i].fih_group_type2);
+          types.push(rows4[i].fih_group_type3);
+          types.push(rows4[i].fih_group_type4);
+          types.push(rows4[i].fih_group_type5);
+          types.push(rows4[i].fih_group_type6);
+          types.push(rows4[i].fih_group_type7);
+          types.push(rows4[i].fih_group_type8);
+          if (types.indexOf(1)>=0) str += '胸';
+          if (types.indexOf(2)>=0) str += '背';
+          if (types.indexOf(3)>=0) str += '核心';
+          if (types.indexOf(4)>=0) str += '大腿';
+          if (types.indexOf(5)>=0) str += '跑步';
+          fithose.push({
+            fih_longtime:rows4[i].fih_longtime,
+            fih_style:rows4[i].fih_style,
+            loc_guid:rows4[i].loc_guid,
+            fih_createtime:rows4[i].fih_createtime,
+            fih_content:str
+          }); 
+        };
+        ep.emit('fithose',fithose);
+      }
+      else{
+        ep.emit('fithose',[]);
+      }
+    });
+
     
     
     //res.writeHead(200);
