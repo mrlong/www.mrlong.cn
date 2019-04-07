@@ -219,6 +219,60 @@ create table fititems(
   fie_calories float,          /*卡路里*/
   fie_distance float           /*距离*/
 );
+
+/*健身房 ver=29*/
+create table fithouse{
+  fih_guid char(36) primary key ,
+  fih_createtime datetime default (datetime('now','localtime')), /*创建时间*/
+  fih_longtime 1233,          /*时长，单位分钟*/
+  loc_guid char(36),           /*位置*/
+  fih_style integer,          /*=1 表示自由训练 2=私教*/
+  
+  fih_group_type1 integer,      /*1=胸 2=背 4=核心  5=大腿 6=跑步*/
+  fih_group_num1 integer,       /*几组*/
+  fih_group_count1 integer,     /*每组多少个*/
+  fih_group_calories1 float,    /*多少卡路里*/ 
+
+  fih_group_type2 integer,      /*1=胸 2=背 4=核心  5=大腿*/
+  fih_group_num2 integer,       /*几组*/
+  fih_group_count2 integer,     /*每组多少个*/
+  fih_group_calories2 float,    /*多少卡路里*/ 
+
+  fih_group_type3 integer,      /*1=胸 2=背 4=核心  5=大腿*/
+  fih_group_num3 integer,       /*几组*/
+  fih_group_count3 integer,     /*每组多少个*/
+  fih_group_calories3 float,    /*多少卡路里*/ 
+
+  fih_group_type4 integer,      /*1=胸 2=背 4=核心  5=大腿*/
+  fih_group_num4 integer,       /*几组*/
+  fih_group_count4 integer,     /*每组多少个*/
+  fih_group_calories4 float,    /*多少卡路里*/ 
+
+  fih_group_type5 integer,      /*1=胸 2=背 4=核心  5=大腿*/
+  fih_group_num5 integer,       /*几组*/
+  fih_group_count5 integer,     /*每组多少个*/
+  fih_group_calories5 float,    /*多少卡路里*/ 
+
+  fih_group_type6 integer,      /*1=胸 2=背 4=核心  5=大腿*/
+  fih_group_num6 integer,       /*几组*/
+  fih_group_count6 integer,     /*每组多少个*/
+  fih_group_calories6 float,    /*多少卡路里*/ 
+
+  fih_group_type7 integer,      /*1=胸 2=背 4=核心  5=大腿*/
+  fih_group_num7 integer,       /*几组*/
+  fih_group_count7 integer,     /*每组多少个*/
+  fih_group_calories7 float,    /*多少卡路里*/ 
+
+  fih_group_type8 integer,      /*1=胸 2=背 4=核心  5=大腿*/
+  fih_group_num8 integer,       /*几组*/
+  fih_group_count8 integer,     /*每组多少个*/
+  fih_group_calories8 float,    /*多少卡路里*/ 
+
+  fih_remark varchar(100),      /*备注*/
+
+
+};
+
   
 
 

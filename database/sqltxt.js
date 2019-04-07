@@ -5,7 +5,7 @@
 //
 
 module.exports = {
-  verstion : 28,
+  verstion : 29,
   sql:[
     {ver:1,txt:"CREATE TABLE shfimg(zguid CHAR(36) Primary Key," +
               "ct  datetime default (datetime('now','localtime'))," +
@@ -173,12 +173,53 @@ module.exports = {
                 "fie_distance float" +
                 ")" 
                 
-    }
-    
-    
-     
-    
+    },
 
+    //2019-4-07 
+    //ver=29
+    {ver:29,txt:"create table fithouse(" +
+              "fih_guid char(36) primary key , " +
+              "fih_createtime datetime default (datetime('now','localtime'))," +  
+              "fih_longtime integer," +
+              "loc_guid char(36)," +
+              "fih_style integer," +
+              "fih_group_type1 integer," +
+              "fih_group_num1 integer,"  +
+              "fih_group_count1 integer," +
+              "fih_group_calories1 float," +
+              "fih_group_type2 integer," +
+              "fih_group_num2 integer,"  +
+              "fih_group_count2 integer," +
+              "fih_group_calories2 float," +
+              "fih_group_type3 integer," +
+              "fih_group_num3 integer,"  +
+              "fih_group_count3 integer," +
+              "fih_group_calories3 float," +
+              "fih_group_type4 integer," +
+              "fih_group_num4 integer,"  +
+              "fih_group_count4 integer," +
+              "fih_group_calories4 float," +
+              "fih_group_type5 integer," +
+              "fih_group_num5 integer,"  +
+              "fih_group_count5 integer," +
+              "fih_group_calories5 float," +
+              "fih_group_type6 integer," +
+              "fih_group_num6 integer,"  +
+              "fih_group_count6 integer," +
+              "fih_group_calories6 float," +
+              "fih_group_type7 integer," +
+              "fih_group_num7 integer,"  +
+              "fih_group_count7 integer," +
+              "fih_group_calories7 float," +
+              "fih_group_type8 integer," +
+              "fih_group_num8 integer,"  +
+              "fih_group_count8 integer," +
+              "fih_group_calories8 float," +
+              "fih_remark varchar(100)" + 
+              ")"
+    }
+    //end ver=29
+  
   ]  
 };
 
