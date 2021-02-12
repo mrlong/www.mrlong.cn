@@ -49,8 +49,6 @@ router.post('/add',function(req,res,next){
   var price = req.body.price;
   var fri_guid = req.body.friend_guid;  
   var fri_name = req.body.friend_name;
-  var addtocost = req.body.addtocost; //=1增加 0=不增加
-
   
   var zguid = db.newGuid();
   if(time==''){
@@ -62,11 +60,7 @@ router.post('/add',function(req,res,next){
       indb.run('update location set loc_style=3,loc_content=? where loc_guid=?',[zguid,loc_guid]);      
     };
     
-    //费用明细就不要写了。 2015-11-11
-    //if (!err && addtocost=='1'){
-    //  indb.run('insert into cost(cos_guid,cos_name,cos_price,cos_tag,loc_guid,foer_guid) values(?,?,?,?,?,?)',
-    //    [db.newGuid(),txt,price * -1,'来自足迹',loc_guid,zguid]);
-    //}
+
     
     res.msgBox(!err?'保存成功':'保存出错'+err,true);
     
@@ -81,10 +75,6 @@ router.post('/add',function(req,res,next){
       indb.run('update location set loc_style=3,loc_content=? where loc_guid=?',[zguid,loc_guid]);      
     };
       
-    //if(!err && addtocost=='1'){
-    //  indb.run('insert into cost(cos_guid,cos_name,cos_price,cos_tag,loc_guid,foer_guid) values(?,?,?,?,?,?)',
-    //    [db.newGuid(),txt,price * -1,'来自足迹',loc_guid,zguid]);
-    //  }
     
     res.msgBox(!err?'保存成功':'保存出错'+err,true);
     

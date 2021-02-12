@@ -33,13 +33,10 @@ var index = require('./controller/index');
 var books = require('./controller/books');
 var footer = require('./controller/footer');
 var friend = require('./controller/friend');
-var cost = require('./controller/cost');     //费用花销
 var blog = require('./controller/blog');
 var images = require('./controller/images'); //图片服务
 var remind = require('./controller/remind');
 var fit = require('./controller/fit');
-
-
 
 var app = express();
 
@@ -174,8 +171,6 @@ app.use('/books',books);
 app.use('/footer',footer);
 //我的人脉
 app.use('/friend',friend);
-//我的费用花销
-app.use('/cost',cost);
 //提醒
 app.use('/remind',remind);
 //我的博客

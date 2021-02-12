@@ -1,6 +1,6 @@
 {
-  "name": "wechat",
-  "version": "0.0.1",
+  "name": "aboutlong",
+  "version": "0.0.2",
   "private": true,
   "scripts": {
     "start": "node app_3001.js"
