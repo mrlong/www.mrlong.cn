@@ -9,3 +9,6 @@ public/img/favicon.ico
 
 public/img/no_head.png
 node_modules/
+config.js
+database/long.db
+package-lock.json

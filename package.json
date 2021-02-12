@@ -6,21 +6,20 @@
     "start": "node app_3001.js"
   },
   "dependencies": {
-    "ejs": "*",
-    "wechat":"*",
-    "sqlite3":"*",
-    "express":"*",
-    "body-parser":"*",
-    "urllib": "2.0.2" ,
-    "cookie-parser":"*",
-    "express-session":"*",
-    "node-schedule":"*",
-    "nodemailer":"*",
-    "markdown":"*",
-    "multer":"*",
-    "eventproxy":"*",
-    "node-misfit":"*"
+    "body-parser": "*",
+    "cheerio": "^1.0.0-rc.5",
+    "cookie-parser": "*",
+    "ejs": "2.5.7",
+    "eventproxy": "*",
+    "express": "*",
+    "express-session": "*",
+    "markdown": "*",
+    "multer": "0.1.8",
+    "node-misfit": "*",
+    "node-schedule": "*",
+    "nodemailer": "*",
+    "sqlite3": "*",
+    "urllib": "2.0.2",
+    "wechat": "*"
   }
 }
-
-
