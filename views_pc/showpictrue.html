@@ -41,7 +41,7 @@
 <div id="main1">
 	<h3 style="text-align:center;">平时书法绘画练习 总共有张：<%=imgs.length%></h3>
 
-  <table border="0">
+  <table border="0" width="100%" >
     <% var c=1; %>
   	<% for(var i=0; i<imgs.length; i++) { %>
   	<% if (1==1) {  %>
@@ -54,13 +54,12 @@
      <td>       
        <a href="/shf/pictrueone?picname=<%= imgs[i].imgfile %>"> 
   	   <img class="ttrlazyloadingb" 
-			data-bttrlazyloading-sm-src="/images/<%= imgs[i].imgfile %>"
-			
-            data-bttrlazyloading-sm-width="450"
-			data-bttrlazyloading-event="mouseover"
-			data-bttrlazyloading-retina="true"
-			data-bttrlazyloading-sm-height="450"
-            ></img>      
+			  data-bttrlazyloading-sm-src="/images/<%= imgs[i].imgfile %>"
+			  data-bttrlazyloading-sm-width="650"
+			  data-bttrlazyloading-event="mouseover"
+			  data-bttrlazyloading-retina="true"
+			  data-bttrlazyloading-sm-height="450"
+        ></img>      
       </a>    
     </td>
      <td>

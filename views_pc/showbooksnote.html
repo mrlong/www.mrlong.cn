@@ -68,24 +68,24 @@
   
 <table id="booknote_table">
   <tr>
-    <td>序号</td>
-    <td>发生日期</td>
-    <td>笔记内容</td>
-    <td>哪本书</td>
-    <td>书的位置</td>
-    <td>地理位置</td>
-    <td>相关图片</td>
+    <th nowrap>序号</th>
+    <th nowrap  >发生日期</th>
+    <th nowrap >笔记内容</th>
+    <th nowrap >书名</th>
+    <th nowrap >书位置</th>
+    <th nowrap >位置</th>
+    <th nowrap >相关图片</th>
     
   </tr>
   <% for(var i=0;i<rows.length;i++) { %>
     <tr guid="<%=rows[i].bno_guid%>">
       <td><%=(i+1)%></td>
-      <td><%=rows[i].bno_time%></td>
-      <td><%=rows[i].bno_txt%></td>
+      <td nowrap><%=new Date(rows[i].bno_time).format('yyyy-MM-dd HH:mm')%></td>
+      <td><strong><%=rows[i].bno_txt%></strong></td>
       <td><a href="/books/info/<%=rows[i].boo_isbn%>"><%=rows[i].boo_name?rows[i].boo_name:''%></td>
       <td><%=rows[i].bno_title%><%=rows[i].bno_page?'P':''%><%=rows[i].bno_page%></td>
       <%if(rows[i].loc_guid) {%>
-        <td>
+        <td nowrap>
           <button type="button" map="1"  guid=<%=rows[i].loc_guid %> cid="<%=i%>" >地图显示</button>
           <div class="mapview" id="<%='map'+i %>" style="display:none;"></div>
         </td>

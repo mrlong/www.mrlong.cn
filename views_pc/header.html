@@ -26,6 +26,22 @@
   html {
     background-color: #fbf8f3;
   }
+
+  a:link{color:#57c4d7;}
+  a:visited{color:black;}
+  button{
+    -webkit-border-radius:6px;/*适配以webkit为核心的浏览器(chrome、safari等)*/
+    -moz-border-radius:6px;/*适配firefox浏览器*/
+    -ms-border-radius:6px;/*适配IE浏览器*/
+    -o-border-radius:6px;/*适配opera浏览器*/
+    border-radius:6px;/*适配所有浏览器*/
+    background-color: #e1ecf4;
+    border-color: #e1ecf4;
+    outline: none;
+  }
+  .body-container table { border:1px solid #eee; }
+  .body-container table tr th { border:1px solid #eee; padding: 2px; }
+  .body-container table tr td { border:1px solid #eee; padding: 2px;}
   
   body {
     font-family: "microsoft yahei","微软雅黑";
@@ -63,7 +79,7 @@
     background-color: #fbf8f3;
     color: #57c4d7 ;
     border-bottom: 1px solid #ed0e0e; 
-    border-radius: 4px;
+    border-radius: 1px;
   }
   .navs  a{color: #999}
   .navs  a:hover{color: #57c4d7}
@@ -139,13 +155,13 @@
 </script>
 <body>
   <header>
-    <div class="body-container">
+    <div >
     <table width="100%" border="0">
       <tr><td width="60%" >
       <table border="0">
         <tr>
           <td>
-            <h1 style="margin-top: 0px;margin-bottom: 0px;"><span style="color: #999;">关于</span><a href="/">龙仕云</a>  
+            <h1 style="margin-top: 0px;margin-bottom: 0px;"><span style="color: #999;">关于</span><a href="/" style="color: #57c4d7;">龙仕云</a>  
             <div style="margin-left: 50px;margin-top: 5px;"><wb:follow-button uid="2991975565" type="red_1" width="67" height="24" ></wb:follow-button></div>
             </h1>
           </td>
