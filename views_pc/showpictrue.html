@@ -63,7 +63,7 @@
       </a>    
     </td>
      <td>
-       <small>上传时间:<%=imgs[i].ct %><p></small>
+       <small>上传时间:<%=new Date(imgs[i].ct).format('yyyy-MM-dd HH:mm') %><p></small>
        <small>标签:<%=imgs[i].tag %><p></small>
        <small>备注:<%=imgs[i].txt %></small>
        <% if(imgs[i].loc_guid) {%> 

@@ -110,7 +110,7 @@
     <%}%>
         
       <td><%=(curpage-1)*20+i+1%></td>  
-      <td><%=rows[i].foer_time%></td>
+      <td><%=new Date(rows[i].foer_time).format('yyyy-MM-dd HH:mm')%></td>
       <td><b class="txt"><%=rows[i].foer_txt%></b><br><small>标签：<%=rows[i].foer_tag%></small></td>
       <td><%=rows[i].foer_price?rows[i].foer_price:''%></td>  
       <% if(rows[i].loc_guid) {%>

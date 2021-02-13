@@ -4,7 +4,7 @@
   <style>
     #motto_table{
       margin:auto;
-      width: 80%;
+      width: 100%;
     }
   
   </style>
@@ -29,7 +29,7 @@
   </script>
   
   <h3>格言：</h3>
-  <table id="motto_table">
+  <table id="motto_table" width="100%">
     <% if(locals.adminlogin) {%>
       <tr>
         <form method="post"  action="/motto/add">
@@ -46,10 +46,9 @@
     <% for(var i=0;i<rows.length;i++){%>
       <tr id="mot<%=rows[i].mot_id%>">
         <td><%=i+1%></td>
-        <td><%=rows[i].mot_txt%></td>
-        <td><%=rows[i].mot_time%></td>
+        <td> <strong><%=rows[i].mot_txt%></strong> <%=rows[i].mot_stop==true?'(停用)':''%> </td>
+        <td nowrap ><%=new Date(rows[i].mot_time).format('yyyy-MM-dd HH:mm')%></td>
         <td><%=rows[i].mot_from%></td>
-        <td><%=rows[i].mot_stop%></td>
         <% if(locals.adminlogin) {%>
           <td><button type="button" class="del" mot_id="<%=rows[i].mot_id%>" >删除</button></td>
         <% } %>  
