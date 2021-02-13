@@ -17,6 +17,7 @@ var util = require('../util');
 var API = require('../wechat/api');
 var config = require('../config');
 var wxconfig = require('../wxconfig');
+var EventProxy = require('eventproxy');
 
 
 var router = express.Router();
@@ -26,21 +27,32 @@ var api = new API(config.weixin.appid,config.weixin.appsecret);
 router.get('/',function(req,res,next){
   var page = req.query['page']||1;
   var startpage = (page-1)*20;
+
   db.query('select boo_isbn,boo_name,boo_pubdate,boo_buytime,boo_publisher,boo_summary, ' + 
            'boo_buytime,boo_tag,boo_price,boo_state,boo_readendtime from books order by boo_buytime desc limit ?,20',
-           [startpage],function(err,rows,db){
+           [startpage],function(err,rows,db2){
     if(!err){
-      db.get('select count(*) as rowcount,sum(boo_price) as totle from books',function(err,row){
-        res.render('./views_pc/showbooks.html', {rows:rows,
-                                        curpage:page,
-                                        rowcount:row.rowcount,
-                                        totle:parseInt(row.totle)});
-      
+      db2.get('select count(*) as rowcount,sum(boo_price) as totle from books',function(err,row){
+
+        var ep = new EventProxy();
+        ep.after('got_row', rows.length, function (list) {
+          res.render('./views_pc/showbooks.html', {rows:rows,
+            curpage:page,
+            rowcount:row.rowcount,
+            notes:list,
+            totle:parseInt(row.totle)});
+        });
+        for (var i = 0; i < rows.length; i++) {
+          db.query('select bno_txt,bno_time,boo_isbn from books_notes where boo_isbn="'+ rows[i].boo_isbn+ '" order by  bno_time desc',function(err,notes){
+            ep.emit('got_row', !err?notes:[]);
+          });
+        };      
       });
         
     }
-    else
+    else{
       res.render('./views_pc/showbooks.html', {rows:[],curpage:1,rowcount:0,totle:0});
+    };
   });  
 });
 

@@ -134,11 +134,18 @@
 
         <td width="50%">
           <% if(rows[i].boo_state===0){ %>
-            读完<%=rows[i].boo_readendtime!=null?'('+rows[i].boo_readendtime+')':''%>
+            <span style="color:green">读完<%=rows[i].boo_readendtime!=null?'('+rows[i].boo_readendtime+')':''%></span>
           <%} else {%>
-            在读中...  
+            <span style="background-color:yellow">在读中...  </span>
           <%}%><br>
-          <a href="/books/notes?isbn=<%=rows[i].boo_isbn%>"> <button type="button" class="bj" >读书笔记</button></a>
+          <% var notecount = 0;for(var j=0,jj=notes.length;j<jj;j++){%>
+            <%if(notes[j].length > 0 && notes[j][0].boo_isbn==rows[i].boo_isbn){%>
+              <%=notes[j][0].bno_txt%> -- <%=new Date(notes[j][0].bno_time).format('yyyy-MM-dd HH:mm')%>
+              <% notecount =notes[j].length; %>
+            <%}%>  
+          <%}%>
+          <br>
+          <a href="/books/notes?isbn=<%=rows[i].boo_isbn%>"> <button type="button" class="bj" >本书已有<%=notecount%>笔记</button></a>
         </td>
         <% if(locals.adminlogin) { %>
           <td><button type="button" class="del" isbn="<%=rows[i].boo_isbn%>" >删除</button></td>
