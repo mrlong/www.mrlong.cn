@@ -121,7 +121,7 @@
         <td><%=(curpage-1)*20 + i+1%></td>
         <td width="40%">
           <a href="/books/info/<%=rows[i].boo_isbn%>">
-            <img class="bookimg" src="books/bookimg/<%=rows[i].boo_isbn%>"/ style="margin:4px;float:left">
+            <img class="bookimg" src="books/bookimg/<%=rows[i].boo_isbn%>"/ style="margin:4px;float:left;width:100px;height:auto;">
           </a>
           <div style="margin-top:20px">
           <a href="javascript:void(0)" onclick="showSummary(<%=rows[i].boo_isbn%>)"><%=rows[i].boo_name%><br></a>
