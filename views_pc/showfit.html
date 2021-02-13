@@ -144,11 +144,18 @@
   
   <div class="fitrecord">
     <div class="summary">
-      数据来源于 <a href="http://www.misfit.com" target="_blank">misfit</a> 智能手环设备, 共有<%=rowcount%>天记录。
       <div class="total">
-        <lable>总行走步数</lable><span class="num"><%=total_steps%></span> 共 <span class="num"><%=(total_fit_distance*1.6).toFixed(0)%></span>公里
-        <label>睡觉时长</label><span class="num"><%=(total_sleeplong/3600).toFixed(2)%> </span><lable>hour</lable>
+        <lable>总行走步数</lable><span class="num"><%=total_steps%></span> 共 <span class="num"><%=(total_fit_distance*1.6).toFixed(0)%></span>公里 
+        <label>睡觉时长</label><span class="num"><%=(total_sleeplong/3600).toFixed(2)%> </span><lable>小时</lable> 总共有 <span class="num"><%=rowcount%></span>天记录
       </div>
+      <div>
+      <span style="text-align: left; display: block;font-size: 14px;">数据来源于:</span>
+      <table style="width: 100%">
+      <tr><td style="font-size: 14px;">断更了，由于原来的设备是国外API无法访问，加上设备陈旧。期待国内有开放API的智能手环。</td><td style="font-size: 14px;"></td></tr>
+      <tr><td style="font-size: 14px;"><a href="http://www.misfit.com" target="_blank">misfit</a> 智能手环设备。</td><td style="font-size: 14px;">共记录1428天。</td></tr>
+      </table>
+      </div>
+
     </div>
       
     <% for(var i=0; i<rows.length ; i++) {%>
