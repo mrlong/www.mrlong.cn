@@ -12,3 +12,4 @@ node_modules/
 config.js
 database/long.db
 package-lock.json
+.vscode/launch.json

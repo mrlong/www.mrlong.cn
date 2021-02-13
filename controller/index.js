@@ -160,26 +160,44 @@ router.get('/videos/del/:guid',function(req,res,next){
 var get_indexhome = function (req, res,next) {	
   var ep = new EventProxy();
   
-  
-  
-  ep.all(['books','shfs','fits','fithose'],function(books,shfs,fits,fithose){
-    res.loadview( req.ismob==true ? 'web-index.html': 'index.html', {'imgs':shfs,'books':books,fits:fits,fithose:fithose},req.ismob);   
+  ep.all(['books','shfs','fits','fithose','shfscount','bookcount','fitcount'],
+    function(books,shfs,fits,fithose,shfscount,bookcount,fitcount){
+    res.loadview( req.ismob==true ? 'web-index.html': 'index.html', 
+    {'imgs':shfs,
+     'books':books,
+     'fits':fits,
+     'fithose':fithose,
+     'shfscount':shfscount,
+     'bookcount':bookcount,
+     'fitcount':fitcount
+    },req.ismob);   
   });
   
   
   
   db.query('select  * from shfimg order by ct desc  limit 0,4',function(err1,rows,db){
-    
     if(!err1){
       var data=[];
       for(var i=0; i<rows.length ; i++){
         data.push(rows[i].imgfile);
       };
-      ep.emit('shfs',data); 
+      ep.emit('shfs',data);
     }
     else{
       ep.emit('shfs',[]);
     };
+
+    db.all('select count(*) as c from shfimg',function(err,rows){
+      ep.emit('shfscount',!err && rows.length>0?rows[0]['c']:0); 
+    });
+
+    db.all('select count(*) as c from books;',function(err,rows){
+      ep.emit('bookcount',!err && rows.length>0?rows[0]['c']:0);
+    });
+
+    db.all('select count(*) as c from fit', function(err,rows){
+      ep.emit('fitcount',!err && rows.length>0?rows[0]['c']:0);
+    });
     
     
     db.all('select boo_isbn,boo_name from books order by boo_buytime desc limit 0,8',function(err2,rows2){  
