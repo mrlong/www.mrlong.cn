@@ -173,12 +173,15 @@
       <ul>
         <li><span class="t">微博</span> <a href="http://weibo.com/u/1805167840" title="龙仕云的微博" target="_blank"><%=locals.ismob?'点击进入':'http://weibo.com/u/1805167840'%></a></li>
         <li><span class="t">管理博客</span> <a href="http://blog.sina.com.cn/mrlong2000" title="龙仕云的管理博客" target="_blank"><%=locals.ismob?'点击进入':'http://blog.sina.com.cn/mrlong2000'%></a></li>
-        <li><span class="t">Github</span> <a href="https://github.com/mrlong" title="龙仕云的github" target="_blank"><%=locals.ismob?'点击进入':'https://github.com/mrlong'%></a></li>        
+        <li><span class="t">Github</span> <a href="https://github.com/mrlong" title="龙仕云的github" target="_blank"><%=locals.ismob?'点击进入':'https://github.com/mrlong'%></a></li>  
+        <li><span class="t">豆瓣</span> <a href="https://www.douban.com/people/mrlong/" title="龙仕云的豆瓣，2007创建已长时间不使用。" target="_blank"><%=locals.ismob?'点击进入':'https://www.douban.com/people/mrlong'%></a></li>  
+        
+        
       </ul>
     </section>
       
     <section class="fits">
-      <a href="/fit" style="margin-left: 20px; color:#57c4d7; float: right;">我锻炼了<%=fitcount%>次，还中持续中...</a> 
+      <a href="/fit" style="margin-left: 20px; color:#57c4d7; float: right;">我记录了<%=fitcount%>次，还中持续中...</a> 
       <h3>健身</h3>
       
       <div class="fits-div">
@@ -201,19 +204,16 @@
             <%}%>
 
 
-        <div style="bottom: -230px;width: 500px; position: absolute">
-        <ol style="padding-left:6px;">
+        <div style="bottom: -260px;width: 500px; position: absolute">
+        <ul style="padding-left:6px;">
             <%for(var i=0,ii=fithose.length;i<ii;i++){%>
-              <li style="padding-left:0px;color: tomato">
-                <% var mynow = new Date(fithose[i].fih_createtime)%>
-                <%=mynow.getFullYear() + '-' + (mynow.getMonth()+1) + '-' + mynow.getDate()%>
-                <%=fithose[i].fih_style==1?'自由训练':'私教'%>
-                <%=fithose[i].fih_content%>
-                ，练了<%=fithose[i].fih_longtime%>分钟。
-
+              <li style="padding-left:0px;color: #999">
+                <span><%= new Date(fithose[i].fih_createtime).format('yyyy-MM-dd')%></span>
+                <span><%=fithose[i].fih_style==1?'自由训练':'私教'%></span>
+                <span><%=fithose[i].fih_content%>，练了<%=fithose[i].fih_longtime%>分钟。</span>
               </li>
             <%}%>
-        </ol>
+          </ul>
       </div>
       </div>   
     </section>

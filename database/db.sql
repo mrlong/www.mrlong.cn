@@ -80,7 +80,7 @@ create table books(
   boo_summary blob,                      /* 书的说明*/
   boo_catalog blob,                      /* 书的章节*/
   boo_publisher char(30),                /* 书的出版社*/ 
-  boo_doubandata blob,                   /* douban的数据源*/ 
+  boo_doubandata blob,                   /* douban的数据源(内有很多数)*/ 
   boo_readendtime datetime               /* 读完时间 ver=27*/
   
 );
@@ -224,9 +224,9 @@ create table fititems(
 create table fithouse{
   fih_guid char(36) primary key ,
   fih_createtime datetime default (datetime('now','localtime')), /*创建时间*/
-  fih_longtime 1233,          /*时长，单位分钟*/
-  loc_guid char(36),           /*位置*/
-  fih_style integer,          /*=1 表示自由训练 2=私教*/
+  fih_longtime 1233,            /*时长，单位分钟*/
+  loc_guid char(36),            /*位置*/
+  fih_style integer,            /*=1 表示自由训练 2=私教*/
   
   fih_group_type1 integer,      /*0=无，1=胸 2=背 3=核心  4=大腿 5=跑步*/
   fih_group_num1 integer,       /*几组*/
@@ -269,7 +269,6 @@ create table fithouse{
   fih_group_calories8 float,    /*多少卡路里*/ 
 
   fih_remark varchar(100),      /*备注*/
-
 
 };
 

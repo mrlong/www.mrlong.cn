@@ -16,7 +16,7 @@
     
     #booknote_table{
       margin:auto;
-      width: 90%;
+      width: 100%;
     }  
     
   .mapview {
@@ -83,20 +83,24 @@
   
   <div class="bookinfo">
   <h3><%=book.title%></h3>
+
   <% if (!locals.ismob || locals.ismob==false ) {  %>
-    <img src="<%=book.images.large%>" style=" margin-left: 100px;" >
+    <img style="float:left; padding-right: 10px; width:100px;height:auto;" src="/books/bookimg/<%=isbn%>">
+  <%} else{%>
+    <img style="width:100px;height:auto;"  src="/books/bookimg/<%=isbn%>">
+    <br>
   <%}%>
-  <img src="/books/bookimg/<%=isbn%>">
-  <br>
+ 
   
-    <b>author</b>: <%=book.author%> ,  <b>translator</b>：<%=book.translator[0]%><br>
-    <b>pages</b>:<%=book.pages%><br>
-    <b>publisher</b>:<%=book.publisher%>(<%=book.pubdate%>)<br>
-    <b>price</b>:<%=book.price%><br>
-      <b>summary</b>:<br><small><%=book.summary%></small>
+    <b>作者：</b>: <%=book.boo_author || doubook.author%> <br> 
+    <b>翻译</b>：<%=book.boo_translator && book.translator.length>0?book.translator[0]:doubook.translator?doubook.translator[0]:''%><br>
+    <b>页数</b>:<%=book.boo_pages || doubook.pages%><br>
+    <b>出版社</b>:<%=book.boo_publisher || doubook.publisher  %>(<%=book.pubdadoute || doubook.pubdadoute  %>)<br>
+    <b>价格</b>:<%=book.boo_price || doubook.price %><br>
+    <b>内容简介</b>:<br><small><%=book.boo_summary || doubook.summary %></small>
       <br>
       <% if (!locals.ismob || locals.ismob==false ) {  %>
-        <b>catalog</b>: <button id='offcatalog'>显示(或关闭)目录</button> <br> <small id='catalog'><%=book.catalog%></small> <br>
+          <b>目录</b>: <button id='offcatalog'>显示(或关闭)目录</button> <br> <small id='catalog'><%=book.boo_catalog || doubook.summary%></small> <br>
       <%}%>
   </div>
     
@@ -106,12 +110,12 @@
   <table id="booknote_table">
   <tr>
     <% if(notes.length > 0 && (!locals.ismob || locals.ismob==false ) ) {%>
-    <td>序号</td>
-    <td>发生日期</td>
-    <td>笔记内容</td>
-    <td>书的位置</td>
-    <td>地理位置</td>
-    <td>相关图片</td>
+    <th nowrap>序号</th>
+    <th nowrap>发生日期</th>
+    <th nowrap>笔记内容</th>
+    <th nowrap>书的位置</th>
+    <th nowrap>地理位置</th>
+    <th nowrap>相关图片</th>
     <%} else if(notes.length == 0) { %>
       <h4>无记录</h4>  
     <%}%>
@@ -124,7 +128,7 @@
       <td><%=notes[i].bno_txt%></td>
       <td><%=notes[i].bno_title%><%=notes[i].bno_page?'P':''%><%=notes[i].bno_page%></td>
       <%if(notes[i].loc_guid) {%>
-        <td>
+        <td nowrap>
           <button type="button" map="1"  guid=<%=notes[i].loc_guid %> cid="<%=i%>" >地图显示</button>
           <div class="mapview"  id="<%='map'+i %>" style="display:none;"></div>
         </td>
@@ -146,7 +150,7 @@
   
   <tfoot>
     <tr id='removenote'>
-    <td colspan="5">
+    <td colspan="6">
       <a href="/books/notes">更多笔记...</a>
     </td>
     </tr>

@@ -79,7 +79,7 @@
   });
   
 </script>
-<h3 style="text-align: center">我读的书共<%=rowcount%>本,购书费合计: <%=totle%></h3>
+<h3 style="text-align: center">我读的书共 <span class="num"><%=rowcount%></span>本,购书费合计: <span class="num"><%=totle%></span></h3>
   
   <table id="books_table" border="0" >
     <% if(locals.adminlogin) { %>
@@ -154,7 +154,7 @@
       </tr>
       <tr class="summary" id="summary<%=rows[i].boo_isbn%>" >
         <td></td>
-        <td colspan="5"><small><%=rows[i].boo_summary%></small></div>
+        <td colspan="5"><small><%=rows[i].boo_summary%></small> <br> <a href="/books/info/<%=rows[i].boo_isbn%>"><small style="color:#57c4d7">更详细请点击</small></a> </td>
       </tr>
 
     <% } %>

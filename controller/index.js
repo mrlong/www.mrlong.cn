@@ -229,7 +229,7 @@ var get_indexhome = function (req, res,next) {
 
     //取出建身房记录
 
-    db.all('select fih_longtime,fih_style,loc_guid,fih_createtime,fih_group_type1,fih_group_type2,fih_group_type3,fih_group_type4,fih_group_type5,fih_group_type6,fih_group_type7,fih_group_type8 from fithouse order by fih_createtime desc limit 0,2',function(err4,rows4){
+    db.all('select fih_longtime,fih_style,loc_guid,fih_createtime,fih_group_type1,fih_group_type2,fih_group_type3,fih_group_type4,fih_group_type5,fih_group_type6,fih_group_type7,fih_group_type8 from fithouse order by fih_createtime desc limit 0,4',function(err4,rows4){
       if(!err4){
         var fithose = [];
         for(var i=0;i<rows4.length;i++){

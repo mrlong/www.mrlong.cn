@@ -206,7 +206,7 @@ router.post('/delbook',function(req,res,next){
 //
 router.get('/info/:isbn',function(req,res,next){
   var isbn = req.params.isbn;
-  db.query('select boo_isbn,boo_doubandata,boo_state from books where boo_isbn=?',[isbn],function(err,rows,indb){
+  db.query('select * from books where boo_isbn=?',[isbn],function(err,rows,indb){
     if(!err && rows.length>0){
       
       //取出读书的笔记
@@ -215,7 +215,9 @@ router.get('/info/:isbn',function(req,res,next){
         var mynotes = err||notes.length==0?[]:notes;
         res.render('./views_pc/bookinfo.html',{isbn:isbn,
                                                state:rows[0].boo_state,
-                                               book:JSON.parse(rows[0].boo_doubandata),
+                                               //book:JSON.parse(rows[0].boo_doubandata),
+                                               book:rows[0],
+                                               doubook:JSON.parse(rows[0].boo_doubandata||'{}'),
                                                notes:mynotes});  
       });
       
