@@ -82,7 +82,12 @@
       <td><%=(i+1)%></td>
       <td nowrap><%=new Date(rows[i].bno_time).format('yyyy-MM-dd HH:mm')%></td>
       <td><strong><%=rows[i].bno_txt%></strong></td>
-      <td><a href="/books/info/<%=rows[i].boo_isbn%>"><%=rows[i].boo_name?rows[i].boo_name:''%></td>
+      <td>
+        <a href="/books/info/<%=rows[i].boo_isbn%>"><%=rows[i].boo_name?rows[i].boo_name:''%>
+        <% if(locals.adminlogin){ %>
+          <a href="javascript:;" class="editbookname" bno_guid="<%=rows[i].bno_guid%>" ><svg t="1613278546631" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5577" width="16" height="16"><path d="M310.4 545.9c-8.1 0-16.3-1.9-24-6-24.8-13.3-34.1-44.1-20.8-68.9l171.5-320.4c13.3-24.8 44.1-34.1 68.9-20.8 24.8 13.3 34.1 44.1 20.8 68.9L355.3 519.1c-9.2 17.1-26.8 26.8-44.9 26.8z" fill="#1296db" opacity=".8" p-id="5578"></path><path d="M332.8 768.4c-25.8 0-47.9-19.6-50.6-45.8L260.1 499.8c-2.8-28 17.6-52.9 45.6-55.7 27.9-2.9 52.9 17.6 55.7 45.6l22.2 222.8c2.8 28-17.6 52.9-45.6 55.7-1.8 0.2-3.5 0.2-5.2 0.2z" fill="#1296db" opacity=".8" p-id="5579"></path><path d="M332.9 768.4c-16.5 0-32.7-8-42.5-22.8-15.5-23.4-9.1-55 14.3-70.5l181.8-120.5c23.4-15.5 55-9.1 70.5 14.3s9.1 55-14.3 70.5L361 760c-8.7 5.7-18.4 8.4-28.1 8.4z" fill="#1296db" opacity=".8" p-id="5580"></path><path d="M511.6 653.6c-8.1 0-16.3-1.9-24-6-24.8-13.3-34.1-44.1-20.8-68.9l171.5-320.4c13.3-24.8 44.1-34.1 68.9-20.8 24.8 13.3 34.1 44.1 20.8 68.9L556.5 626.8c-9.2 17.1-26.8 26.8-44.9 26.8z" fill="#1296db" opacity=".8" p-id="5581"></path><path d="M683.1 333.2c-8.1 0-16.3-1.9-24-6L457.9 219.5c-24.8-13.3-34.1-44.1-20.8-68.9 13.3-24.8 44.1-34.1 68.9-20.8l201.2 107.7c24.8 13.3 34.1 44.1 20.8 68.9-9.2 17.1-26.7 26.8-44.9 26.8z" fill="#1296db" opacity=".8" p-id="5582"></path><path d="M747.9 900.2h-415c-28.1 0-50.9-22.8-50.9-50.9s22.8-50.9 50.9-50.9h415c28.1 0 50.9 22.8 50.9 50.9s-22.8 50.9-50.9 50.9z" fill="#1296db" opacity=".8" p-id="5583"></path><path d="M747.9 768.4H567.7c-28.1 0-50.9-22.8-50.9-50.9s22.8-50.9 50.9-50.9h180.2c28.1 0 50.9 22.8 50.9 50.9s-22.8 50.9-50.9 50.9z" fill="#1296db" opacity=".8" p-id="5584"></path></svg></a>
+        <%}%>    
+      </td>
       <td><%=rows[i].bno_title%><%=rows[i].bno_page?'P':''%><%=rows[i].bno_page%></td>
       <%if(rows[i].loc_guid) {%>
         <td nowrap>
@@ -129,7 +134,41 @@
   
   
 <script>
-  SetActionNav('读书笔记');    
+$(document).ready(function(){
+  SetActionNav('读书笔记'); 
+
+  //修改书的关联。
+  $('a.editbookname').on('click',function(){
+    var bno_guid = $(this).attr('bno_guid');
+    var that = this;
+    $('select.'+bno_guid).remove();
+    //取出书名
+    $.get('/books/notes/bookname',function(data){
+      if (data.success){
+        var select = $('<select class="'+bno_guid+'"></select>');
+        select.append('<option value="">无实体书</option>');
+        for(var i=0,ii=data.books.length;i<ii;i++){
+          select.append('<option value="'+ data.books[i].boo_isbn +'">' + data.books[i].boo_name + '</option>');
+        };
+        $(that).parent().append(select);
+      };
+      var bnt = $('<button>保存</button>');
+      bnt.attr('bno_guid',bno_guid);
+      bnt.on('click',function(){
+        var bno_guid = $(this).attr('bno_guid');
+        var book_isbn = $('select.' + bno_guid).val();
+        var that2 = this;
+        $.post('/books/notes/changebook',{book_isbn:book_isbn,bno_guid:bno_guid},function(){
+          $('select.'+bno_guid).remove();
+          $(that2).remove();
+        });
+      });
+      $(that).parent().append(bnt);
+    });
+
+  });
+});
+   
 </script>     
   
 <% include ./footer.html %>

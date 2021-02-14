@@ -388,6 +388,24 @@ router.post('/notes/addimage',function(req,res,next){
 
 });
 
+//
+//取出书名
+//
+router.get('/notes/bookname',function(req,res,next){
+  db.query('select boo_isbn,boo_name from books',function(err,rows){
+    res.json({success:true,msg:'',books:!err?rows:[]});
+  });
+});
+
+//更换书名
+router.post('/notes/changebook',function(req,res,next){
+  var book_isbn = req.body.book_isbn;
+  var bno_guid = req.body.bno_guid;
+  db.exec('update books_notes set boo_isbn=? where bno_guid=?',[book_isbn,bno_guid],function(err){
+    res.json({success:!err,msg:''});
+  });
+});
+
 
 //
 // 取出读书的笔记
@@ -420,8 +438,7 @@ router.post('/notes/del/:guid',function(req,res,next){
     res.json({success:!err,msg:err?'删除出错':'删除成功'});
     return; 
   });
-  
-  
+
 });
 
 
