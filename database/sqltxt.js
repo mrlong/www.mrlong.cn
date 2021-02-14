@@ -5,7 +5,7 @@
 //
 
 module.exports = {
-  verstion : 29,
+  verstion : 32,
   sql:[
     {ver:1,txt:"CREATE TABLE shfimg(zguid CHAR(36) Primary Key," +
               "ct  datetime default (datetime('now','localtime'))," +
@@ -217,8 +217,14 @@ module.exports = {
               "fih_group_calories8 float," +
               "fih_remark varchar(100)" + 
               ")"
-    }
+    },
     //end ver=29
+
+    //2015-11-11 双 11
+    {ver:30,txt:"ALTER TABLE books ADD COLUMN boo_pages integer default null"},
+    {ver:31,txt:"ALTER TABLE books ADD COLUMN boo_author varchar(100) "},
+    {ver:32,txt:"ALTER TABLE books ADD COLUMN boo_translator varchar(100)"},
+    //end
   
   ]  
 };

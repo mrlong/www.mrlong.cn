@@ -82,8 +82,7 @@
   </script>
   
   <div class="bookinfo">
-  <h3><%=book.title%></h3>
-
+  <h3><%=book.boo_name || doubook.title%></h3>
   <% if (!locals.ismob || locals.ismob==false ) {  %>
     <img style="float:left; padding-right: 10px; width:100px;height:auto;" src="/books/bookimg/<%=isbn%>">
   <%} else{%>
@@ -93,10 +92,13 @@
  
   
     <b>作者：</b>: <%=book.boo_author || doubook.author%> <br> 
-    <b>翻译</b>：<%=book.boo_translator && book.translator.length>0?book.translator[0]:doubook.translator?doubook.translator[0]:''%><br>
+    <b>译者</b>：<%=book.boo_translator?book.boo_translator:((doubook.translator && doubook.translator.length>0) ?doubook.translator[0]:'')%><br>
     <b>页数</b>:<%=book.boo_pages || doubook.pages%><br>
     <b>出版社</b>:<%=book.boo_publisher || doubook.publisher  %>(<%=book.pubdadoute || doubook.pubdadoute  %>)<br>
     <b>价格</b>:<%=book.boo_price || doubook.price %><br>
+    <%if(book.boo_url.indexOf('api.douban.com')<0){%>
+    <b>豆瓣链接</b>: <a target="_blank" href="<%=book.boo_url%>"> <%=book.boo_url%></a><br>
+    <%}%>
     <b>内容简介</b>:<br><small><%=book.boo_summary || doubook.summary %></small>
       <br>
       <% if (!locals.ismob || locals.ismob==false ) {  %>

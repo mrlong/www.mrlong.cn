@@ -8,7 +8,7 @@
       margin:auto;
       width: 100%;
   }  
-  .single{width:200px;margin: 2px}
+  .single{width:400px;margin: 2px}
   
   .notes{
     background-color:  #EEE; 
@@ -89,9 +89,9 @@
       <tr  style="border-bottom: 1px solid #EEE;" id='addbookform'>
         <form  id="addbook" method="post" action="/books/addbook">
         <td></td>
-        <td>
-          ISBN*：      <input class="single" type="text" name="boo_isbn" required><br>
-          书名：        <input class="single" type="text" name="boo_name"> <br>
+        <td colspan="3">
+          ISBN*：      <input id="bookisbn" class="single" type="text" name="boo_isbn" required> <a class="searchbook" href="javascript:;">豆瓣查找一下</a> <br>
+          书名：        <input class="single" type="text" name="boo_title"> <br>
           我的购买价格： <input class="single" type="text" name="boo_price"> <br>
           购买日期：     <input class="single" type=date name="boo_buytime"> <br>         
           标签：
@@ -100,13 +100,22 @@
             <option value ="企业管理">企业管理</option>
             <option value="心灵鸡汤">心灵鸡汤</option>
             <option value="励志">励志</option> 
-          </select>  
-        </td>  
-        <td>
+          </select>  <br>
+          作者：<input class="single" type=text name="boo_author"> <br>
+          译者：<input class="single" type=text name="boo_translator"> <br>
+          出版社：<input class="single" type=text name="boo_publisher"> <br>
+          出版年：<input class="single" type=text name="boo_pubdate"> <br>
+          页码：<input class="single" type=number name="boo_pages"> <br>
+          内容简介：<textarea class="single" type=text name="boo_summary" placeholder="内容简介"></textarea> <br>
+          目录:<textarea class="single" type=text name="boo_catalog" placeholder="目录"></textarea> <br>
+          豆瓣地址:<input class="single" type=text name="boo_url"> <br>
+          图书封面:<input class="single" type=text name="boo_img"> <br>
           <input type="radio" name="boo_state" value="0" />读完
           <input type="radio" name="boo_state" value="1" checked />在读中 
-        </td>
-        <td><input type="submit" value="提  交"/></td>
+
+          <button type="submit" width="100px;" >提交</button>
+          
+        </td>  
         </form>
       </tr>
       
@@ -173,6 +182,15 @@
     
 <script>
   SetActionNav('我的读书');    
+
+$(document).ready(function(){
+  $('a.searchbook').on('click',function(){
+    var isbn = $("#bookisbn").val();
+    var url = 'https://search.douban.com/book/subject_search?search_text='+ isbn +'&cat=1001';
+    window.open(url);  
+  });
+});  
+
 </script>     
   
 <% include footer.html %>

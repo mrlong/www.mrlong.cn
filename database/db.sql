@@ -81,7 +81,10 @@ create table books(
   boo_catalog blob,                      /* 书的章节*/
   boo_publisher char(30),                /* 书的出版社*/ 
   boo_doubandata blob,                   /* douban的数据源(内有很多数)*/ 
-  boo_readendtime datetime               /* 读完时间 ver=27*/
+  boo_readendtime datetime,              /* 读完时间 ver=27*/
+  boo_pages integer,                      /*页码 ver=30*/
+  boo_author char(100),                  /*作者 ver=31*/
+  boo_translator char(100)              /*ver=32*/ 
   
 );
 

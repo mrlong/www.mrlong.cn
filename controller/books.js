@@ -95,7 +95,7 @@ router.get('/',function(req,res,next){
   price: '65.00元' }
 */
 
-
+//增加图书
 router.post('/addbook',function(req,res,next){
   //参数
   var isbn = req.body.boo_isbn || '';
@@ -104,11 +104,19 @@ router.post('/addbook',function(req,res,next){
   var book_price = req.body.boo_price || 0; //书的价格。
   var book_buytime = req.body.boo_buytime;  //书的购买时间。
   var book_state  = req.body.boo_state || 0; //状态
-  
+  var boo_author = req.body.boo_author;
+  var boo_translator = req.body.boo_translator;
+  var boo_publisher = req.body.boo_publisher;
+  var boo_pubdate = req.body.boo_pubdate;
+  var boo_pages = req.body.boo_pages;
+  var boo_summary = req.body.boo_summary;
+  var boo_catalog = req.body.boo_catalog;
+  var boo_url = req.body.boo_url;
+  var boo_img = req.body.boo_img;  //图片的地址
+
   if(!req.session.adminlogin){
-    
     return;
-  }
+  };
   
   //确定库内有没有
   if(isbn==''){
@@ -120,48 +128,55 @@ router.post('/addbook',function(req,res,next){
         res.json({success:false,msg:"图书已存在或执行查书是不否存在出错"});
       }
       else{
-        //增加入库。
-        //关键地方，因为在采用调用外部的ip来获取数据。
-        var bookurl = 'https://api.douban.com/v2/book/isbn/' + isbn;
-        urllib.request(bookurl,{dataType:'json'}, function(err, data, res_url){
-          if(!err && res.statusCode==200){
-            if (data.code && data.msg){
-              //{"msg":"book_not_found","code":6000,"request":"GET \/v2\/book\/isbn\/97871210703898"}
-              db.exec('insert into books(boo_isbn,boo_name,boo_tag,boo_price,boo_buytime,boo_state) values(?,?,?,?,?,?)',
-                      [isbn,title,book_tag,book_price,book_buytime,book_state]);
-              res.json({success:true,msg:"只增加ISBN到库内,从douban得到的信息"+data.msg});
-            }
-            else{
-              //写入库了。
-              //1.取出书的图片
-              urllib.request(data.image,{},function(err,data_img,res_url){
-                db.exec('insert into books(boo_isbn,boo_name,boo_img,boo_summary,boo_catalog,boo_publisher,' +
-                        'boo_doubandata,boo_pubdate,boo_url,boo_tag,boo_price,boo_buytime,boo_state) values(?,?,?,?,?,?,?,?,?,?,?,?,?)',
-                  [isbn,data.title,data_img,data.summary,data.catalog,data.publisher,
-                   JSON.stringify(data),data.pubdate,data.url,book_tag,book_price,book_buytime,book_state],function(err){
-                  res.json({success:err==null,msg:!err?"保存到数据库成功":"保存到数据库失败"});
-                
-                });
-              });
-              //end 写入完成
-            }
-          }
-          else{
-            //获取出错。
-            //是否直接写入库内
-            db.exec('insert into books(boo_isbn,boo_name,boo_tag,boo_price,boo_buytime,boo_state) values(?,?,?,?,?,?)',
-                    [isbn,title,book_tag,book_price,book_buytime,book_state],function(err){
-              res.json({success:!err,msg:err?"从douban内无法取出图书信息，并保存到库出错":"从douban内无法取出图书信息，只增加ISBN到库内。"});
-            });
-            
-          };
-        
+        //1.先下载图片
+        urllib.request(boo_img,{},function(err,data_img,res_url){
+          db.exec('insert into books(boo_isbn,boo_name,boo_img,boo_summary,boo_catalog,boo_publisher,' +
+                  'boo_pubdate,boo_url,boo_tag,boo_price,boo_buytime,boo_state,boo_author,boo_translator,boo_pages) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+             [isbn,title,data_img,boo_summary,boo_catalog,boo_publisher,
+              boo_pubdate,boo_url,book_tag,book_price,book_buytime,book_state,boo_author,boo_translator,boo_pages],function(err){
+             res.json({success:err==null,msg:!err?"保存到数据库成功":"保存到数据库失败:" + err.message});
+          });
         });
       }
-      
     });
-    
-  }
+  };
+
+
+  //增加入库。
+  //关键地方，因为在采用调用外部的ip来获取数据。
+  // var bookurl = 'https://api.douban.com/v2/book/isbn/' + isbn;
+  // urllib.request(bookurl,{dataType:'json'}, function(err, data, res_url){
+  //   if(!err && res.statusCode==200){
+  //     if (data.code && data.msg){
+  //       //{"msg":"book_not_found","code":6000,"request":"GET \/v2\/book\/isbn\/97871210703898"}
+  //       db.exec('insert into books(boo_isbn,boo_name,boo_tag,boo_price,boo_buytime,boo_state) values(?,?,?,?,?,?)',
+  //               [isbn,title,book_tag,book_price,book_buytime,book_state]);
+  //       res.json({success:true,msg:"只增加ISBN到库内,从douban得到的信息"+data.msg});
+  //     }
+  //     else{
+  //       //写入库了。
+  //       //1.取出书的图片
+  //       urllib.request(data.image,{},function(err,data_img,res_url){
+  //         db.exec('insert into books(boo_isbn,boo_name,boo_img,boo_summary,boo_catalog,boo_publisher,' +
+  //                 'boo_doubandata,boo_pubdate,boo_url,boo_tag,boo_price,boo_buytime,boo_state) values(?,?,?,?,?,?,?,?,?,?,?,?,?)',
+  //           [isbn,data.title,data_img,data.summary,data.catalog,data.publisher,
+  //            JSON.stringify(data),data.pubdate,data.url,book_tag,book_price,book_buytime,book_state],function(err){
+  //           res.json({success:err==null,msg:!err?"保存到数据库成功":"保存到数据库失败"});
+          
+  //         });
+  //       });
+  //       //end 写入完成
+  //     }
+  //   }
+  //   else{
+  //     //获取出错。
+  //     //是否直接写入库内
+  //     db.exec('insert into books(boo_isbn,boo_name,boo_tag,boo_price,boo_buytime,boo_state) values(?,?,?,?,?,?)',
+  //             [isbn,title,book_tag,book_price,book_buytime,book_state],function(err){
+  //       res.json({success:!err,msg:err?"从douban内无法取出图书信息，并保存到库出错":"从douban内无法取出图书信息，只增加ISBN到库内。"});
+  //     });
+  //   };
+  // });
 
 });
 
@@ -334,10 +349,7 @@ router.post('/notes/add',function(req,res,next){
             res.msgBox(!err?'保存成功':'保存失败',true);
           });                                      
         } //end else
-        
-
-  
-       
+    
 });
 
 
