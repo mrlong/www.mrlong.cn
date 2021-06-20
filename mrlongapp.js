@@ -182,6 +182,16 @@ app.use('/fit',fit);
 
 app.use('/test_index',test.index);
 
+//将文件MP_verify_rp3cMI3C939NYLBq.txt（点击下载）
+//上传至填写域名或路径指向的web服务器（或虚拟主机）的目录（若填写域名，
+//将文件放置在域名根目录下，例如wx.qq.com/MP_verify_rp3cMI3C939NYLBq.txt；
+//若填写路径，将文件放置在路径目录下，例如wx.qq.com/mp/MP_verify_rp3cMI3C939NYLBq.txt），并确保可以访问。
+app.use('/MP_verify_QMSKM1ncN5jPMkAX.txt',function(req,res,next){
+  var file = fs.readFileSync(__dirname+'/public/MP_verify_QMSKM1ncN5jPMkAX.txt');
+  res.writeHead(200, {'content-type': 'text/html'});
+  res.end(file);  
+});
+
 //定时器
 require('./time').do();
 
